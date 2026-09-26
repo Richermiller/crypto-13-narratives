@@ -83,6 +83,24 @@
   .tok .inst b{color:var(--dim)}
   .tok .note{font-size:11.5px;color:#9fb3d0;margin-top:6px;background:rgba(34,211,238,.05);
     border-left:2px solid var(--cyan);padding:5px 8px;border-radius:0 6px 6px 0}
+  .tok .adv{margin-top:8px;padding:8px 10px;background:rgba(245,196,81,.04);border:1px solid var(--line);border-radius:9px}
+  .adv-head{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:5px}
+  .op-badge{font-size:11px;font-weight:800;padding:2px 9px;border-radius:6px;white-space:nowrap}
+  .op-buy{background:rgba(52,211,153,.15);color:#6ee7b7}
+  .op-hold{background:rgba(90,167,255,.14);color:#93c5fd}
+  .op-swing{background:rgba(34,211,238,.13);color:#67e8f9}
+  .op-watch{background:rgba(139,155,180,.14);color:#b6c4d8}
+  .op-avoid{background:rgba(248,113,113,.14);color:#fca5a5}
+  .hold-stars{color:#ffd97a;font-size:12px;letter-spacing:1px;white-space:nowrap}
+  .pot{font-size:11px;font-weight:700;padding:2px 8px;border-radius:6px;white-space:nowrap}
+  .pot-h{background:rgba(52,211,153,.15);color:#6ee7b7}
+  .pot-m{background:rgba(34,211,238,.13);color:#67e8f9}
+  .pot-l{background:rgba(139,155,180,.14);color:#b6c4d8}
+  .adv-row{font-size:11.5px;color:var(--dim);margin-top:3px}
+  .adv-row b{color:var(--txt)}
+  .adv-row.future{color:#9fb3d0}
+  .lg{font-size:11px;font-weight:700;padding:2px 8px;border-radius:6px;margin-right:6px}
+  .lg-note{color:var(--faint);font-size:12px}
   /* table */
   .table-wrap{background:var(--card);border:1px solid var(--line);border-radius:16px;overflow:auto;margin-top:8px}
   table{width:100%;border-collapse:collapse;font-size:13px;min-width:1080px}
@@ -153,6 +171,19 @@
 
   <h2 class="sec"><span class="bar"></span>持有建议（分层框架）</h2>
   <div class="advice" id="advice"></div>
+
+  <h2 class="sec"><span class="bar"></span>每个代币操作建议（买卖点 · 长期持有 · 潜力）</h2>
+  <div class="hint">
+    <span class="lg op-buy">买/建仓</span><span class="lg op-hold">持有/配置</span>
+    <span class="lg op-swing">波段</span><span class="lg op-watch">观望</span><span class="lg op-avoid">规避/减仓</span>
+    <span class="lg-note">「长期」=长期持有星级（5★最高）；「潜力」=是否潜力股；买卖点为 USD 技术参考位，非保证、非投资建议。</span>
+  </div>
+  <div class="table-wrap"><table id="opmtable">
+    <thead><tr>
+      <th>代币</th><th>操作建议</th><th>买入参考</th><th>卖出/减仓参考</th><th>长期持有</th><th>潜力</th><th>发展未来 / 判断</th>
+    </tr></thead>
+    <tbody></tbody>
+  </table></div>
 
   <div class="disclaim">
     <b>重要风险提示：</b>本页面为公开信息整理与叙事速查，所有价格、市值、FDV、供应量、解锁比例均为 2026-09-26 前后来自 CoinMarketCap / CoinGecko / 公开报道的<b>近似值</b>，存在时滞与误差，不构成任何投资建议或买卖要约。加密货币波动剧烈，部分标的（HYPE、ASTER、LIT、KITE、KMNO、SUI、ONDO、PUMP 等）为高 FDV、低流通结构，存在持续解锁抛压；meme 币与极小市值新币（USELESS、READY、CARDS、GIGGLE 等）投机风险极高。请务必自行核实最新数据并独立决策。
@@ -249,6 +280,61 @@ const SECTORS = [
 {name:"抗量子赛道",desc:"后量子加密 / NIST 后量子签名",items:[
   {s:"QRL",role:"龙头"},{s:"NEAR",role:"二线",cross:true}]}
 ];
+
+// ===================== 操作建议（买卖点 / 长期持有 / 潜力） =====================
+// h=长期持有星级(0-5)；pot=潜力(高/中/低)；买卖点为 USD 参考位，非投资建议、非保证
+const ADVICE = {
+"ZEC":{op:"持有·忌追高",buy:"$1200–1350 回踩",sell:"$1850+ / 前高",h:3,fut:"隐私主线龙头，长期有叙事但短期过热、波动极大",pot:"中"},
+"XMR":{op:"分批建仓",buy:"$480–520",sell:"$700–797 前高",h:4,fut:"隐私支付刚需，全流通无解锁，长期稳健",pot:"高"},
+"DASH":{op:"观望",buy:"突破 $80 再考虑",sell:"反弹 $90–120 减",h:1,fut:"支付叙事被边缘化，生态凋敝",pot:"低"},
+"NIL":{op:"观望·极小仓",buy:"$0.08–0.10",sell:"$0.20–0.30 反弹",h:2,fut:"盲计算叙事有想象，但落地远且持续解锁",pot:"中"},
+"NEAR":{op:"持有·回踩加",buy:"$4.0–4.3",sell:"$6.0+ 减",h:4,fut:"L1分片+AI叙事强，但5%通胀",pot:"高"},
+"TAO":{op:"分批建仓",buy:"$260–290",sell:"$420+ 前高",h:4,fut:"去中心化AI龙头，2026-12减半催化",pot:"高"},
+"VIRTUAL":{op:"观望",buy:"企稳 $0.60–0.70",sell:"$1.2–1.5 反弹",h:2,fut:"AI Agent叙事降温，需回暖",pot:"中"},
+"FET":{op:"波段",buy:"$0.19–0.22",sell:"$0.35–0.45",h:3,fut:"ASI整合中，治理与路线存变数",pot:"中"},
+"VVV":{op:"分批建仓",buy:"$24–27",sell:"$42–48",h:3,fut:"隐私AI+回购，但供应非硬顶",pot:"中"},
+"KITE":{op:"规避·极小仓",buy:"等解锁消化",sell:"反弹即减",h:2,fut:"Agentic AI基建，18%流通+解锁压制",pot:"低"},
+"HYPE":{op:"持有·忌追高",buy:"$70–80 回踩",sell:"$110+ 分批",h:4,fut:"链上永续龙头，但FDV $880亿估值分歧",pot:"高"},
+"ASTER":{op:"波段·谨慎",buy:"$0.45–0.55",sell:"$1.0+ 减",h:2,fut:"币安系对抗HYPE战略代理，高波动",pot:"中"},
+"LIT":{op:"波段·谨慎",buy:"$3.5–4.0",sell:"$7+ 减",h:2,fut:"Robinhood背书ZK perp，25%流通+空投争议",pot:"中"},
+"BNB":{op:"核心持有",buy:"$650–720",sell:"$1000+ / 前高",h:5,fut:"通缩销毁+BNB链生态，稳健蓝筹",pot:"高"},
+"MUBARAK":{op:"规避",buy:"不参与",sell:"反弹即走",h:1,fut:"无基本面meme",pot:"低"},
+"BROCCOLI":{op:"规避",buy:"不参与",sell:"反弹即走",h:1,fut:"无基本面，同名代币风险",pot:"低"},
+"GIGGLE":{op:"规避",buy:"不参与",sell:"反弹即走",h:1,fut:"官方已否认关联，无基本面",pot:"低"},
+"PUMP":{op:"波段·谨慎",buy:"$0.0035–0.004",sell:"$0.006+ 减",h:2,fut:"Solana发射台龙头，回购对冲解锁",pot:"中"},
+"PENDLE":{op:"分批建仓",buy:"$2.0–2.3",sell:"$3.8–4.5",h:4,fut:"收益赛道龙头，Boros扩展",pot:"高"},
+"ZRO":{op:"波段·观望",buy:"$1.2–1.4",sell:"$2.2–2.6",h:3,fut:"跨链龙头，费用开关催化+持续解锁",pot:"中"},
+"ENA":{op:"分批建仓",buy:"$0.22–0.26",sell:"$0.45–0.60",h:3,fut:"合成美元USDe龙头，回购机制",pot:"中"},
+"CVX":{op:"观望",buy:"Curve回暖再考虑",sell:"反弹减",h:1,fut:"依赖CRV与Curve TVL，持续衰退",pot:"低"},
+"CRV":{op:"波段",buy:"$0.28–0.32",sell:"$0.55–0.70",h:2,fut:"DEX龙头，治理集中+坏账风险",pot:"低"},
+"BCH":{op:"持有",buy:"$280–320",sell:"$500+ / 前高",h:3,fut:"与BTC联动，CME期货催化，生态弱",pot:"中"},
+"LTC":{op:"分批建仓",buy:"$62–70",sell:"$110–130",h:4,fut:"现货ETF预期催化，基本面增长有限",pot:"中"},
+"ETC":{op:"规避",buy:"不参与",sell:"反弹减",h:1,fut:"生态凋敝，无催化剂",pot:"低"},
+"SUI":{op:"波段·谨慎",buy:"$0.95–1.1",sell:"$1.7–2.0",h:3,fut:"Move龙头+质押ETF，但解锁抛压大",pot:"中"},
+"SEI":{op:"规避",buy:"不参与",sell:"反弹减",h:1,fut:"较ATH跌95%，竞争地位存疑",pot:"低"},
+"APT":{op:"规避·观望",buy:"不参与",sell:"反弹减",h:1,fut:"月度解锁至2027，持续抛压",pot:"低"},
+"SOL":{op:"核心持有",buy:"$100–115 回踩",sell:"$160+ 分批",h:5,fut:"生态龙头，收入稳健，通胀为风险",pot:"高"},
+"JUP":{op:"波段",buy:"$0.27–0.32",sell:"$0.55–0.70",h:3,fut:"Solana聚合器龙头，盈利强但解锁",pot:"中"},
+"RAY":{op:"波段",buy:"$1.5–1.8",sell:"$3.5–4.5",h:2,fut:"Solana DEX基建，价值捕获一般",pot:"低"},
+"KMNO":{op:"规避",buy:"不参与",sell:"反弹减",h:1,fut:"13.5%流通+高FDV，解锁压制",pot:"低"},
+"DOGE":{op:"波段·配置",buy:"$0.08–0.09",sell:"$0.14–0.16",h:3,fut:"现货ETF机构资金，但无上限通胀",pot:"中"},
+"PEPE":{op:"极小仓投机",buy:"情绪冰点微仓",sell:"情绪高点走",h:1,fut:"无实际效用，纯情绪",pot:"低"},
+"BONK":{op:"规避",buy:"不参与",sell:"反弹即走",h:1,fut:"Solana meme，无基本面",pot:"低"},
+"USELESS":{op:"规避",buy:"不参与",sell:"反弹即走",h:1,fut:"零效用meme，投机",pot:"低"},
+"PENGU":{op:"波段",buy:"$0.0075–0.009",sell:"$0.016–0.02",h:2,fut:"消费IP护城河，但持续解锁",pot:"中"},
+"CARDS":{op:"规避·观望",buy:"估值争议不参与",sell:"反弹减",h:2,fut:"卡牌收藏，高FDV与收入不匹配",pot:"低"},
+"READY":{op:"规避",buy:"不参与",sell:"反弹即走",h:1,fut:"极小市值，流动性差",pot:"低"},
+"BEEZIE":{op:"观望",buy:"无代币",sell:"—",h:0,fut:"代币未获权威收录，等待核实",pot:"低"},
+"ONDO":{op:"分批建仓",buy:"$0.42–0.50",sell:"$0.85–1.0",h:4,fut:"RWA龙头，机构采用，关注大额解锁",pot:"高"},
+"LINK":{op:"核心持有",buy:"$11–13 回踩",sell:"$20+",h:5,fut:"预言机绝对龙头，机构采用",pot:"高"},
+"CFG":{op:"观望·小仓",buy:"$0.12–0.15",sell:"$0.30+",h:2,fut:"RWA借贷，已全流通但体量小",pot:"中"},
+"XLM":{op:"持有",buy:"$0.17–0.20",sell:"$0.35+",h:3,fut:"RWA代币化（富兰克林基金），供应无硬顶",pot:"中"},
+"RENDER":{op:"分批建仓",buy:"$1.5–1.75",sell:"$3.2–3.8",h:4,fut:"AI+渲染DePIN龙头，算力需求",pot:"高"},
+"GRASS":{op:"波段",buy:"$0.38–0.45",sell:"$0.80–1.0",h:3,fut:"AI数据/带宽DePIN，关注解锁节奏",pot:"中"},
+"AKT":{op:"分批建仓",buy:"$0.55–0.65",sell:"$1.2+",h:3,fut:"去中心化GPU云，AI算力叙事",pot:"中"},
+"PEAQ":{op:"观望·小仓",buy:"$0.03–0.037",sell:"$0.08+",h:2,fut:"DePIN专用L1，生态落地慢",pot:"中"},
+"QRL":{op:"小仓博长线",buy:"$0.45–0.55",sell:"事件驱动 $1.5+",h:2,fut:"抗量子叙事，量子突破催化，流动性低",pot:"中"}
+};
 
 // ===================== 工具 =====================
 const TM = {};
@@ -366,7 +452,7 @@ function group(items,label,sec){
         ${t.fdv?`<div class="price"><div class="k">FDV</div><div class="v">${fmtUsd(t.fdv)}</div></div>`:""}
       </div>
       ${metaBits.length?`<div class="meta">${metaBits.join("　·　")}</div>`:""}
-      ${inst}${note}
+      ${inst}${note}${advCard(t)}
     </div>`;
   }).join("");
   const labCls = label==="龙头"?"tag leader":"tag second";
@@ -432,6 +518,51 @@ function renderAdvice(){
   document.getElementById("advice").innerHTML = html;
 }
 
+// ===================== 操作建议渲染 =====================
+function stars(n){ return n>0 ? "★★★★★".slice(0,n) : "—"; }
+function opClass(op){
+  if(/建仓|买入/.test(op)) return "op-buy";
+  if(/规避/.test(op)) return "op-avoid";
+  if(/观望/.test(op)) return "op-watch";
+  if(/波段/.test(op)) return "op-swing";
+  return "op-hold";
+}
+function potCls(pot){ return pot==="高"?"pot-h":(pot==="中"?"pot-m":"pot-l"); }
+function advCard(t){
+  const a = ADVICE[t.s];
+  if(!a) return "";
+  return `<div class="adv">
+    <div class="adv-head">
+      <span class="op-badge ${opClass(a.op)}">${esc(a.op)}</span>
+      <span class="hold-stars">长期 ${stars(a.h)}</span>
+      <span class="pot ${potCls(a.pot)}">潜力·${esc(a.pot)}</span>
+    </div>
+    <div class="adv-row"><b>买入参考</b> ${esc(a.buy)}　<b>卖出/减仓</b> ${esc(a.sell)}</div>
+    <div class="adv-row future">${esc(a.fut)}</div>
+  </div>`;
+}
+function renderOpTable(){
+  const potRank = {高:3,中:2,低:1};
+  const rows = TOKENS.slice().sort((x,y)=>{
+    const A=ADVICE[x.s], B=ADVICE[y.s];
+    if((B?B.h:0)!==(A?A.h:0)) return (B?B.h:0)-(A?A.h:0);
+    if((B?potRank[B.pot]:0)!==(A?potRank[A.pot]:0)) return (B?potRank[B.pot]:0)-(A?potRank[A.pot]:0);
+    return (y.mc||0)-(x.mc||0);
+  }).map(t=>{
+    const a=ADVICE[t.s]; if(!a) return null;
+    return `<tr>
+      <td class="sym">${esc(t.s)}<div class="sub">${esc(t.n)}</div></td>
+      <td><span class="op-badge ${opClass(a.op)}">${esc(a.op)}</span></td>
+      <td>${esc(a.buy)}</td>
+      <td>${esc(a.sell)}</td>
+      <td class="num">${stars(a.h)}</td>
+      <td><span class="pot ${potCls(a.pot)}">${esc(a.pot)}</span></td>
+      <td>${esc(a.fut)}</td>
+    </tr>`;
+  }).filter(Boolean);
+  document.querySelector("#opmtable tbody").innerHTML = rows.join("");
+}
+
 // ===================== 交互 =====================
 document.getElementById("q").addEventListener("input",()=>{renderSectors();renderTable();});
 document.querySelectorAll(".pill").forEach(p=>{
@@ -443,7 +574,7 @@ document.querySelectorAll(".pill").forEach(p=>{
   });
 });
 
-renderSectors(); renderTable(); renderAdvice();
+renderSectors(); renderTable(); renderAdvice(); renderOpTable();
 </script>
 </body>
 </html>
