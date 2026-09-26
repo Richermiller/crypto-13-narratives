@@ -55,7 +55,11 @@
   .sec-head{display:flex;align-items:center;gap:14px;padding:13px 18px;
     border-bottom:1px solid var(--line);cursor:pointer;user-select:none;transition:background .15s}
   .sec-head:hover{background:rgba(90,167,255,.05)}
-  .sec-no{flex:none;min-width:28px;font-size:16px;font-weight:800;color:var(--gold);text-align:left}
+  .rank{flex:none;min-width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;
+    font-weight:800;font-size:16px;background:var(--bg2);border:1px solid var(--line);color:var(--gold)}
+  .rank.r1{background:linear-gradient(135deg,#f5c451,#f59e0b);color:#201400;border:none}
+  .rank.r2{background:linear-gradient(135deg,#cbd5e1,#94a3b8);color:#101725;border:none}
+  .rank.r3{background:linear-gradient(135deg,#f59e0b,#b45309);color:#fff;border:none}
   .sec-title{flex:1;min-width:0}
   .sec-title .nm{font-size:17px;font-weight:800;color:var(--txt)}
   .sec-title .ds{color:var(--faint);font-size:12px;margin-top:2px}
@@ -339,10 +343,11 @@ function renderSectors(){
     const leaders = sec.items.filter(i=>i.role==="龙头");
     const seconds = sec.items.filter(i=>i.role==="二线");
     const agg = sectorAgg(sec);
+    const rk = idx===0?"r1":(idx===1?"r2":(idx===2?"r3":""));
     const secHtml = `
       <div class="sector collapsed">
         <div class="sec-head">
-          <span class="sec-no">${idx+1}.</span>
+          <div class="rank ${rk}">${idx+1}</div>
           <div class="sec-title"><div class="nm">${esc(sec.name)}</div><div class="ds">${esc(sec.desc)}</div></div>
           <div class="sec-meta"><span class="val">${fmtUsd(agg)}</span> · ${sec.items.length} 币</div>
           <span class="foldbtn"></span>
