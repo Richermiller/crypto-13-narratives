@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>日线振幅与阶段拐点 · 采集工具（三分期 · HH/HL/LH/LL）</title>
+<style>
+:root{--bd:#dbe4ec;--ink:#17324d;--mut:#6b7c8d;--blu:#2c6fb0;--bg:#f2f5f9;--red:#c0392b;--grn:#1a7f45}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.5 -apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif}
+.wrap{max-width:1680px;margin:0 auto;padding:22px 20px 70px}
+h1{font-size:22px;margin:0 0 4px}h2{font-size:16px;margin:20px 0 8px}
+.sub{color:var(--mut);font-size:13px;margin-bottom:16px}
+.card{background:#fff;border:1px solid var(--bd);border-radius:10px;padding:16px 18px;margin-bottom:16px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px}
+label{display:flex;flex-direction:column;font-size:12.5px;color:var(--mut);gap:4px}
+input,select{font:inherit;color:var(--ink);padding:7px 9px;border:1px solid var(--bd);border-radius:7px;background:#fff}
+.btn{display:inline-block;background:var(--ink);color:#fff;border:none;border-radius:8px;padding:10px 20px;font-size:14px;font-weight:600;cursor:pointer;margin-right:8px}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+.btn.sec{background:#fff;color:var(--ink);border:1px solid var(--bd)}
+table{border-collapse:collapse;width:100%;font-size:12.5px}
+th,td{padding:6px 8px;border-bottom:1px solid #eef2f7;text-align:center;white-space:nowrap}
+th{background:#f7fafd;font-weight:700;position:sticky;top:0}
+tr:hover td{background:#f6faff}
+.scroll{max-height:560px;overflow:auto;border:1px solid var(--bd);border-radius:8px}
+.mut{color:var(--mut)}
+#status{min-height:20px;font-size:13px;color:var(--mut);margin:10px 0}
+#status b{color:var(--ink)}
+.coinbox{border:1px solid var(--bd);border-radius:8px;padding:10px 12px;min-height:44px;margin-top:6px}
+.coinbox .ttl{font-size:12px;color:var(--mut);margin-bottom:6px}
+.coin{display:inline-flex;align-items:center;gap:5px;border:1px solid var(--bd);border-radius:8px;padding:4px 9px;background:#fafcfe;cursor:pointer;margin:2px;font-size:12.5px;user-select:none}
+.coin:hover{border-color:var(--blu);background:#eef4fb}
+.coin.sel{background:#eef4fb;border-color:var(--blu)}
+.collapse-head{display:flex;align-items:center;gap:8px;cursor:pointer;font-weight:600}
+.collapse-head .arr{transition:transform .2s;display:inline-block}
+.collapse-head.open .arr{transform:rotate(90deg)}
+#coinPool{max-height:360px;overflow:auto;border:1px solid var(--bd);border-radius:8px;padding:8px;margin-top:6px;display:none}
+.note{color:var(--mut);font-size:12px;margin-top:8px}
+.up{color:var(--red);font-weight:600}.dn{color:var(--grn);font-weight:600}
+</style>
+</head>
+<body>
+<div class="wrap">
+<h1>日线振幅 与 阶段拐点 · 采集工具（三分期 · HH/HL/LH/LL）</h1>
+<div class="sub">零参数规则：高点=最高价&gt;左右两根、低点=最低价&lt;左右两根；HH/HL/LH/LL 比较相邻同类型点；大趋势=递归分形。三分期＝三个起始日期、共用同一结束日期。</div>
+
+<div class="card">
+  <div class="grid">
+    <label>结束日期<input type="date" id="end"></label>
+    <label>起始日期 · 阶梯1<input type="date" id="p1" value="2017-06-06"></label>
+    <label>起始日期 · 阶梯2<input type="date" id="p2" value="2020-06-06"></label>
+    <label>起始日期 · 阶梯3<input type="date" id="p3" value="2023-06-06"></label>
+  </div>
+
+  <h2>选择币种</h2>
+  <div class="coinbox">
+    <div class="ttl">已选择币种（点击标签可移除）</div>
+    <div id="selectedCoins"><span class="mut" id="selectedEmpty">尚未选择币种</span></div>
+  </div>
+  <div style="margin-top:8px">
+    <div class="collapse-head" id="togglePool"><span class="arr">▶</span> <span id="poolCount">展开全部币种（加载中…）</span></div>
+    <div id="coinPool"></div>
+  </div>
+
+  <div style="margin-top:14px">
+    <button class="btn" id="runBtn">开始采集分析</button>
+    <button class="btn sec" id="clearBtn">清空结果</button>
+    <button class="btn sec" id="exportBtn" disabled>导出 CSV</button>
+  </div>
+  <div id="status">就绪。</div>
+</div>
+
+<div id="out"></div>
+<div class="note">口径：日涨跌幅=收盘价逐日变化；振幅=(最高-最低)/最低；小趋势=1根局部峰谷的波段；大趋势=递归分形（同规则逐级收敛）。均为「中位数」。数据源 Binance 现货日K。历史统计不构成投资建议。</div>
+</div>
+
+<script>
+'use strict';
+/* ============ 工具函数 ============ */
+const esc=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+function median(arr){const a=arr.filter(x=>x!=null&&!isNaN(x)).map(Number).sort((x,y)=>x-y);const n=a.length;if(!n)return NaN;if(n===1)return a[0];const pos=(n-1)*.5,lo=Math.floor(pos),hi=Math.ceil(pos);return lo===hi?a[lo]:a[lo]+(a[hi]-a[lo])*(pos-lo);}
+function fmt(v,d=2){if(v==null||isNaN(v))return '—';return Number(v).toFixed(d);}
+const sleep=ms=>new Promise(r=>setTimeout(r,ms));
+
+/* ============ 币种列表 ============ */
+const FALLBACK=['BTC','ETH','BNB','SOL','XRP','ADA','DOGE','TRX','TON','AVAX','SHIB','DOT','LINK','BCH','NEAR','MATIC','LTC','ICP','UNI','ATOM','XLM','OKB','FIL','APT','ARB','OP','SUI','SEI','TIA','INJ','RUNE','IMX','STX','MNT','GRT','SAND','MANA','AXS','EGLD','THETA','FLOW','QNT','KSM','AAVE','MKR','SNX','CRV','COMP','YFI','ZEC','XMR','DASH','EOS','ETC','XTZ','ALGO','VET','HBAR','KAVA','IOTA','ONT','NEO','WAVES','ZIL','ENJ','CHZ','CELO','ROSE','ONE','FTM','GALA','DYDX','LDO','ASTR','GLMR','ACA','MINA','CTSI','RNDR','AGIX','FET','OCEAN','GMT','APE','BLUR','PEPE','BONK','WIF','FLOKI','DOGS','NOT','JUP','JTO','PYTH','W','ENA','ETHFI','STRK','DYM','ALT','MANTA','ZK','OM','CORE','CAKE','ORDI','SATS','RATS','ACE','NFP','AI','XAI','PORTAL','PIXEL','AEVO','METIS','SSV','MAGIC','RDNT','AR','ENS','LPT','API3','TRB','BAND','STORJ','BAL','SUSHI','YGG','MC','ID','ARKM','RIF','CKB','GAS','SC','RVN','ZEN','KDA','NMR','AUCTION','GTC','LRC','SKL','CTK','CFX','HIGH','JASMY','ACH','DUSK','POLYX','PERP','VANRY','PENDLE','CYBER','SUPER','GFT','STEEM','WLD'];
+let ALL_COINS=[];
+const selected=new Set();
+
+async function loadCoins(){
+  try{
+    const ctrl=new AbortController();
+    const t=setTimeout(()=>ctrl.abort(),9000);
+    const r=await fetch('https://api.binance.com/api/v3/exchangeInfo',{signal:ctrl.signal});
+    clearTimeout(t);
+    if(r.ok){
+      const j=await r.json();
+      const stables=new Set(['USDT','USDC','BUSD','FDUSD','TUSD','USDP','DAI','EUR','GBP','AUD','TRY','BRL','PAXG','XAUT','AEUR','EURI','VAI','XUSD','USDS']);
+      const list=j.symbols.filter(s=>s.quoteAsset==='USDT'&&s.status==='TRADING'&&!stables.has(s.baseAsset)).map(s=>s.baseAsset);
+      if(list.length>50){ ALL_COINS=[...new Set(list)].sort(); }
+    }
+  }catch(e){}
+  if(ALL_COINS.length===0) ALL_COINS=FALLBACK;
+  document.getElementById('poolCount').textContent='展开全部币种（'+ALL_COINS.length+' 个）';
+  if(document.getElementById('togglePool').classList.contains('open')) renderPool();
+}
+
+function renderPool(){
+  const box=document.getElementById('coinPool');
+  const avail=ALL_COINS.filter(c=>!selected.has(c));
+  box.innerHTML=avail.map(c=>`<span class="coin" data-c="${c}">${c}</span>`).join('');
+  box.querySelectorAll('.coin').forEach(el=>{
+    el.onclick=()=>{ selected.add(el.dataset.c); renderPool(); renderSelected(); };
+  });
+}
+function renderSelected(){
+  const box=document.getElementById('selectedCoins');
+  if(selected.size===0){ box.innerHTML='<span class="mut">尚未选择币种</span>'; return; }
+  box.innerHTML=[...selected].map(c=>`<span class="coin sel" data-c="${c}">${c} ×</span>`).join('');
+  box.querySelectorAll('.coin').forEach(el=>{
+    el.onclick=()=>{ selected.delete(el.dataset.c); renderPool(); renderSelected(); };
+  });
+}
+document.getElementById('togglePool').onclick=()=>{
+  const head=document.getElementById('togglePool'), pool=document.getElementById('coinPool');
+  const open=head.classList.toggle('open');
+  pool.style.display=open?'block':'none';
+  if(open){ renderPool(); }
+};
+document.getElementById('clearBtn').onclick=()=>{ document.getElementById('out').innerHTML=''; document.getElementById('exportBtn').disabled=true; };
+document.getElementById('end').value=new Date().toISOString().slice(0,10);
+loadCoins();
+
+/* ============ 算法：摆动点 + 递归分形 ============ */
+function findSwings(bars){
+  const piv=[];
+  for(let i=1;i<bars.length-1;i++){
+    if(bars[i].h>bars[i-1].h && bars[i].h>bars[i+1].h) piv.push({i,kind:'H',px:bars[i].h});
+    else if(bars[i].l<bars[i-1].l && bars[i].l<bars[i+1].l) piv.push({i,kind:'L',px:bars[i].l});
+  }
+  const alt=[];
+  for(const p of piv){
+    if(alt.length===0||alt[alt.length-1].kind!==p.kind) alt.push(p);
+    else {const last=alt[alt.length-1]; const better=p.kind==='H'?(p.px>last.px):(p.px<last.px); if(better) alt[alt.length-1]=p;}
+  }
+  return alt;
+}
+function forceAlternate(seq){
+  const alt=[];
+  for(const p of seq){
+    if(alt.length===0||alt[alt.length-1].kind!==p.kind) alt.push(p);
+    else {const last=alt[alt.length-1]; const better=p.kind==='H'?(p.px>last.px):(p.px<last.px); if(better) alt[alt.length-1]=p;}
+  }
+  return alt;
+}
+function localExtrema(seq){
+  if(seq.length<3) return seq.slice();
+  const out=[seq[0]]; // 保留首端点
+  for(let j=1;j<seq.length-1;j++){
+    const cur=seq[j];
+    const sameKind=[]; seq.forEach((s,k)=>{if(s.kind===cur.kind)sameKind.push(k);});
+    const pos=sameKind.indexOf(j);
+    const prev=pos>0?seq[sameKind[pos-1]]:null;
+    const next=pos<sameKind.length-1?seq[sameKind[pos+1]]:null;
+    const isExt=cur.kind==='H'?(prev==null||cur.px>prev.px)&&(next==null||cur.px>next.px):(prev==null||cur.px<prev.px)&&(next==null||cur.px<next.px);
+    if(isExt) out.push(cur);
+  }
+  out.push(seq[seq.length-1]); // 保留尾端点
+  return forceAlternate(out);
+}
+function bigSwings(bars){
+  let seq=findSwings(bars);
+  let guard=0;
+  while(seq.length>10 && guard++<20){
+    const next=localExtrema(seq);
+    if(next.length===seq.length || next.length<3) break;
+    seq=next;
+  }
+  return forceAlternate(seq);
+}
+function legUpDnMed(pts){
+  const up=[], dn=[];
+  for(let k=1;k<pts.length;k++){
+    if(pts[k-1].px>0){
+      const chg=(pts[k].px/pts[k-1].px-1)*100;
+      if(chg>0) up.push(chg); else if(chg<0) dn.push(chg);
+    }
+  }
+  return {up:median(up), dn:median(dn)};
+}
+
+/* ============ 数据采集 ============ */
+async function fetchJson(url,tries=3){
+  for(let i=0;i<tries;i++){
+    try{const r=await fetch(url); if(!r.ok) throw new Error('HTTP '+r.status); return await r.json();}
+    catch(e){ if(i===tries-1) throw e; await sleep(500*(i+1)); }
+  }
+}
+async function fetchKlines(sym,startMs,endMs){
+  const base='https://api.binance.com/api/v3/klines';
+  let out=[],cursor=startMs,guard=0;
+  while(guard++<30){
+    const j=await fetchJson(`${base}?symbol=${sym}USDT&interval=1d&startTime=${cursor}&endTime=${endMs}&limit=1000`);
+    if(!Array.isArray(j)||j.length===0) break;
+    out=out.concat(j);
+    if(j.length<1000) break;
+    cursor=j[j.length-1][0]+1;
+    await sleep(200);
+  }
+  return out;
+}
+function toBars(raw,startDate,endDate){
+  const today=new Date().toISOString().slice(0,10);
+  const bars=[];const seen=new Set();
+  for(const k of raw){
+    const d=new Date(k[0]).toISOString().slice(0,10);
+    if(d<startDate||d>endDate||d>=today) continue;
+    if(seen.has(d)) continue; seen.add(d);
+    bars.push({date:d,o:+k[1],h:+k[2],l:+k[3],c:+k[4]});
+  }
+  bars.sort((a,b)=>a.date<b.date?-1:1);
+  return bars;
+}
+
+/* ============ 单币分析 ============ */
+function analyze(bars){
+  const upDay=[], dnDay=[], amps=[];
+  for(let i=1;i<bars.length;i++){
+    if(bars[i-1].c>0){
+      const chg=(bars[i].c/bars[i-1].c-1)*100;
+      if(chg>0) upDay.push(chg); else if(chg<0) dnDay.push(chg);
+    }
+  }
+  for(const b of bars){ if(b.l>0) amps.push((b.h/b.l-1)*100); }
+  const small=findSwings(bars);
+  const big=bigSwings(bars);
+  const s=legUpDnMed(small), b=legUpDnMed(big);
+  return {
+    n:bars.length,
+    dailyUp:median(upDay), dailyDn:median(dnDay),
+    ampMed:median(amps),
+    smallUp:s.up, smallDn:s.dn,
+    bigUp:b.up, bigDn:b.dn,
+    smallN:small.length, bigN:big.length,
+  };
+}
+
+/* ============ 当前状态提示 ============ */
+function currentState(bars){
+  if(!bars || bars.length<10) return null;
+  const last=bars[bars.length-1];
+  const curAmp=(last.h/last.l-1)*100;
+  const amps=bars.map(x=>(x.h/x.l-1)*100);
+  const ampMed=median(amps);
+  const ratio=ampMed>0?curAmp/ampMed:1;
+  const volState=ratio>=2?'脉冲':(ratio<=0.6?'压缩':'常态');
+  const big=bigSwings(bars);
+  let bigDir='—', bigChg=null;
+  if(big.length>=2){
+    const a=big[big.length-2], b=big[big.length-1];
+    bigDir=b.px>a.px?'上涨':'下跌';
+    bigChg=Math.abs(b.px/a.px-1)*100;
+  }
+  // 近30天振幅中位 vs 全历史
+  const amp30=bars.slice(-30).map(x=>(x.h/x.l-1)*100);
+  const ampMed30=median(amp30);
+  const amp30Ratio=ampMed>0?ampMed30/ampMed:1;
+  const amp30State=amp30Ratio>=1.2?'偏高':(amp30Ratio<=0.8?'偏低':'相当');
+  // 当前小趋势方向
+  const small=findSwings(bars);
+  let smallDir='—', smallChg=null;
+  if(small.length>=2){
+    const a=small[small.length-2], b=small[small.length-1];
+    smallDir=b.px>a.px?'上涨':'下跌';
+    smallChg=Math.abs(b.px/a.px-1)*100;
+  }
+  return {close:last.c, curAmp, ampMed, ratio, volState, bigDir, bigChg, bigN:big.length,
+    ampMed30, amp30Ratio, amp30State, smallDir, smallChg};
+}
+
+/* 合成结论：大趋势 + 小趋势 + 波动状态 → 含义 + 力度 */
+function conclusion(c){
+  const bigUp=c.bigDir==='上涨', smallUp=c.smallDir==='上涨';
+  const same=bigUp===smallUp;
+  let meaning, strength, color;
+  if(same && bigUp){            // 顺势上涨
+    if(c.volState==='脉冲'){ meaning='顺势上涨·加速（警惕见顶）'; strength='强'; color='#c0392b'; }
+    else if(c.volState==='压缩'){ meaning='顺势上涨·蓄势（关注变盘）'; strength='中·蓄势'; color='#c0392b'; }
+    else { meaning='顺势上涨'; strength='中'; color='#c0392b'; }
+  } else if(same && !bigUp){    // 顺势下跌
+    if(c.volState==='脉冲'){ meaning='顺势下跌·加速（赶底）'; strength='强'; color='#1a7f45'; }
+    else if(c.volState==='压缩'){ meaning='顺势下跌·蓄势'; strength='中·蓄势'; color='#1a7f45'; }
+    else { meaning='顺势下跌'; strength='中'; color='#1a7f45'; }
+  } else if(bigUp){             // 上涨中的回调
+    if(c.volState==='脉冲'){ meaning='上涨中的急跌回调'; strength='强（急）'; color='#e67e22'; }
+    else if(c.volState==='压缩'){ meaning='上涨中的收敛回调'; strength='弱'; color='#e67e22'; }
+    else { meaning='上涨中的回调'; strength='弱'; color='#e67e22'; }
+  } else {                      // 下跌中的反弹
+    if(c.volState==='脉冲'){ meaning='下跌中的急拉反弹'; strength='强（急）'; color='#4caf50'; }
+    else if(c.volState==='压缩'){ meaning='下跌中的收敛反弹'; strength='弱'; color='#4caf50'; }
+    else { meaning='下跌中的反弹'; strength='弱'; color='#4caf50'; }
+  }
+  return {meaning, strength, color};
+}
+
+/* ============ 渲染 ============ */
+let LAST_RESULT=null;
+function renderTable(meta,results){
+  LAST_RESULT={meta,results};
+  document.getElementById('exportBtn').disabled=false;
+  const out=document.getElementById('out');
+  const syms=Object.keys(results);
+  const periods=[meta.p1,meta.p2,meta.p3];
+  const SUB='<th>天数</th><th>日·涨</th><th>日·跌</th><th>振幅</th><th>小趋势涨</th><th>小趋势跌</th><th>大趋势涨</th><th>大趋势跌</th>';
+  let h=`<h2>① 分析结果（中位数，%　·　涨/跌分开　·　三分期横排）</h2><div class="card"><div class="scroll"><table><thead>
+    <tr><th rowspan="2">币种</th>`;
+  periods.forEach((p,i)=>h+=`<th colspan="8" style="border-left:2px solid var(--bd)">阶梯${i+1} · ${p} 起</th>`);
+  h+=`</tr><tr>`;
+  periods.forEach(()=>h+=SUB);
+  h+=`</tr></thead><tbody>`;
+  for(const sym of syms){
+    const r=results[sym];
+    let row=`<td><b>${sym}</b></td>`;
+    let any=false;
+    for(let p=0;p<periods.length;p++){
+      const a=r.tiers[p];
+      if(!a||a.n<10){ row+=`<td colspan="8" class="mut" style="border-left:2px solid var(--bd)">数据不足</td>`; continue; }
+      any=true;
+      row+=`<td style="border-left:2px solid var(--bd)">${a.n}</td>
+        <td class="up">+${fmt(a.dailyUp)}%</td><td class="dn">${fmt(a.dailyDn)}%</td><td>${fmt(a.ampMed)}%</td>
+        <td class="up">+${fmt(a.smallUp)}%</td><td class="dn">${fmt(a.smallDn)}%</td>
+        <td class="up">+${fmt(a.bigUp)}%</td><td class="dn">${fmt(a.bigDn)}%</td>`;
+    }
+    if(any) h+=`<tr>${row}</tr>`;
+  }
+  h+=`</tbody></table></div>
+    <div class="note">每币一行，三个时间阶梯横向并列；每组首列为天数。</div></div>`;
+
+  // 递进箭头指示
+  const arrowCell=(vals,plus)=>vals.map(v=>v==null||isNaN(v)?'—':(plus?'+':'')+fmt(v)+'%').join(' → ');
+  h+=`<h2>② 跨期递进对比（v1 → v2 → v3）</h2><div class="card"><div class="scroll"><table><thead><tr>
+    <th>币种</th><th>天数</th><th>日·涨</th><th>日·跌</th><th>振幅</th><th>小趋势涨</th><th>小趋势跌</th><th>大趋势涨</th><th>大趋势跌</th></tr></thead><tbody>`;
+  for(const sym of syms){
+    const t=r2t(sym,results);
+    const g=k=>t.map(x=>x&&x.n>=10?x[k]:null);
+    h+=`<tr><td><b>${sym}</b></td>
+      <td>${g('n').join(' → ')}</td>
+      <td class="up">${arrowCell(g('dailyUp'),true)}</td><td class="dn">${arrowCell(g('dailyDn'),false)}</td>
+      <td>${arrowCell(g('ampMed'),false)}</td>
+      <td class="up">${arrowCell(g('smallUp'),true)}</td><td class="dn">${arrowCell(g('smallDn'),false)}</td>
+      <td class="up">${arrowCell(g('bigUp'),true)}</td><td class="dn">${arrowCell(g('bigDn'),false)}</td></tr>`;
+  }
+  h+=`</tbody></table></div>
+    <div class="note">三个值依次为 阶梯1 → 阶梯2 → 阶梯3。</div></div>`;
+
+  // 当前状态提示
+  h+=`<h2>③ 当前状态提示（趋势力度 + 结论）</h2><div class="card"><div class="scroll"><table><thead><tr>
+    <th>币种</th><th>最新收盘</th><th>最新振幅</th><th>振幅中位</th><th>近30天振幅中位</th><th>近30天 vs 全历史</th><th>波动状态</th><th>当前大趋势</th><th>当前小趋势</th><th>大趋势段数</th><th>结论</th></tr></thead><tbody>`;
+  for(const sym of syms){
+    const c=results[sym].current;
+    if(!c){ h+=`<tr><td><b>${sym}</b></td><td colspan="10" class="mut">—</td></tr>`; continue; }
+    const vc = c.volState==='脉冲'?'#c0392b':(c.volState==='压缩'?'#1a7f45':'#6b7c8d');
+    const dirCls = c.bigDir==='上涨'?'up':'dn';
+    const sdirCls = c.smallDir==='上涨'?'up':'dn';
+    const a30Cls = c.amp30State==='偏高'?'up':(c.amp30State==='偏低'?'dn':'');
+    const cc = conclusion(c);
+    h+=`<tr><td><b>${sym}</b></td>
+      <td>${fmt(c.close,4)}</td><td>${fmt(c.curAmp)}%</td><td>${fmt(c.ampMed)}%</td>
+      <td>${fmt(c.ampMed30)}%</td><td class="${a30Cls}">${c.amp30State}（${fmt(c.amp30Ratio)}x）</td>
+      <td style="color:${vc};font-weight:700">${c.volState}</td>
+      <td class="${dirCls}">${c.bigDir}${c.bigChg!=null?'（'+fmt(c.bigChg,0)+'%）':''}</td>
+      <td class="${sdirCls}">${c.smallDir}${c.smallChg!=null?'（'+fmt(c.smallChg,0)+'%）':''}</td>
+      <td>${c.bigN}</td>
+      <td style="color:${cc.color};font-weight:700;white-space:normal">${cc.meaning}<br>力度【${cc.strength}】</td></tr>`;
+  }
+  h+=`</tbody></table></div>
+    <div class="note">结论 = 大趋势 + 小趋势 + 波动状态 三者合成的最终判断：含义（顺势/回调/反弹·加速/蓄势）+ 力度（强/中/弱）。波动状态：≥2.0 脉冲、≤0.6 压缩、其余常态；近30天振幅 vs 全历史：≥1.2x 偏高、≤0.8x 偏低。</div></div>`;
+  out.innerHTML=h;
+}
+function r2t(sym,results){ const r=results[sym]; return [r.tiers[0],r.tiers[1],r.tiers[2]]; }
+document.getElementById('exportBtn').onclick=()=>{
+  if(!LAST_RESULT) return;
+  const {meta,results}=LAST_RESULT;
+  const periods=[meta.p1,meta.p2,meta.p3];
+  let csv='coin,period,days,daily_up_med,daily_dn_med,amp_med,small_up_med,small_dn_med,big_up_med,big_dn_med\n';
+  for(const sym of Object.keys(results)){
+    for(let p=0;p<periods.length;p++){
+      const a=results[sym].tiers[p];
+      if(a&&a.n>=10) csv+=`${sym},${periods[p]},${a.n},${a.dailyUp.toFixed(3)},${a.dailyDn.toFixed(3)},${a.ampMed.toFixed(3)},${a.smallUp.toFixed(3)},${a.smallDn.toFixed(3)},${a.bigUp.toFixed(3)},${a.bigDn.toFixed(3)}\n`;
+    }
+  }
+  const blob=new Blob(['\ufeff'+csv],{type:'text/csv;charset=utf-8'});
+  const el=document.createElement('a'); el.href=URL.createObjectURL(blob); el.download='振幅拐点_三分期中位数.csv'; el.click(); URL.revokeObjectURL(el.href);
+};
+
+/* ============ 主流程 ============ */
+async function run(){
+  const end=document.getElementById('end').value;
+  const p1=document.getElementById('p1').value, p2=document.getElementById('p2').value, p3=document.getElementById('p3').value;
+  if(!end||!p1||!p2||!p3){ alert('请填写结束日期和三个起始日期'); return; }
+  if(selected.size===0){ alert('请先选择币种'); return; }
+  const meta={end,p1,p2,p3};
+  const periods=[p1,p2,p3];
+  const earliest=[p1,p2,p3].sort()[0];
+  const startMs=new Date(earliest+'T00:00:00Z').getTime(), endMs=new Date(end+'T00:00:00Z').getTime()+864e5-1;
+  const btn=document.getElementById('runBtn'); btn.disabled=true;
+  const st=document.getElementById('status');
+  const results={};
+  const syms=[...selected];
+  let done=0;
+  const CONC=5; // 并行数
+  const worker=async(sym)=>{
+    try{
+      const raw=await fetchKlines(sym,startMs,endMs);
+      const bars=toBars(raw,earliest,end);
+      if(bars.length<10){ return {sym, fail:'数据不足'}; }
+      const tiers=[];
+      for(const p of periods){
+        const sub=bars.filter(b=>b.date>=p);
+        tiers.push(sub.length>=10?analyze(sub):null);
+      }
+      return {sym, tiers, current:currentState(bars)};
+    }catch(e){ return {sym, fail:e.message}; }
+  };
+  let idx=0;
+  const pool=[];
+  for(let w=0;w<Math.min(CONC,syms.length);w++) pool.push((async()=>{
+    while(idx<syms.length){
+      const sym=syms[idx++];
+      const r=await worker(sym);
+      done++;
+      if(r.fail){ /* 静默记录失败 */ }
+      else { results[r.sym]={tiers:r.tiers, current:r.current}; }
+      st.innerHTML=`采集进度 <b>${done}/${syms.length}</b>（并行${CONC}）`;
+    }
+  })());
+  await Promise.all(pool);
+  st.innerHTML=`完成：成功 <b>${Object.keys(results).length}</b> / ${syms.length} 个币种。`;
+  btn.disabled=false;
+  if(Object.keys(results).length) renderTable(meta,results);
+}
+document.getElementById('runBtn').onclick=run;
+</script>
+</body>
+</html>
