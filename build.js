@@ -22,7 +22,7 @@ function fmtSupply(n) {
 }
 function fetchMarkets(ids) {
   const url = 'https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=' +
-    ids.join(',') + '&order=market_cap_desc&per_page=100&sparkline=false';
+    ids.join(',') + '&order=market_cap_desc&per_page=250&sparkline=false';
   return new Promise((resolve, reject) => {
     const req = https.get(url, { headers: { 'User-Agent': 'crypto-dashboard/1.0', 'Accept': 'application/json' }, timeout: 60000 }, res => {
       let d = '';
@@ -37,9 +37,21 @@ function fetchMarkets(ids) {
 (async function main() {
   const coins = DATA.coins;
   const ids = coins.filter(c => c.cg).map(c => c.cg);
+  // 分批拉取（每批120个 id，避免 URL 过长），批间稍作间隔
+  const BATCH = 120;
+  const chunks = [];
+  for (let i = 0; i < ids.length; i += BATCH) chunks.push(ids.slice(i, i + BATCH));
   let live = [];
   let srcErr = null;
-  try { live = await fetchMarkets(ids); } catch (e) { srcErr = e.message; }
+  for (const ch of chunks) {
+    try {
+      const r = await fetchMarkets(ch);
+      live = live.concat(r);
+      await new Promise(res => setTimeout(res, 1200));
+    } catch (e) {
+      srcErr = (srcErr ? srcErr + '; ' : '') + e.message;
+    }
+  }
   const byId = {};
   live.forEach(c => byId[c.id] = c);
 

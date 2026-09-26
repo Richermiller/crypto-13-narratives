@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>本轮牛市 13 大叙事主线 · 速查表</title>
+<title>本轮牛市 · 叙事主线全市场速查表</title>
 <style>
   :root{
     --bg:#0a0e16; --bg2:#0f1522; --card:#131a29; --card2:#172033;
@@ -40,6 +40,13 @@
     padding:7px 13px;font-size:13px;cursor:pointer;user-select:none;transition:.15s}
   .pill:hover{border-color:var(--blue);color:var(--txt)}
   .pill.active{background:linear-gradient(90deg,#1d2c4d,#202a44);border-color:var(--blue);color:var(--txt)}
+  .searchbtn{background:linear-gradient(90deg,#f5c451,#f59e0b);color:#201400;border:none;border-radius:10px;
+    padding:10px 18px;font-size:14px;font-weight:700;cursor:pointer;transition:.15s}
+  .searchbtn:hover{filter:brightness(1.08)}
+  th[data-key]{cursor:pointer;user-select:none;white-space:nowrap}
+  th[data-key]:hover{color:var(--gold2)}
+  th.sorted-asc::after{content:" ▲";color:var(--gold);font-size:10px}
+  th.sorted-desc::after{content:" ▼";color:var(--gold);font-size:10px}
   h2.sec{font-size:19px;font-weight:800;margin:34px 0 6px;display:flex;align-items:center;gap:10px}
   h2.sec .bar{width:5px;height:20px;border-radius:3px;background:linear-gradient(#f5c451,#f472b6)}
   .hint{color:var(--faint);font-size:12.5px;margin-bottom:14px}
@@ -111,8 +118,9 @@
   th.spark{width:130px}
   /* table */
   .table-wrap{background:var(--card);border:1px solid var(--line);border-radius:16px;overflow:auto;margin-top:8px}
+  .table-wrap.scroll15{max-height:76vh;overflow-y:auto}
   table{width:100%;border-collapse:collapse;font-size:13px;min-width:1080px}
-  thead th{position:sticky;top:0;background:var(--card2);color:var(--dim);font-weight:700;text-align:left;
+  thead th{position:sticky;top:0;z-index:2;background:var(--card2);color:var(--dim);font-weight:700;text-align:left;
     padding:11px 12px;border-bottom:1px solid var(--line);white-space:nowrap;font-size:12px}
   tbody td{padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top}
   tbody tr:hover{background:rgba(90,167,255,.04)}
@@ -150,29 +158,39 @@
 <body>
 <div class="wrap">
   <header>
-    <h1>本轮牛市 · 13 大叙事主线速查表</h1>
-    <div class="sub">龙头先行启动，二线补涨弹性更大 — 含龙头 / 二线对标、市值、供应、解锁与操盘机构</div>
+    <h1>本轮牛市 · 叙事主线全市场速查表</h1>
+    <div class="sub">覆盖币安现货全部加密代币 + 13 大叙事主线 — 龙头 / 二线对标、市值、供应、解锁、操盘机构与买卖点</div>
     <div class="stamp">数据快照：__UPDATED_AT__ · 每6小时自动轮询 · 非投资建议</div>
   </header>
 
   <div class="statgrid" id="stats"></div>
 
   <div class="controls">
-    <input type="search" id="q" placeholder="搜索代币 / 项目 / 机构…（如 ZEC、Hyperliquid、币安）">
+    <input type="search" id="q" placeholder="搜索代币 / 项目 / 机构 / 板块…（如 BTC、Solana、AI）">
+    <button class="searchbtn" id="searchbtn" title="按当前关键词筛选">搜索</button>
     <span class="pill active" data-role="all">全部</span>
     <span class="pill" data-role="龙头">龙头</span>
     <span class="pill" data-role="二线">二线</span>
   </div>
 
   <h2 class="sec"><span class="bar"></span>板块市值排名（降序）</h2>
-  <div class="hint">每个代币仅在其主属板块计入一次市值，避免 NEAR（隐私/抗量子）、HYPE（永续/回购）重复计算；“交叉”标记表示该标的亦归属另一板块。</div>
+  <div class="hint">每个代币仅在其主属板块计入一次市值，避免 NEAR（隐私/抗量子）、HYPE（永续/回购）、LINK（RWA/基础设施）、XLM（RWA/支付）重复计算；“交叉”标记表示该标的亦归属另一板块。</div>
   <div id="sectors"></div>
 
-  <h2 class="sec"><span class="bar"></span>全量标的明细表（可滚动）</h2>
-  <div class="table-wrap"><table id="mtable">
+  <h2 class="sec"><span class="bar"></span>全量标的明细表（点击表头升降序 · 每屏15行可滚动）</h2>
+  <div class="table-wrap scroll15"><table id="mtable">
     <thead><tr>
-      <th>代币</th><th>板块</th><th>定位</th><th class="num">价格</th><th class="num">市值</th><th class="num">FDV</th>
-      <th>流通量</th><th>最大供应</th><th>解锁情况</th><th>操盘机构 / 投资方</th><th>关键观察</th>
+      <th data-key="s" data-type="str">代币</th>
+      <th data-key="sector" data-type="str">板块</th>
+      <th data-key="role" data-type="str">定位</th>
+      <th data-key="p" data-type="num" class="num">价格</th>
+      <th data-key="mc" data-type="num" class="num">市值</th>
+      <th data-key="fdv" data-type="num" class="num">FDV</th>
+      <th data-key="circ" data-type="str">流通量</th>
+      <th data-key="max" data-type="str">最大供应</th>
+      <th data-key="unlocked" data-type="str">解锁情况</th>
+      <th data-key="inst" data-type="str">操盘机构 / 投资方</th>
+      <th data-key="note" data-type="str">关键观察</th>
     </tr></thead>
     <tbody></tbody>
   </table></div>
@@ -221,33 +239,30 @@ const TOKENS = __TOKENS__;
 
 // 板块定义：items 中 cross=true 表示交叉归属（不重复计入板块市值）
 const SECTORS = [
-{name:"隐私赛道",desc:"屏蔽交易 / 原生隐私属性 / 加密盲计算",items:[
-  {s:"ZEC",role:"龙头"},{s:"XMR",role:"二线"},{s:"DASH",role:"二线"},{s:"NIL",role:"二线"},{s:"NEAR",role:"二线"}]},
-{name:"AI赛道",desc:"去中心化AI算力 / 智能体发行 / 隐私AI推理",items:[
-  {s:"TAO",role:"龙头"},{s:"VIRTUAL",role:"二线"},{s:"FET",role:"二线"},{s:"VVV",role:"二线"},{s:"KITE",role:"二线"}]},
-{name:"永续合约DEX",desc:"链上订单簿 / ZK rollup 永续 / 零手续费",items:[
-  {s:"HYPE",role:"龙头"},{s:"ASTER",role:"二线"},{s:"LIT",role:"二线"}]},
-{name:"BNB生态",desc:"BNB链 Gas 与流动性根基 + CZ 相关 Meme",items:[
-  {s:"BNB",role:"龙头"},{s:"MUBARAK",role:"二线"},{s:"BROCCOLI",role:"二线"},{s:"GIGGLE",role:"二线"}]},
-{name:"收益/回购销毁",desc:"手续费回购 / 营收回购 / 治理代币",items:[
-  {s:"HYPE",role:"龙头",cross:true},{s:"PUMP",role:"二线"},{s:"PENDLE",role:"二线"},{s:"ZRO",role:"二线"},
-  {s:"ENA",role:"二线"},{s:"CVX",role:"二线"},{s:"CRV",role:"二线"}]},
-{name:"老牌币",desc:"BTC分叉 / 数字白银 / 原始以太坊",items:[
-  {s:"BCH",role:"龙头"},{s:"LTC",role:"龙头"},{s:"ETC",role:"二线"}]},
-{name:"Move语言公链",desc:"高性能L1 / 质押ETF / 现实资产+保密交易",items:[
-  {s:"SUI",role:"龙头"},{s:"SEI",role:"二线"},{s:"APT",role:"二线"}]},
-{name:"Solana生态",desc:"顶级交易与用户生态 / 聚合器 / AMM / 借贷",items:[
-  {s:"SOL",role:"龙头"},{s:"JUP",role:"二线"},{s:"RAY",role:"二线"},{s:"KMNO",role:"二线"}]},
-{name:"Meme币/消费IP",desc:"初代Meme / 以太坊青蛙 / 消费IP",items:[
-  {s:"DOGE",role:"龙头"},{s:"PEPE",role:"二线"},{s:"BONK",role:"二线"},{s:"USELESS",role:"二线"},{s:"PENGU",role:"二线"}]},
-{name:"卡牌/代币化藏品",desc:"链上可赎回卡牌 / 盲盒 / 资产托管代币化",items:[
-  {s:"CARDS",role:"龙头"},{s:"READY",role:"二线"},{s:"BEEZIE",role:"二线"}]},
-{name:"现实资产代币化RWA",desc:"国债/股票代币化 / 预言机 / RWA信贷",items:[
-  {s:"ONDO",role:"龙头"},{s:"LINK",role:"二线"},{s:"CFG",role:"二线"},{s:"XLM",role:"二线"}]},
-{name:"DePIN/算力/数据",desc:"GPU渲染 / 带宽数据 / 去中心化云 / 机器经济L1",items:[
-  {s:"RENDER",role:"龙头"},{s:"GRASS",role:"二线"},{s:"AKT",role:"二线"},{s:"PEAQ",role:"二线"}]},
-{name:"抗量子赛道",desc:"后量子加密 / NIST 后量子签名",items:[
-  {s:"QRL",role:"龙头"},{s:"NEAR",role:"二线",cross:true}]}
+  {name:"隐私赛道",desc:"屏蔽交易 / 原生隐私属性 / 加密盲计算",items:[{s:"ZEC",role:"龙头"},{s:"XMR",role:"二线"},{s:"DASH",role:"二线"},{s:"NIL",role:"二线"},{s:"ZEN",role:"二线"},{s:"DCR",role:"二线"},{s:"ROSE",role:"二线"},{s:"NIGHT",role:"二线"},{s:"EPIC",role:"二线"},{s:"COTI",role:"二线"},{s:"DUSK",role:"二线"},{s:"PHA",role:"二线"},{s:"T",role:"二线"},{s:"NEAR",role:"二线"}]},
+  {name:"AI赛道",desc:"去中心化AI算力 / 智能体发行 / 隐私AI推理",items:[{s:"TAO",role:"龙头"},{s:"VIRTUAL",role:"二线"},{s:"FET",role:"二线"},{s:"VVV",role:"二线"},{s:"KITE",role:"二线"},{s:"AIXBT",role:"二线"},{s:"ARKM",role:"二线"},{s:"AIGENSYN",role:"二线"},{s:"AI",role:"二线"},{s:"CGPT",role:"二线"},{s:"SENT",role:"二线"},{s:"WLD",role:"二线"},{s:"SAPIEN",role:"二线"},{s:"SAHARA",role:"二线"},{s:"ALLO",role:"二线"},{s:"2Z",role:"二线"},{s:"OPG",role:"二线"},{s:"SHELL",role:"二线"},{s:"CHIP",role:"二线"},{s:"NXPC",role:"二线"},{s:"0G",role:"二线"},{s:"KAITO",role:"二线"},{s:"NMR",role:"二线"},{s:"OPEN",role:"二线"},{s:"VANA",role:"二线"},{s:"HOLO",role:"二线"}]},
+  {name:"永续合约DEX",desc:"链上订单簿 / ZK rollup 永续 / 零手续费",items:[{s:"HYPE",role:"龙头"},{s:"ASTER",role:"二线"},{s:"LIT",role:"二线"},{s:"DYDX",role:"二线"},{s:"GMX",role:"二线"},{s:"AEVO",role:"二线"},{s:"GNS",role:"二线"},{s:"F",role:"二线"}]},
+  {name:"BNB生态",desc:"BNB链 Gas 与流动性根基 + CZ 相关 Meme",items:[{s:"BNB",role:"龙头"},{s:"CAKE",role:"二线"},{s:"TWT",role:"二线"},{s:"SFP",role:"二线"},{s:"MUBARAK",role:"二线"},{s:"BROCCOLI714",role:"二线"},{s:"GIGGLE",role:"二线"},{s:"MUB",role:"二线"},{s:"MUUB",role:"二线"},{s:"币安人生",role:"二线"},{s:"牛来",role:"二线"}]},
+  {name:"收益/回购销毁",desc:"手续费回购 / 营收回购 / 治理代币 / 收益率协议",items:[{s:"PUMP",role:"龙头"},{s:"PENDLE",role:"二线"},{s:"ZRO",role:"二线"},{s:"ENA",role:"二线"},{s:"CVX",role:"二线"},{s:"CRV",role:"二线"},{s:"ETHFI",role:"二线"},{s:"MORPHO",role:"二线"},{s:"SYRUP",role:"二线"},{s:"WLFI",role:"二线"},{s:"FF",role:"二线"},{s:"LISTA",role:"二线"},{s:"USUAL",role:"二线"},{s:"RESOLV",role:"二线"},{s:"RE",role:"二线"},{s:"DOLO",role:"二线"},{s:"TREE",role:"二线"},{s:"HYPE",role:"龙头",cross:true}]},
+  {name:"老牌币",desc:"BTC分叉 / 数字白银 / 原始以太坊 / 早期PoW",items:[{s:"BCH",role:"龙头"},{s:"LTC",role:"龙头"},{s:"ETC",role:"二线"},{s:"XEC",role:"二线"},{s:"DGB",role:"二线"},{s:"RVN",role:"二线"},{s:"XVG",role:"二线"}]},
+  {name:"Move语言公链",desc:"高性能L1 / 质押ETF / 现实资产+保密交易",items:[{s:"SUI",role:"龙头"},{s:"SEI",role:"二线"},{s:"APT",role:"二线"},{s:"MOVE",role:"二线"},{s:"CETUS",role:"二线"}]},
+  {name:"Solana生态",desc:"顶级交易与用户生态 / 聚合器 / AMM / 借贷 / 再质押",items:[{s:"SOL",role:"龙头"},{s:"JUP",role:"二线"},{s:"RAY",role:"二线"},{s:"KMNO",role:"二线"},{s:"JTO",role:"二线"},{s:"ORCA",role:"二线"},{s:"MET",role:"二线"},{s:"BNSOL",role:"二线"},{s:"TNSR",role:"二线"},{s:"FIDA",role:"二线"},{s:"BOME",role:"二线"},{s:"LAYER",role:"二线"}]},
+  {name:"Meme币/消费IP",desc:"初代Meme / 以太坊青蛙 / 消费IP / 社区meme",items:[{s:"DOGE",role:"龙头"},{s:"PEPE",role:"二线"},{s:"BONK",role:"二线"},{s:"USELESS",role:"二线"},{s:"PENGU",role:"二线"},{s:"SHIB",role:"二线"},{s:"FLOKI",role:"二线"},{s:"WIF",role:"二线"},{s:"TRUMP",role:"二线"},{s:"TURBO",role:"二线"},{s:"DOGS",role:"二线"},{s:"NEIRO",role:"二线"},{s:"1000CAT",role:"二线"},{s:"1000CHEEMS",role:"二线"},{s:"1MBABYDOGE",role:"二线"},{s:"PNUT",role:"二线"},{s:"BANANAS31",role:"二线"},{s:"MARSCOIN",role:"二线"},{s:"TST",role:"二线"},{s:"ATM",role:"二线"},{s:"ACT",role:"二线"},{s:"MEME",role:"二线"},{s:"PEOPLE",role:"二线"}]},
+  {name:"NFT/卡牌/代币化藏品",desc:"NFT市场 / 链上卡牌 / 盲盒 / 资产托管代币化",items:[{s:"CARDS",role:"龙头"},{s:"READY",role:"二线"},{s:"BEEZIE",role:"二线"},{s:"BLUR",role:"二线"},{s:"ME",role:"二线"},{s:"RARE",role:"二线"},{s:"SUPER",role:"二线"},{s:"AGLD",role:"二线"},{s:"APE",role:"二线"},{s:"ANIME",role:"二线"},{s:"AUCTION",role:"二线"}]},
+  {name:"现实资产代币化RWA",desc:"国债/股票代币化 / RWA信贷 / 黄金锚定 / RWA公链",items:[{s:"ONDO",role:"龙头"},{s:"CFG",role:"二线"},{s:"MANTRA",role:"二线"},{s:"PAXG",role:"二线"},{s:"XAUT",role:"二线"},{s:"STO",role:"二线"},{s:"HUMA",role:"二线"},{s:"EDEN",role:"二线"},{s:"PLUME",role:"二线"},{s:"AVA",role:"二线"},{s:"LUMIA",role:"二线"},{s:"LINK",role:"二线"},{s:"XLM",role:"二线"}]},
+  {name:"DePIN/算力/数据",desc:"GPU渲染 / 带宽数据 / 去中心化云 / 机器经济L1 / IoT",items:[{s:"RENDER",role:"龙头"},{s:"GRASS",role:"二线"},{s:"AKT",role:"二线"},{s:"PEAQ",role:"二线"},{s:"IO",role:"二线"},{s:"GLM",role:"二线"},{s:"IOTX",role:"二线"},{s:"FLUX",role:"二线"},{s:"ANKR",role:"二线"},{s:"JASMY",role:"二线"},{s:"POWR",role:"二线"},{s:"RLC",role:"二线"},{s:"THETA",role:"二线"}]},
+  {name:"抗量子赛道",desc:"后量子加密 / NIST 后量子签名",items:[{s:"QRL",role:"龙头"},{s:"NEAR",role:"二线",cross:true}]},
+  {name:"公链L1",desc:"主流Layer1智能合约平台 / 分片 / DAG",items:[{s:"BTC",role:"龙头"},{s:"ETH",role:"龙头"},{s:"ADA",role:"二线"},{s:"AVAX",role:"二线"},{s:"DOT",role:"二线"},{s:"ATOM",role:"二线"},{s:"ALGO",role:"二线"},{s:"EGLD",role:"二线"},{s:"FLOW",role:"二线"},{s:"HBAR",role:"二线"},{s:"ICP",role:"二线"},{s:"KAVA",role:"二线"},{s:"TRX",role:"二线"},{s:"NEO",role:"二线"},{s:"VET",role:"二线"},{s:"XTZ",role:"二线"},{s:"ZIL",role:"二线"},{s:"ONE",role:"二线"},{s:"IOTA",role:"二线"},{s:"MINA",role:"二线"},{s:"CELO",role:"二线"},{s:"GRAM",role:"二线"},{s:"KAIA",role:"二线"},{s:"INJ",role:"二线"},{s:"CFX",role:"二线"},{s:"ONT",role:"二线"},{s:"QTUM",role:"二线"},{s:"LSK",role:"二线"},{s:"ASTR",role:"二线"},{s:"IOST",role:"二线"},{s:"ARK",role:"二线"},{s:"KSM",role:"二线"},{s:"BERA",role:"二线"},{s:"S",role:"二线"},{s:"XNO",role:"二线"},{s:"GAS",role:"二线"},{s:"GLMR",role:"二线"},{s:"GNO",role:"二线"},{s:"LUNA",role:"二线"},{s:"ONG",role:"二线"},{s:"VTHO",role:"二线"},{s:"MOVR",role:"二线"}]},
+  {name:"Layer2/扩容",desc:"L2扩容 / Rollup / 模块化 / 并行EVM / DA层",items:[{s:"OP",role:"龙头"},{s:"ARB",role:"龙头"},{s:"STRK",role:"二线"},{s:"ZK",role:"二线"},{s:"SCR",role:"二线"},{s:"LINEA",role:"二线"},{s:"MANTA",role:"二线"},{s:"METIS",role:"二线"},{s:"POL",role:"二线"},{s:"DYM",role:"二线"},{s:"SAGA",role:"二线"},{s:"ALT",role:"二线"},{s:"INIT",role:"二线"},{s:"MEGA",role:"二线"},{s:"SKL",role:"二线"},{s:"PARTI",role:"二线"},{s:"XPL",role:"二线"},{s:"ZKC",role:"二线"},{s:"SOPH",role:"二线"},{s:"TIA",role:"二线"}]},
+  {name:"DeFi",desc:"借贷 / 去中心化交易所 / 流动性质押 / 再质押 / 稳定币协议",items:[{s:"UNI",role:"龙头"},{s:"AAVE",role:"龙头"},{s:"COMP",role:"二线"},{s:"SNX",role:"二线"},{s:"UMA",role:"二线"},{s:"1INCH",role:"二线"},{s:"COW",role:"二线"},{s:"DODO",role:"二线"},{s:"LDO",role:"二线"},{s:"RPL",role:"二线"},{s:"EIGEN",role:"二线"},{s:"YFI",role:"二线"},{s:"SUSHI",role:"二线"},{s:"MAV",role:"二线"},{s:"JOE",role:"二线"},{s:"KNC",role:"二线"},{s:"BNT",role:"二线"},{s:"XVS",role:"二线"},{s:"QI",role:"二线"},{s:"LQTY",role:"二线"},{s:"EUL",role:"二线"},{s:"VELODROME",role:"二线"},{s:"AERO",role:"二线"},{s:"QUICK",role:"二线"},{s:"SPELL",role:"二线"},{s:"SKY",role:"二线"},{s:"U",role:"二线"},{s:"THE",role:"二线"},{s:"MTL",role:"二线"},{s:"SOLV",role:"二线"},{s:"KERNEL",role:"二线"},{s:"REZ",role:"二线"},{s:"MITO",role:"二线"},{s:"ENSO",role:"二线"},{s:"JST",role:"二线"},{s:"OSMO",role:"二线"},{s:"RSR",role:"二线"},{s:"RUNE",role:"二线"},{s:"SSV",role:"二线"},{s:"SUN",role:"二线"},{s:"YB",role:"二线"},{s:"ZRX",role:"二线"},{s:"BEL",role:"二线"},{s:"SPK",role:"二线"},{s:"DEXE",role:"二线"}]},
+  {name:"基础设施/预言机/跨链",desc:"预言机 / 跨链互操作 / 域名 / 链上分析 / 安全 / 广告",items:[{s:"PYTH",role:"龙头"},{s:"BAND",role:"二线"},{s:"API3",role:"二线"},{s:"GRT",role:"二线"},{s:"ENS",role:"二线"},{s:"W",role:"二线"},{s:"AXL",role:"二线"},{s:"SYN",role:"二线"},{s:"STG",role:"二线"},{s:"CELR",role:"二线"},{s:"BICO",role:"二线"},{s:"HYPER",role:"二线"},{s:"ID",role:"二线"},{s:"GTC",role:"二线"},{s:"CVC",role:"二线"},{s:"DIA",role:"二线"},{s:"BMT",role:"二线"},{s:"SXT",role:"二线"},{s:"WCT",role:"二线"},{s:"SIGN",role:"二线"},{s:"RAD",role:"二线"},{s:"ARPA",role:"二线"},{s:"CTK",role:"二线"},{s:"TRB",role:"二线"},{s:"GPS",role:"二线"},{s:"ZKP",role:"二线"},{s:"PROVE",role:"二线"},{s:"BREV",role:"二线"},{s:"RED",role:"二线"},{s:"ROBO",role:"二线"},{s:"POLYX",role:"二线"},{s:"ADX",role:"二线"},{s:"BAT",role:"二线"},{s:"G",role:"二线"},{s:"QNT",role:"二线"},{s:"TFUEL",role:"二线"},{s:"CTSI",role:"二线"},{s:"BANANA",role:"二线"},{s:"LINK",role:"二线",cross:true}]},
+  {name:"存储",desc:"去中心化存储 / 带宽分发 / 数据可用性",items:[{s:"FIL",role:"龙头"},{s:"AR",role:"二线"},{s:"SC",role:"二线"},{s:"BTTC",role:"二线"},{s:"HOT",role:"二线"},{s:"WAL",role:"二线"}]},
+  {name:"游戏GameFi/元宇宙",desc:"链游 / 元宇宙 / Telegram游戏 / Web3娱乐",items:[{s:"IMX",role:"龙头"},{s:"RONIN",role:"龙头"},{s:"AXS",role:"二线"},{s:"SAND",role:"二线"},{s:"MANA",role:"二线"},{s:"GALA",role:"二线"},{s:"ILV",role:"二线"},{s:"MAGIC",role:"二线"},{s:"PIXEL",role:"二线"},{s:"BIGTIME",role:"二线"},{s:"ALICE",role:"二线"},{s:"ENJ",role:"二线"},{s:"HMSTR",role:"二线"},{s:"NOT",role:"二线"},{s:"SLP",role:"二线"},{s:"TLM",role:"二线"},{s:"YGG",role:"二线"},{s:"ACE",role:"二线"},{s:"XAI",role:"二线"},{s:"GUN",role:"二线"},{s:"GMT",role:"二线"},{s:"WIN",role:"二线"},{s:"CHR",role:"二线"},{s:"WAXP",role:"二线"},{s:"BEAMX",role:"二线"},{s:"CATI",role:"二线"},{s:"PORTAL",role:"二线"}]},
+  {name:"支付/汇款",desc:"跨境支付 / 商家支付 / 稳定币支付基础设施",items:[{s:"XRP",role:"龙头"},{s:"ACH",role:"二线"},{s:"AMP",role:"二线"},{s:"PUNDIX",role:"二线"},{s:"C98",role:"二线"},{s:"MASK",role:"二线"},{s:"MBL",role:"二线"},{s:"REQ",role:"二线"},{s:"XLM",role:"二线",cross:true}]},
+  {name:"比特币生态/铭文",desc:"Ordinals / 比特币L2 / 铭文 / BTC流动性质押",items:[{s:"STX",role:"龙头"},{s:"ORDI",role:"二线"},{s:"1000SATS",role:"二线"},{s:"RIF",role:"二线"},{s:"CKB",role:"二线"},{s:"BABY",role:"二线"},{s:"BARD",role:"二线"},{s:"BB",role:"二线"},{s:"WBTC",role:"二线"},{s:"BANK",role:"二线"}]},
+  {name:"社交/创作者/粉丝代币",desc:"内容平台 / 社交图谱 / 体育粉丝代币 / 创作者经济",items:[{s:"LPT",role:"龙头"},{s:"STEEM",role:"二线"},{s:"HIVE",role:"二线"},{s:"AUDIO",role:"二线"},{s:"CHZ",role:"二线"},{s:"SANTOS",role:"二线"},{s:"PORTO",role:"二线"},{s:"LAZIO",role:"二线"},{s:"JUV",role:"二线"},{s:"PSG",role:"二线"},{s:"ASR",role:"二线"},{s:"ACM",role:"二线"},{s:"ALPINE",role:"二线"},{s:"OG",role:"二线"},{s:"CITY",role:"二线"},{s:"CYBER",role:"二线"},{s:"TOWNS",role:"二线"},{s:"OGN",role:"二线"},{s:"IQ",role:"二线"},{s:"HOME",role:"二线"},{s:"FORM",role:"二线"}]},
+  {name:"平台币/交易所/合规",desc:"交易所平台币 / 加密金融平台 / 合规基础设施",items:[{s:"NEXO",role:"龙头"},{s:"TKO",role:"二线"},{s:"WOO",role:"二线"},{s:"FTT",role:"二线"}]},
+  {name:"其他/新兴叙事",desc:"未归类或新兴叙事标的（DeSci / 工具 / 应用）",items:[{s:"ZAMA",role:"二线"},{s:"AWE",role:"二线"},{s:"GENIUS",role:"二线"},{s:"PROM",role:"二线"},{s:"SOMI",role:"二线"},{s:"MIRA",role:"二线"},{s:"AT",role:"二线"},{s:"NEWT",role:"二线"},{s:"LA",role:"二线"},{s:"HEI",role:"二线"},{s:"KGST",role:"二线"},{s:"HAEDAL",role:"二线"},{s:"FOGO",role:"二线"},{s:"OPN",role:"二线"},{s:"ERA",role:"二线"},{s:"TUT",role:"二线"},{s:"TURTLE",role:"二线"},{s:"COOKIE",role:"二线"},{s:"ESP",role:"二线"},{s:"HEMI",role:"二线"},{s:"A",role:"二线"},{s:"AVNT",role:"二线"},{s:"BAR",role:"二线"},{s:"BIO",role:"二线"},{s:"C",role:"二线"},{s:"EDU",role:"二线"},{s:"KAT",role:"二线"},{s:"LUNC",role:"二线"},{s:"MMT",role:"二线"},{s:"NOM",role:"二线"},{s:"QKC",role:"二线"},{s:"STRAX",role:"二线"},{s:"WBETH",role:"二线"},{s:"ZBT",role:"二线"}]}
 ];
 
 // ===================== 操作建议（买卖点 / 长期持有 / 潜力） =====================
@@ -306,7 +321,7 @@ function sectorAgg(sec){
   const top = sorted.slice(0,3).map(s=>s.name).join("、");
   const html = `
     <div class="stat"><div class="k">追踪标的</div><div class="v">${TOKENS.length} <small>个代币</small></div></div>
-    <div class="stat"><div class="k">叙事板块</div><div class="v">${SECTORS.length} <small>条主线</small></div></div>
+    <div class="stat"><div class="k">板块分类</div><div class="v">${SECTORS.length} <small>个板块</small></div></div>
     <div class="stat"><div class="k">合计流通市值（快照）</div><div class="v">${fmtUsd(total)}</div></div>
     <div class="stat"><div class="k">市值前三板块</div><div class="v" style="font-size:15px;line-height:1.5">${esc(top)}</div></div>`;
   document.getElementById("stats").innerHTML = html;
@@ -379,20 +394,53 @@ function group(items,label,sec){
 }
 
 // ===================== 明细表 =====================
+let sortKey = "mc", sortDir = -1; // 默认按市值降序
 function renderTable(){
   const q = document.getElementById("q").value.trim().toLowerCase();
   const sectOf = {};
   SECTORS.forEach(s=>s.items.forEach(it=>{ if(!it.cross) sectOf[it.s]=s.name; }));
   const roleOf = {};
   SECTORS.forEach(s=>s.items.forEach(it=>{ if(!it.cross) roleOf[it.s]=it.role; }));
-  const rows = TOKENS.map(t=>{
+  const roleRank = { "龙头":0, "二线":1 };
+  function val(t,key){
+    if(key==="s") return t.s;
+    if(key==="sector") return sectOf[t.s]||"";
+    if(key==="role") return roleOf[t.s]||"";
+    if(key==="p") return t.p;
+    if(key==="mc") return t.mc;
+    if(key==="fdv") return t.fdv;
+    if(key==="circ") return t.circ||"";
+    if(key==="max") return t.max||"";
+    if(key==="unlocked") return t.unlocked||"";
+    if(key==="inst") return t.inst||"";
+    if(key==="note") return t.note||"";
+    return "";
+  }
+  const numeric = ["p","mc","fdv"].includes(sortKey);
+  const list = TOKENS.filter(t=>{
     const role = roleOf[t.s]||"—";
-    if(roleFilter!=="all" && role!==roleFilter) return null;
-    if(q && !(t.s+" "+t.n+" "+(sectOf[t.s]||"")+" "+(t.inst||"")).toLowerCase().includes(q)) return null;
+    if(roleFilter!=="all" && role!==roleFilter) return false;
+    if(q && !(t.s+" "+t.n+" "+(sectOf[t.s]||"")+" "+(t.inst||"")).toLowerCase().includes(q)) return false;
+    return true;
+  }).sort((a,b)=>{
+    const x=val(a,sortKey), y=val(b,sortKey);
+    if(numeric){
+      const xn=(x==null||isNaN(x))? null : Number(x);
+      const yn=(y==null||isNaN(y))? null : Number(y);
+      if(xn==null && yn==null) return 0;
+      if(xn==null) return 1;   // 空值始终排最后
+      if(yn==null) return -1;
+      return (xn-yn)*sortDir;
+    }
+    if(sortKey==="role") return ((roleRank[x]??9)-(roleRank[y]??9))*sortDir;
+    return String(x).localeCompare(String(y))*sortDir;
+  });
+  const rows = list.map(t=>{
+    const role = roleOf[t.s]||"—";
     return `<tr>
       <td class="sym">${esc(t.s)}<div class="sub">${esc(t.n)}</div></td>
       <td>${esc(sectOf[t.s]||"—")}</td>
-      <td>${role==="龙头"?'<span class="badge ld">龙头</span>':'<span class="badge el">二线</span>'}</td>
+      <td>${role==="龙头"?'<span class="badge ld">龙头</span>':(role==="二线"?'<span class="badge el">二线</span>':'—')}</td>
       <td class="num">${fmtPrice(t.p)}</td>
       <td class="num">${fmtUsd(t.mc)}</td>
       <td class="num">${fmtUsd(t.fdv)}</td>
@@ -402,8 +450,12 @@ function renderTable(){
       <td>${esc(t.inst||"—")}</td>
       <td>${esc(t.note||"—")}</td>
     </tr>`;
-  }).filter(Boolean);
+  });
   document.querySelector("#mtable tbody").innerHTML = rows.join("") || `<tr><td colspan="11" style="text-align:center;color:var(--faint);padding:20px">无匹配结果</td></tr>`;
+  document.querySelectorAll("#mtable th[data-key]").forEach(th=>{
+    th.classList.remove("sorted-asc","sorted-desc");
+    if(th.dataset.key===sortKey) th.classList.add(sortDir>0?"sorted-asc":"sorted-desc");
+  });
 }
 
 // ===================== 持有建议 =====================
@@ -427,11 +479,14 @@ function renderAdvice(){
   const order = ["核心配置候选","板块核心观察","卫星配置(波段)","高弹性博弈·小仓位","投机·小仓位(≤1-2%)","无代币·观望"];
   const html = order.map(label=>{
     const g = groups[label];
-    const names = g.list.map(t=>`${t.s}`).join(" · ");
+    g.list.sort((a,b)=>(b.mc||0)-(a.mc||0));
+    const count = g.list.length;
+    const shown = g.list.slice(0,24).map(t=>t.s).join(" · ");
+    const more = count>24 ? ` · …等 ${count} 个` : "";
     return `<div class="card">
-      <h3><span class="tier ${g.cls}">${label}</span></h3>
+      <h3><span class="tier ${g.cls}">${label}</span><span style="color:var(--faint);font-size:12px;font-weight:600">${count} 个</span></h3>
       <p>${g.desc}</p>
-      <ul><li><span style="color:var(--dim)">标的：</span><span style="color:var(--txt)">${esc(names||"—")}</span></li></ul>
+      <ul><li><span style="color:var(--dim)">标的：</span><span style="color:var(--txt)">${esc(shown||"—")}${more}</span></li></ul>
     </div>`;
   }).join("");
   document.getElementById("advice").innerHTML = html;
@@ -526,13 +581,26 @@ function renderAmp(){
 }
 
 // ===================== 交互 =====================
-document.getElementById("q").addEventListener("input",()=>{renderSectors();renderTable();});
+const qInput = document.getElementById("q");
+function applySearch(){ renderSectors(); renderTable(); }
+qInput.addEventListener("keydown",e=>{ if(e.key==="Enter") applySearch(); });
+document.getElementById("searchbtn").addEventListener("click", applySearch);
 document.querySelectorAll(".pill").forEach(p=>{
   p.addEventListener("click",()=>{
     document.querySelectorAll(".pill").forEach(x=>x.classList.remove("active"));
     p.classList.add("active");
     roleFilter = p.dataset.role;
-    renderSectors(); renderTable();
+    applySearch();
+  });
+});
+// 表头升降序
+document.querySelectorAll("#mtable th[data-key]").forEach(th=>{
+  th.addEventListener("click",()=>{
+    const key = th.dataset.key;
+    const numeric = ["p","mc","fdv"].includes(key);
+    if(sortKey===key){ sortDir *= -1; }
+    else { sortKey = key; sortDir = numeric ? -1 : 1; }
+    renderTable();
   });
 });
 
