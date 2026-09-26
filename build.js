@@ -72,12 +72,17 @@ function fetchMarkets(ids) {
     note: (c.obs || '') + (c.cg ? '' : '｜未接入实时源(手动快照)')
   }));
 
+  // 读取振幅数据（由 amp.js 生成）
+  let AMP = { updatedAt: 0, coins: {} };
+  try { if (fs.existsSync('amp.json')) AMP = JSON.parse(fs.readFileSync('amp.json', 'utf8')); } catch (e) {}
+
   let tpl = fs.readFileSync('template.html', 'utf8');
   const stamp = beijingNow() + (srcErr ? ' · 数据源暂不可用(展示上次数据)' : '');
   tpl = tpl.replace('__TOKENS__', JSON.stringify(TOKENS));
   tpl = tpl.replace('__ADVICE__', JSON.stringify(DATA.advice));
+  tpl = tpl.replace('__AMP__', JSON.stringify(AMP));
   tpl = tpl.replace('__UPDATED_AT__', stamp);
   fs.writeFileSync('index.html', tpl);
 
-  console.log('live:', liveCount, '/', coins.length, '| 数据源错误:', srcErr || '无', '| 时间戳:', stamp);
+  console.log('live:', liveCount, '/', coins.length, '| 振幅币数:', Object.keys(AMP.coins || {}).length, '| 数据源错误:', srcErr || '无', '| 时间戳:', stamp);
 })();

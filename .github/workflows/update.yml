@@ -22,6 +22,9 @@ jobs:
         with:
           node-version: 20
 
+      - name: 拉取日线OHLC并计算振幅拐点（日线数据，20小时内复用缓存）
+        run: node amp.js
+
       - name: 拉取 CoinGecko 行情并重建页面
         run: node build.js
 
@@ -29,7 +32,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add data.json index.html
+          git add data.json index.html amp.json
           if git diff --cached --quiet; then
             echo "行情数据无变化，跳过提交"
           else
