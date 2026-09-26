@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>本轮牛市 13 大叙事主线 · 速查表</title>
+<style>
+  :root{
+    --bg:#0a0e16; --bg2:#0f1522; --card:#131a29; --card2:#172033;
+    --line:#22304a; --txt:#e8eef8; --dim:#8b9bb4; --faint:#5b6b84;
+    --gold:#f5c451; --gold2:#ffd97a; --blue:#5aa7ff; --purple:#a78bfa;
+    --green:#34d399; --red:#f87171; --pink:#f472b6; --cyan:#22d3ee;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    background:radial-gradient(1200px 600px at 15% -10%, #152238 0%, transparent 60%),
+               radial-gradient(1000px 500px at 100% 0%, #1a1530 0%, transparent 55%),
+               var(--bg);
+    color:var(--txt); font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",Roboto,Helvetica,Arial,sans-serif;
+    line-height:1.55; min-height:100vh;
+  }
+  .wrap{max-width:1280px;margin:0 auto;padding:28px 20px 80px}
+  header{text-align:center;padding:10px 0 26px}
+  header h1{font-size:30px;font-weight:800;letter-spacing:.5px;
+    background:linear-gradient(90deg,#f5c451,#ffb86b 30%,#5aa7ff 70%,#a78bfa);
+    -webkit-background-clip:text;background-clip:text;color:transparent;margin-bottom:8px}
+  header .sub{color:var(--dim);font-size:14px}
+  header .stamp{display:inline-block;margin-top:10px;padding:4px 12px;border:1px solid var(--line);
+    border-radius:999px;color:var(--dim);font-size:12px;background:var(--bg2)}
+  .statgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:18px 0 8px}
+  .stat{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 18px}
+  .stat .k{color:var(--faint);font-size:12px;margin-bottom:6px}
+  .stat .v{font-size:22px;font-weight:800;color:var(--gold2)}
+  .stat .v small{font-size:12px;font-weight:500;color:var(--dim)}
+  .controls{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin:22px 0 6px}
+  .controls input[type=search]{flex:1;min-width:240px;background:var(--card);border:1px solid var(--line);
+    color:var(--txt);border-radius:10px;padding:10px 14px;font-size:14px;outline:none}
+  .controls input[type=search]:focus{border-color:var(--blue)}
+  .pill{background:var(--card);border:1px solid var(--line);color:var(--dim);border-radius:999px;
+    padding:7px 13px;font-size:13px;cursor:pointer;user-select:none;transition:.15s}
+  .pill:hover{border-color:var(--blue);color:var(--txt)}
+  .pill.active{background:linear-gradient(90deg,#1d2c4d,#202a44);border-color:var(--blue);color:var(--txt)}
+  h2.sec{font-size:19px;font-weight:800;margin:34px 0 6px;display:flex;align-items:center;gap:10px}
+  h2.sec .bar{width:5px;height:20px;border-radius:3px;background:linear-gradient(#f5c451,#f472b6)}
+  .hint{color:var(--faint);font-size:12.5px;margin-bottom:14px}
+  /* sector cards */
+  .sector{background:var(--card);border:1px solid var(--line);border-radius:16px;margin-bottom:18px;overflow:hidden}
+  .sec-head{display:flex;flex-wrap:wrap;align-items:center;gap:12px;padding:16px 18px;
+    border-bottom:1px solid var(--line);background:linear-gradient(90deg,rgba(245,196,81,.05),transparent 60%)}
+  .rank{min-width:34px;height:34px;border-radius:9px;display:flex;align-items:center;justify-content:center;
+    font-weight:800;font-size:15px;background:var(--bg2);border:1px solid var(--line);color:var(--gold)}
+  .rank.r1{background:linear-gradient(135deg,#f5c451,#f59e0b);color:#201400;border:none}
+  .rank.r2{background:linear-gradient(135deg,#cbd5e1,#94a3b8);color:#101725;border:none}
+  .rank.r3{background:linear-gradient(135deg,#f59e0b,#b45309);color:#fff;border:none}
+  .sec-title{flex:1;min-width:180px}
+  .sec-title .nm{font-size:17px;font-weight:800}
+  .sec-title .ds{color:var(--dim);font-size:12.5px;margin-top:2px}
+  .sec-mc{text-align:right}
+  .sec-mc .lbl{color:var(--faint);font-size:11px}
+  .sec-mc .val{font-size:20px;font-weight:800;color:var(--gold2)}
+  .sec-body{padding:14px 16px 16px}
+  .role-line{margin:10px 0 4px;font-size:13px;color:var(--dim);font-weight:600}
+  .role-line .tag{display:inline-block;padding:1px 8px;border-radius:6px;font-size:11px;margin-right:6px;font-weight:700}
+  .tag.leader{background:rgba(245,196,81,.16);color:var(--gold2);border:1px solid rgba(245,196,81,.35)}
+  .tag.second{background:rgba(90,167,255,.14);color:#8ec6ff;border:1px solid rgba(90,167,255,.35)}
+  .tag.cross{background:rgba(167,139,250,.14);color:#c4b0ff;border:1px solid rgba(167,139,250,.35)}
+  .tokgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px;margin-top:6px}
+  .tok{background:var(--card2);border:1px solid var(--line);border-radius:12px;padding:13px 14px;position:relative}
+  .tok.leader{border-color:rgba(245,196,81,.35)}
+  .tok .top{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
+  .tok .sym{font-size:16px;font-weight:800;color:var(--txt)}
+  .tok .nm{color:var(--dim);font-size:12px}
+  .tok .badge{margin-left:auto;font-size:10px;padding:2px 7px;border-radius:6px;font-weight:700}
+  .badge.ld{background:rgba(245,196,81,.16);color:var(--gold2)}
+  .badge.el{background:rgba(90,167,255,.14);color:#8ec6ff}
+  .badge.risk{background:rgba(248,113,113,.14);color:#fda4a4}
+  .tok .prices{display:flex;gap:16px;margin:8px 0 6px;flex-wrap:wrap}
+  .tok .price .k{color:var(--faint);font-size:10.5px}
+  .tok .price .v{font-size:15px;font-weight:700;color:var(--txt)}
+  .tok .meta{font-size:12px;color:var(--dim);border-top:1px dashed var(--line);padding-top:7px;margin-top:2px}
+  .tok .meta b{color:var(--txt);font-weight:600}
+  .tok .inst{font-size:11.5px;color:var(--faint);margin-top:6px}
+  .tok .inst b{color:var(--dim)}
+  .tok .note{font-size:11.5px;color:#9fb3d0;margin-top:6px;background:rgba(34,211,238,.05);
+    border-left:2px solid var(--cyan);padding:5px 8px;border-radius:0 6px 6px 0}
+  /* table */
+  .table-wrap{background:var(--card);border:1px solid var(--line);border-radius:16px;overflow:auto;margin-top:8px}
+  table{width:100%;border-collapse:collapse;font-size:13px;min-width:1080px}
+  thead th{position:sticky;top:0;background:var(--card2);color:var(--dim);font-weight:700;text-align:left;
+    padding:11px 12px;border-bottom:1px solid var(--line);white-space:nowrap;font-size:12px}
+  tbody td{padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+  tbody tr:hover{background:rgba(90,167,255,.04)}
+  td.sym{font-weight:800;color:var(--txt);white-space:nowrap}
+  td .sub{color:var(--faint);font-size:11px}
+  .num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+  th.num{text-align:right}
+  .up{color:var(--green)} .down{color:var(--red)}
+  /* advice */
+  .advice{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;margin-top:8px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 18px}
+  .card h3{font-size:15px;font-weight:800;margin-bottom:8px;display:flex;align-items:center;gap:8px}
+  .card p{color:var(--dim);font-size:13px;margin-bottom:8px}
+  .card ul{list-style:none}
+  .card li{font-size:13px;padding:5px 0;border-bottom:1px dashed var(--line);display:flex;gap:8px;align-items:baseline}
+  .card li:last-child{border-bottom:none}
+  .tier{font-size:10px;font-weight:700;padding:2px 7px;border-radius:6px;white-space:nowrap}
+  .tier-core{background:rgba(52,211,153,.15);color:#6ee7b7}
+  .tier-core2{background:rgba(34,211,238,.13);color:#67e8f9}
+  .tier-sat{background:rgba(90,167,255,.13);color:#93c5fd}
+  .tier-agg{background:rgba(244,114,182,.13);color:#f9a8d4}
+  .tier-spec{background:rgba(248,113,113,.13);color:#fca5a5}
+  .tier-watch{background:rgba(139,155,180,.13);color:#b6c4d8}
+  footer{margin-top:44px;padding-top:18px;border-top:1px solid var(--line);color:var(--faint);font-size:12px;text-align:center}
+  footer a{color:var(--blue);text-decoration:none}
+  .disclaim{background:rgba(248,113,113,.06);border:1px solid rgba(248,113,113,.25);border-radius:12px;
+    padding:12px 16px;color:#f3c1c1;font-size:12.5px;margin-top:20px}
+  @media(max-width:720px){
+    .statgrid{grid-template-columns:repeat(2,1fr)}
+    header h1{font-size:24px}
+    .sec-mc{width:100%;text-align:left}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>本轮牛市 · 13 大叙事主线速查表</h1>
+    <div class="sub">龙头先行启动，二线补涨弹性更大 — 含龙头 / 二线对标、市值、供应、解锁与操盘机构</div>
+    <div class="stamp">数据快照：2026-09-26 · 全网公开信息近似值 · 非投资建议</div>
+  </header>
+
+  <div class="statgrid" id="stats"></div>
+
+  <div class="controls">
+    <input type="search" id="q" placeholder="搜索代币 / 项目 / 机构…（如 ZEC、Hyperliquid、币安）">
+    <span class="pill active" data-role="all">全部</span>
+    <span class="pill" data-role="龙头">龙头</span>
+    <span class="pill" data-role="二线">二线</span>
+  </div>
+
+  <h2 class="sec"><span class="bar"></span>板块市值排名（降序）</h2>
+  <div class="hint">每个代币仅在其主属板块计入一次市值，避免 NEAR（隐私/抗量子）、HYPE（永续/回购）重复计算；“交叉”标记表示该标的亦归属另一板块。</div>
+  <div id="sectors"></div>
+
+  <h2 class="sec"><span class="bar"></span>全量标的明细表（可滚动）</h2>
+  <div class="table-wrap"><table id="mtable">
+    <thead><tr>
+      <th>代币</th><th>板块</th><th>定位</th><th class="num">价格</th><th class="num">市值</th><th class="num">FDV</th>
+      <th>流通量</th><th>最大供应</th><th>解锁情况</th><th>操盘机构 / 投资方</th><th>关键观察</th>
+    </tr></thead>
+    <tbody></tbody>
+  </table></div>
+
+  <h2 class="sec"><span class="bar"></span>持有建议（分层框架）</h2>
+  <div class="advice" id="advice"></div>
+
+  <div class="disclaim">
+    <b>重要风险提示：</b>本页面为公开信息整理与叙事速查，所有价格、市值、FDV、供应量、解锁比例均为 2026-09-26 前后来自 CoinMarketCap / CoinGecko / 公开报道的<b>近似值</b>，存在时滞与误差，不构成任何投资建议或买卖要约。加密货币波动剧烈，部分标的（HYPE、ASTER、LIT、KITE、KMNO、SUI、ONDO、PUMP 等）为高 FDV、低流通结构，存在持续解锁抛压；meme 币与极小市值新币（USELESS、READY、CARDS、GIGGLE 等）投机风险极高。请务必自行核实最新数据并独立决策。
+  </div>
+
+  <footer>
+    生成于 2026-09-26 · 数据来源：CoinMarketCap、CoinGecko、项目官网及公开报道（经全网检索汇总）<br>
+    本文件为纯本地静态页面，可直接双击在浏览器打开，无任何网络依赖。
+  </footer>
+</div>
+
+<script>
+// ===================== 数据 =====================
+const TOKENS = [
+{s:"ZEC",n:"Zcash",p:1535.57,mc:25073250668,fdv:32247035129,circ:"16.33M",total:"16.33M",max:"21M",unlocked:"约78%已解锁（16.33M/21M）",inst:"Electric Coin Company (ECC) + Zcash Foundation；开发基金机制；早期顾问含 Vitalik Buterin、Gavin Andresen",note:"隐私币叙事推动暴涨至约$1,535（市值排名第10），F2Pool联创称其为「叙事泡沫」，回撤风险极高"},
+{s:"XMR",n:"Monero",p:554.98,mc:10438980090,circ:"18.81M",total:"18.81M",max:"无上限",unlocked:"无上限；已流通约18.81M，尾部排放持续通胀",inst:"社区驱动，无预挖/无ICO/无VC投资",note:"隐私龙头，2026年1月创ATH约$797后现回撤约30%；风险为多国监管压力与部分交易所下架"},
+{s:"DASH",n:"Dash",p:62.62,mc:804260073,fdv:1183486172,circ:"12.84M",total:"12.84M",max:"18.9M",unlocked:"约68%已解锁（12.84M/18.9M）",inst:"Dash Core Group (DCG) 治理，社区驱动，无传统VC大额融资",note:"老牌支付币，市值仅约$8亿，较2017年ATH $1,642回撤约96%；项目叙事边缘化"},
+{s:"NIL",n:"Nillion",p:0.1149,mc:58298205,fdv:114881472,circ:"507.4M",total:"1B",max:"1B",unlocked:"约51%已解锁，线性解锁中（TGE 2025-03）",inst:"Hack VC、Distributed Global、HashKey Capital、Arthur Hayes (Maelstrom)、CoinList 社区轮",note:"小市值新币（约$5,800万），较ATH $0.95回撤约88%；「盲计算」隐私叙事，解锁抛压与流动性风险"},
+{s:"NEAR",n:"NEAR Protocol",p:4.9,mc:6405345217,circ:"1.31B",total:"1.31B",max:"无上限",unlocked:"基本全流通；无供应上限，年通胀约5%",inst:"a16z、Pantera Capital、Coinbase Ventures、Three Arrows Capital、Tiger Global、Electric Capital",note:"7日涨约32%，L1分片龙头受AI/私人交易叙事推动；无供应上限、持续通胀约5%"},
+{s:"TAO",n:"Bittensor",p:312.94,mc:3549256608,fdv:6572902651,circ:"11.34M",total:"21M",max:"21M",unlocked:"约54%已发行（每区块1枚线性释放）",inst:"公平发行（Fair Launch），无风投/无预挖",note:"去中心化AI赛道龙头，2026年12月减半为核心催化剂"},
+{s:"VIRTUAL",n:"Virtuals Protocol",p:0.7788,mc:505146799,fdv:778833182,circ:"648.6M",total:"1B",max:"1B",unlocked:"约65%流通",inst:"公平发行（Fair TGE），无传统VC主导，社区驱动",note:"Base链AI Agent发行平台，较ATH跌约85%，处于深度回调"},
+{s:"FET",n:"ASI Alliance (FET)",p:0.2421,mc:631821485,fdv:658337771,circ:"2.61B",total:"2.72B",max:"2.71B",unlocked:"约96%已解锁",inst:"Outlier Ventures、DWF Labs；ASI联盟由 Fetch.ai、SingularityNET、Ocean 合并",note:"ASI合并代币（Ocean已退出联盟），供应设上限并引入销毁机制"},
+{s:"VVV",n:"Venice AI",p:30.27,mc:1457482598,fdv:2452813038,circ:"48.16M",total:"81.05M",max:"无上限",unlocked:"约59%流通",inst:"Dragonfly 领投6500万美元A轮；创始人 Erik Voorhees、Jesse Proudman",note:"隐私AI赛道，宣布回购销毁VVV计划，供应非硬顶（有持续通胀）"},
+{s:"KITE",n:"Kite AI",p:0.1397,mc:251387372,fdv:1396596514,circ:"1.8B",total:"10B",max:"10B",unlocked:"约18%流通（其余线性解锁中）",inst:"PayPal Ventures、General Catalyst 领投；Hashed、Samsung Next 参投",note:"Agentic AI基础设施，Binance Launchpool上线，初始流通仅18%存在解锁抛压"},
+{s:"HYPE",n:"Hyperliquid",p:92.13,mc:20494155087,fdv:88013435202,circ:"222.4M",total:"955.3M",max:"1B",unlocked:"约22%流通，线性解锁中",inst:"无VC/零外部投资，11人团队，创始人 Jeff（化名）",note:"逼近ATH（$97.96），CFTC 对永续合约利好；FDV 高达880亿美元，估值分歧大"},
+{s:"ASTER",n:"Aster",p:0.731091,mc:1981523993,fdv:5699140599,circ:"2.71B",total:"7.80B",max:"8B",unlocked:"约34%流通，线性解锁中",inst:"Binance Labs 投资（Astherus），币安战略生态",note:"币安系 perp DEX，被定位为对抗 Hyperliquid 的战略代理，曾一周暴涨约4倍"},
+{s:"LIT",n:"Lighter",p:4.85,mc:1211759759,fdv:4847039036,circ:"250M",total:"1B",max:"1B",unlocked:"约25%流通，线性解锁中",inst:"Robinhood 领投，融资6800万美元（估值15亿美元），创始人 Vladimir Novakovski",note:"Robinhood 押注的 zk rollup 永续 DEX；6.75亿美元空投引发分配争议与留存压力"},
+{s:"BNB",n:"BNB",p:774.48,mc:103131614539,fdv:103131613517,circ:"133.16M",total:"133.16M",max:"200M",unlocked:"约67%已解锁（持续销毁中）",inst:"币安（Binance），创始人 CZ，现任 CEO Richard Teng",note:"市值约1031亿美元、排名第4，销毁机制提供通缩支撑；距ATH $1369.99回撤约43%"},
+{s:"MUBARAK",n:"Mubarak",p:0.055986,mc:56022693,fdv:56022693,circ:"1B",total:"1B",max:"1B",unlocked:"100%全流通",inst:"社区meme币（无机构），CZ 曾个人买入",note:"BNB Chain meme 币，币安种子标签上币；24h 涨约30%，meme 高波动"},
+{s:"BROCCOLI",n:"Broccoli (CZ's Dog)",p:0.02973563,mc:28718712,fdv:28718712,circ:"966.27M",total:"966.27M",max:"1B",unlocked:"约97%已解锁（接近全流通）",inst:"CZ 爱犬 meme 币，无机构投资方",note:"CZ 爱犬 meme 币（合约 0x6d5a...6714），币安种子标签上币；存在多个同名代币需区分"},
+{s:"GIGGLE",n:"Giggle Fund",p:40.51,mc:40511698,fdv:40511698,circ:"1M",total:"1M",max:"1M",unlocked:"100%全流通",inst:"无机构；CZ 的 Giggle Academy 已否认与代币官方关联",note:"BSC meme 币，Giggle Academy 已否认官方关联；距ATH $274.54回撤约85%"},
+{s:"PUMP",n:"Pump.fun",p:0.00438767,mc:2047031818,fdv:3651633596,circ:"466.3B",total:"831.8B",max:"1T",unlocked:"约56%已流通；团队/投资方约3650亿枚3年线性解锁",inst:"Founders Fund（Peter Thiel）、6MV；2025年公开募资约5亿美元",note:"团队/投资方代币3年归属刚开始，持续解锁抛压；已销毁回购约3.7亿美元PUMP"},
+{s:"PENDLE",n:"Pendle",p:2.52,mc:438131617,fdv:710464109,circ:"173.6M",total:"281.5M",max:"无上限",unlocked:"约62%已流通，团队/早期投资人已基本解锁",inst:"Binance Labs、Mechanism Capital、Spartan Group、Crypto.com Capital、Arthur Hayes",note:"DeFi收益率赛道龙头，推出Boros拓展资金费率交易；风险在TVL与收益率波动"},
+{s:"ZRO",n:"LayerZero",p:1.57,mc:556105070,fdv:1573971400,circ:"353.3M",total:"1B",max:"1B",unlocked:"约35%流通，剩余3年线性解锁（至2027年中）",inst:"a16z、Sequoia、Coinbase Ventures、Multicoin、Binance Labs、PayPal Ventures",note:"跨链互操作龙头，'费用开关'重启协议收入为催化；持续解锁抛压"},
+{s:"ENA",n:"Ethena",p:0.273781,mc:2766649575,fdv:4110793363,circ:"10.10B",total:"15B",max:"15B",unlocked:"约67%流通，剩余线性解锁；基金会回购缓解",inst:"Dragonfly、Binance Labs、OKX Ventures、Delphi Digital、Wintermute、Brevan Howard、Franklin Templeton",note:"合成美元USDe龙头，基金会提议费用开关用于ENA回购"},
+{s:"CVX",n:"Convex Finance",p:2.05,mc:191060086,fdv:204996070,circ:"93.2M",total:"100M",max:"100M",unlocked:"约93%已解锁",inst:"无公开VC融资（匿名团队），Curve生态收益聚合器",note:"收益依赖CRV释放与贿赂市场，核心风险是Curve生态TVL与治理变化"},
+{s:"CRV",n:"Curve DAO",p:0.350981,mc:550482297,fdv:849447227,circ:"1.57B",total:"2.42B",max:"3.03B",unlocked:"约52%已释放，剩余长期流动性挖矿线性释放",inst:"创始人Michael Egorov；早期含 Binance Labs；DWF Labs 曾持仓",note:"DEX龙头，2024年创始人清算危机已化解；风险为veCRV治理集中与借贷坏账"},
+{s:"BCH",n:"Bitcoin Cash",p:338.29,mc:6797639369,fdv:6797641483,circ:"20.09M",total:"20.09M",max:"21M",unlocked:"约96%已挖出",inst:"无VC投资方（PoW公链，2017年分叉自比特币）",note:"与BTC联动强的支付型PoW公链，无解锁风险；生态与算力较BTC薄弱"},
+{s:"LTC",n:"Litecoin",p:72.22,mc:5605889880,fdv:5606094286,circ:"77.65M",total:"77.65M",max:"84M",unlocked:"约92%已挖出",inst:"无VC投资方（PoW公链，创始人Charlie Lee，2011年上线）",note:"'数字白银'支付币，现货ETF获批预期为潜在催化；基本面增长有限"},
+{s:"ETC",n:"Ethereum Classic",p:9.46,mc:1497591080,fdv:1497591080,circ:"158.29M",total:"158.29M",max:"210.7M",unlocked:"约75%已挖出",inst:"无VC投资方（2016年The DAO硬分叉后保留原链）",note:"ETH原链PoW链，无明显催化剂；风险为生态凋敝与历史51%攻击"},
+{s:"SUI",n:"Sui",p:1.174,mc:4808216505,fdv:11737270609,circ:"4.10B",total:"10B",max:"10B",unlocked:"约41%已解锁，月度线性解锁，2026下半年供应过剩压力大",inst:"Mysten Labs（前 Meta Diem 团队）；a16z、Jump Crypto、Coinbase Ventures、Binance Labs、Circle Ventures、Lightspeed",note:"近7日上涨42%，但持续解锁形成抛压，较ATH $5.35仍跌约78%"},
+{s:"SEI",n:"Sei",p:0.07346,mc:494599968,circ:"6.73B",total:"10B",max:"无上限",unlocked:"约67%已解锁，仍有周期性解锁，通胀增发",inst:"Sei Labs（团队来自高盛、Robinhood、Databricks）；Jump Crypto、Multicoin、Coinbase Ventures、Distributed Global、Flow Traders",note:"较ATH $1.47跌约95%，市场对其生态增长与竞争地位存疑"},
+{s:"APT",n:"Aptos",p:0.8556,mc:745050247,circ:"870.8M",total:"1.20B",max:"无上限",unlocked:"约73%已解锁，核心贡献者与投资人月度线性解锁至2027年后",inst:"Aptos Labs（前 Meta Diem 团队）；a16z、Multicoin、Jump Crypto、Tiger Global、Binance Labs、Coinbase Ventures、Dragonfly",note:"月度解锁持续抛压，较ATH $19.95跌约96%"},
+{s:"SOL",n:"Solana",p:120.91,mc:71051552831,circ:"587.6M",total:"630.7M",max:"无上限",unlocked:"基本全部流通（无锁仓），通胀增发（年化约4-5%递减）",inst:"Solana Labs / Foundation（Anatoly Yakovenko）；a16z、Polychain、Multicoin、Jump Crypto；早期FTX/Alameda",note:"市值稳定前10，生态收入稳健；风险为通胀与早期FTX破产清算抛压"},
+{s:"JUP",n:"Jupiter",p:0.3413,mc:1132799780,fdv:3412695941,circ:"3.32B",total:"7.00B",max:"10B",unlocked:"约47%已解锁，团队与社区空投线性解锁中",inst:"ParaFi Capital（$35M 战略投资）；创始人化名 Meow",note:"Solana 头部聚合器、盈利较强，较ATH $1.84跌约81%，价值捕获受质疑"},
+{s:"RAY",n:"Raydium",p:2.002,mc:540083498,fdv:1111246953,circ:"269.8M",total:"555M",max:"555M",unlocked:"约49%已解锁，总量固定（含回购销毁）",inst:"Raydium 团队（匿名）；早期与 Serum、FTX/Alameda 生态绑定",note:"Solana DEX 核心基础设施，较ATH $16.91跌约88%"},
+{s:"KMNO",n:"Kamino",p:0.04292,mc:57940093,fdv:429185876,circ:"1.35B",total:"10B",max:"10B",unlocked:"仅约13.5%已解锁，线性解锁中，抛压风险较大",inst:"Multicoin Capital（前身 Hubble Protocol 领投方）",note:"低流通高FDV结构，未来解锁为主要风险，较ATH $0.248跌约83%"},
+{s:"DOGE",n:"Dogecoin",p:0.0982,mc:15328276294,fdv:15328292991,circ:"156.1B",total:"156.1B",max:"无上限",unlocked:"通胀型无上限，每年增发约50亿枚",inst:"无VC，社区模因币；Billy Markus/Jackson Palmer 创建，Elon Musk 站台；现货ETF（GDOG/DOJE/TDOG）已上市",note:"现货DOGE ETF上市带来机构资金；无上限通胀是长期风险"},
+{s:"PEPE",n:"Pepe",p:0.00000447,mc:1881083594,fdv:1881083594,circ:"420.69T",total:"420.69T",max:"420.69T",unlocked:"100%全流通（无通胀、无额外解锁）",inst:"匿名团队，无传统VC；Pepe 基金会（2025年成立）",note:"头部模因币，价格由情绪与ETH走势驱动；无实际效用，波动剧烈"},
+{s:"BONK",n:"Bonk",p:0.00000367,mc:322850332,fdv:322850332,circ:"87.99T",total:"87.99T",max:"87.99T",unlocked:"已基本全流通（历史多次销毁）",inst:"BONK DAO 社区驱动，2022年向Solana社区空投；无传统VC",note:"Solana生态头部模因币，与SOL强相关；高波动"},
+{s:"USELESS",n:"Useless Coin",p:0.2829,mc:282936416,fdv:282936416,circ:"约1B",total:"约1B",max:"1B",unlocked:"已全流通（流通≈总供应≈1B）",inst:"匿名/社区模因币，无公开VC；上线Bithumb韩元交易对",note:"Bithumb韩元上币引发反弹；零效用模因币，投机风险大"},
+{s:"PENGU",n:"Pudgy Penguins",p:0.0102,mc:640052277,fdv:781201009,circ:"62.86B",total:"76.72B",max:"88.89B",unlocked:"约71%已流通，剩余约29%锁仓/线性解锁",inst:"Igloo Inc.（CEO Luca Netz）；2023年约900万美元种子轮（1kx领投）",note:"Pudgy品牌与实体零售联动是独特护城河；持续解锁抛压"},
+{s:"CARDS",n:"Collector Crypt",p:0.1817,mc:172153979,fdv:359346102,circ:"947.2M",total:"1.98B",max:"2B",unlocked:"约47%已流通，剩余约53%锁仓/线性解锁",inst:"团队公开信息有限（Blockworks发布过投资者报告）",note:"交易卡收藏品平台，Q2 2026 GMV增长；高FDV与净收入不匹配存在估值争议"},
+{s:"READY",n:"Ready Cards",p:0.00294,mc:2938161,fdv:2938161,circ:"约1B",total:"约1B",max:"约1B",unlocked:"已基本全流通",inst:"未知",note:"极小市值新币（约290万美元），流动性低、公开数据稀缺，投机风险极高"},
+{s:"BEEZIE",n:"Beezie",inst:"创始人 Andrea Miele（CEO）；投资方 Psalion（约400万美元）",note:"暂无权威代币数据：2026年5月上线Solana代币化收藏品，代币据报8月上线；链上存在多个同名代币，未收录于CoinGecko/CMC，数值字段留空"},
+{s:"ONDO",n:"Ondo Finance",p:0.5462,mc:2659323975,fdv:5461374813,circ:"4.87B",total:"10B",max:"10B",unlocked:"约49%已解锁，剩余线性解锁（2026年有大额解锁）",inst:"Founders Fund、Pantera Capital、Coinbase Ventures、GoldenTree、Wintermute",note:"RWA龙头，机构采用升温，面临约7.37亿美元大额解锁压力"},
+{s:"LINK",n:"Chainlink",p:14.12,mc:10560946674,fdv:14117025921,circ:"748.1M",total:"1B",max:"1B",unlocked:"约75%已解锁（剩余为团队/生态储备）",inst:"Chainlink Labs（Sergey Nazarov）；Grayscale 等机构",note:"预言机绝对龙头，银行/资管机构采用（Swift、DTCC试点）为核心催化"},
+{s:"CFG",n:"Centrifuge",p:0.1571,mc:90317814,fdv:90938332,circ:"577M",total:"578.4M",max:"无上限",unlocked:"基本全流通（≈100%）",inst:"Coinbase Ventures、BlockTower Capital、Galaxy Digital、Blueyard Capital",note:"RWA借贷协议，已基本全流通；注意CFG已迁移EVM，旧合约标记[OLD]"},
+{s:"XLM",n:"Stellar",p:0.2193,mc:7669485455,fdv:10966139672,circ:"34.97B",total:"50B",max:"无上限",unlocked:"约70%流通，供应无硬顶",inst:"Stellar Development Foundation（SDF）；Franklin Templeton、Circle（USDC）",note:"支付/结算公链，RWA代币化（Franklin Templeton基金）为催化，供应无硬顶"},
+{s:"RENDER",n:"Render",p:1.93,mc:1001177855,fdv:1029663274,circ:"518.8M",total:"533.5M",max:"644.2M",unlocked:"约80%已解锁",inst:"母公司OTOY（Jules Urbach）；Multicoin、Alameda（已破产）参与代币融资",note:"AI+渲染DePIN龙头，AI算力需求为核心催化"},
+{s:"GRASS",n:"Grass",p:0.503,mc:340275644,fdv:502606064,circ:"677M",total:"1B",max:"1B",unlocked:"约68%已解锁，线性解锁中",inst:"Polychain Capital、Tribe Capital 领投（母公司 Wynd Network）",note:"AI数据/带宽DePIN，网络增长与解锁节奏是关键变量"},
+{s:"AKT",n:"Akash Network",p:0.7026,mc:209506006,fdv:209513585,circ:"298.2M",total:"298.2M",max:"388.5M",unlocked:"约77%已解锁，剩余通过通胀/奖励释放",inst:"Overclock Labs（Greg Osuri）；Grayscale纳入AI加密板块",note:"去中心化GPU云，AI算力叙事为核心催化"},
+{s:"PEAQ",n:"peaq",p:0.04057,mc:103040206,fdv:180430151,circ:"2.54B",total:"4.45B",max:"5.67B",unlocked:"约45%已解锁，线性解锁中",inst:"Generative Ventures、Borderless Capital 领投（pre-launch $15M）",note:"DePIN专用L1公链，生态落地与解锁节奏是关键"},
+{s:"QRL",n:"Quantum Resistant Ledger",p:0.6319,mc:49534845,fdv:49534845,circ:"78.4M",total:"78.4M",max:"105M",unlocked:"约75%已解锁",inst:"无大型VC；社区/基金会主导（2016年老项目）",note:"抗量子签名叙事，量子计算突破为潜在催化，流动性/生态采用度低"}
+];
+
+// 板块定义：items 中 cross=true 表示交叉归属（不重复计入板块市值）
+const SECTORS = [
+{name:"隐私赛道",desc:"屏蔽交易 / 原生隐私属性 / 加密盲计算",items:[
+  {s:"ZEC",role:"龙头"},{s:"XMR",role:"二线"},{s:"DASH",role:"二线"},{s:"NIL",role:"二线"},{s:"NEAR",role:"二线"}]},
+{name:"AI赛道",desc:"去中心化AI算力 / 智能体发行 / 隐私AI推理",items:[
+  {s:"TAO",role:"龙头"},{s:"VIRTUAL",role:"二线"},{s:"FET",role:"二线"},{s:"VVV",role:"二线"},{s:"KITE",role:"二线"}]},
+{name:"永续合约DEX",desc:"链上订单簿 / ZK rollup 永续 / 零手续费",items:[
+  {s:"HYPE",role:"龙头"},{s:"ASTER",role:"二线"},{s:"LIT",role:"二线"}]},
+{name:"BNB生态",desc:"BNB链 Gas 与流动性根基 + CZ 相关 Meme",items:[
+  {s:"BNB",role:"龙头"},{s:"MUBARAK",role:"二线"},{s:"BROCCOLI",role:"二线"},{s:"GIGGLE",role:"二线"}]},
+{name:"收益/回购销毁",desc:"手续费回购 / 营收回购 / 治理代币",items:[
+  {s:"HYPE",role:"龙头",cross:true},{s:"PUMP",role:"二线"},{s:"PENDLE",role:"二线"},{s:"ZRO",role:"二线"},
+  {s:"ENA",role:"二线"},{s:"CVX",role:"二线"},{s:"CRV",role:"二线"}]},
+{name:"老牌币",desc:"BTC分叉 / 数字白银 / 原始以太坊",items:[
+  {s:"BCH",role:"龙头"},{s:"LTC",role:"龙头"},{s:"ETC",role:"二线"}]},
+{name:"Move语言公链",desc:"高性能L1 / 质押ETF / 现实资产+保密交易",items:[
+  {s:"SUI",role:"龙头"},{s:"SEI",role:"二线"},{s:"APT",role:"二线"}]},
+{name:"Solana生态",desc:"顶级交易与用户生态 / 聚合器 / AMM / 借贷",items:[
+  {s:"SOL",role:"龙头"},{s:"JUP",role:"二线"},{s:"RAY",role:"二线"},{s:"KMNO",role:"二线"}]},
+{name:"Meme币/消费IP",desc:"初代Meme / 以太坊青蛙 / 消费IP",items:[
+  {s:"DOGE",role:"龙头"},{s:"PEPE",role:"二线"},{s:"BONK",role:"二线"},{s:"USELESS",role:"二线"},{s:"PENGU",role:"二线"}]},
+{name:"卡牌/代币化藏品",desc:"链上可赎回卡牌 / 盲盒 / 资产托管代币化",items:[
+  {s:"CARDS",role:"龙头"},{s:"READY",role:"二线"},{s:"BEEZIE",role:"二线"}]},
+{name:"现实资产代币化RWA",desc:"国债/股票代币化 / 预言机 / RWA信贷",items:[
+  {s:"ONDO",role:"龙头"},{s:"LINK",role:"二线"},{s:"CFG",role:"二线"},{s:"XLM",role:"二线"}]},
+{name:"DePIN/算力/数据",desc:"GPU渲染 / 带宽数据 / 去中心化云 / 机器经济L1",items:[
+  {s:"RENDER",role:"龙头"},{s:"GRASS",role:"二线"},{s:"AKT",role:"二线"},{s:"PEAQ",role:"二线"}]},
+{name:"抗量子赛道",desc:"后量子加密 / NIST 后量子签名",items:[
+  {s:"QRL",role:"龙头"},{s:"NEAR",role:"二线",cross:true}]}
+];
+
+// ===================== 工具 =====================
+const TM = {};
+TOKENS.forEach(t => TM[t.s] = t);
+
+function fmtUsd(n){
+  if(n==null||isNaN(n)) return "—";
+  if(n>=1e9) return "$"+(n/1e9).toFixed(2)+"B";
+  if(n>=1e6) return "$"+(n/1e6).toFixed(2)+"M";
+  if(n>=1e3) return "$"+(n/1e3).toFixed(2)+"K";
+  return "$"+n.toFixed(0);
+}
+function fmtPrice(n){
+  if(n==null||isNaN(n)) return "—";
+  if(n>=1000) return "$"+Math.round(n).toLocaleString("en-US");
+  if(n>=1) return "$"+n.toFixed(2);
+  if(n>=0.01) return "$"+n.toFixed(4);
+  return "$"+n.toFixed(8);
+}
+function riskTag(t){
+  if(!t.mc && t.s==="BEEZIE") return "无代币";
+  if(t.fdv && t.mc && t.fdv/t.mc>=2.5) return "高FDV·低流通";
+  if(t.unlocked && /解锁中|线性解锁|持续解锁|抛压/.test(t.unlocked)) return "解锁抛压";
+  return "";
+}
+function tier(t, role){
+  if(t.s==="BEEZIE") return {label:"无代币·观望",cls:"tier-watch"};
+  const meme = ["DOGE","PEPE","BONK","USELESS","PENGU","MUBARAK","BROCCOLI","GIGGLE","READY","CARDS"].includes(t.s);
+  const mc = t.mc||0;
+  if(meme) return {label:"投机·小仓位(≤1-2%)",cls:"tier-spec"};
+  if(role==="龙头" && mc>=5e9) return {label:"核心配置候选",cls:"tier-core"};
+  if(role==="龙头" && mc<5e9) return {label:"板块核心观察",cls:"tier-core2"};
+  if(role==="二线" && mc>=1e9) return {label:"卫星配置(波段)",cls:"tier-sat"};
+  if(role==="二线" && mc<1e9) return {label:"高弹性博弈·小仓位",cls:"tier-agg"};
+  return {label:"观望",cls:"tier-watch"};
+}
+function esc(s){return String(s==null?"":s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));}
+
+function sectorAgg(sec){
+  let sum=0;
+  sec.items.forEach(it=>{const t=TM[it.s]; if(!it.cross && t && t.mc) sum+=t.mc;});
+  return sum;
+}
+
+// ===================== 概览 =====================
+(function overview(){
+  const total = TOKENS.reduce((a,t)=>a+(t.mc||0),0);
+  const withTok = TOKENS.filter(t=>t.mc).length;
+  const sorted = [...SECTORS].sort((a,b)=>sectorAgg(b)-sectorAgg(a));
+  const top = sorted.slice(0,3).map(s=>s.name).join("、");
+  const html = `
+    <div class="stat"><div class="k">追踪标的</div><div class="v">${TOKENS.length} <small>个代币</small></div></div>
+    <div class="stat"><div class="k">叙事板块</div><div class="v">${SECTORS.length} <small>条主线</small></div></div>
+    <div class="stat"><div class="k">合计流通市值（快照）</div><div class="v">${fmtUsd(total)}</div></div>
+    <div class="stat"><div class="k">市值前三板块</div><div class="v" style="font-size:15px;line-height:1.5">${esc(top)}</div></div>`;
+  document.getElementById("stats").innerHTML = html;
+})();
+
+// ===================== 板块卡片 =====================
+let roleFilter = "all";
+function renderSectors(){
+  const q = document.getElementById("q").value.trim().toLowerCase();
+  const sorted = [...SECTORS].sort((a,b)=>sectorAgg(b)-sectorAgg(a));
+  const out = sorted.map((sec,idx)=>{
+    const leaders = sec.items.filter(i=>i.role==="龙头");
+    const seconds = sec.items.filter(i=>i.role==="二线");
+    const agg = sectorAgg(sec);
+    const rk = idx===0?"r1":(idx===1?"r2":(idx===2?"r3":""));
+    const secHtml = `
+      <div class="sector">
+        <div class="sec-head">
+          <div class="rank ${rk}">${idx+1}</div>
+          <div class="sec-title"><div class="nm">${esc(sec.name)}</div><div class="ds">${esc(sec.desc)}</div></div>
+          <div class="sec-mc"><div class="lbl">板块流通市值（去重）</div><div class="val">${fmtUsd(agg)}</div></div>
+        </div>
+        <div class="sec-body">
+          ${group(leaders,"龙头",sec)}${group(seconds,"二线",sec)}
+        </div>
+      </div>`;
+    return secHtml;
+  });
+  document.getElementById("sectors").innerHTML = out.join("");
+}
+function group(items,label,sec){
+  const q = document.getElementById("q").value.trim().toLowerCase();
+  let rows = items;
+  if(roleFilter!=="all"){
+    rows = rows.filter(i=> i.role===roleFilter);
+  }
+  rows = rows.filter(i=>{
+    const t=TM[i.s];
+    if(!q) return true;
+    return (t.s+" "+t.n+" "+sec.name+" "+(t.inst||"")).toLowerCase().includes(q);
+  });
+  if(!rows.length) return "";
+  const cards = rows.map(i=>{
+    const t=TM[i.s];
+    const rtag = riskTag(t);
+    let badge = i.role==="龙头"
+      ? `<span class="badge ld">龙头</span>`
+      : `<span class="badge el">二线</span>`;
+    if(i.cross) badge += `<span class="badge" style="background:rgba(167,139,250,.16);color:#c4b0ff">交叉</span>`;
+    const risk = rtag && rtag!=="无代币" ? `<span class="badge risk">${rtag}</span>` : "";
+    const inst = t.inst ? `<div class="inst"><b>操盘/投资方：</b>${esc(t.inst)}</div>` : "";
+    const note = t.note ? `<div class="note">${esc(t.note)}</div>` : "";
+    const metaBits = [];
+    if(t.circ) metaBits.push(`流通 <b>${esc(t.circ)}</b>`);
+    if(t.max) metaBits.push(`最大 <b>${esc(t.max)}</b>`);
+    if(t.unlocked) metaBits.push(`解锁 <b>${esc(t.unlocked)}</b>`);
+    return `<div class="tok ${i.role==="龙头"?"leader":""}">
+      <div class="top"><span class="sym">${esc(t.s)}</span><span class="nm">${esc(t.n)}</span>${badge}${risk}</div>
+      <div class="prices">
+        <div class="price"><div class="k">价格</div><div class="v">${fmtPrice(t.p)}</div></div>
+        <div class="price"><div class="k">流通市值</div><div class="v">${fmtUsd(t.mc)}</div></div>
+        ${t.fdv?`<div class="price"><div class="k">FDV</div><div class="v">${fmtUsd(t.fdv)}</div></div>`:""}
+      </div>
+      ${metaBits.length?`<div class="meta">${metaBits.join("　·　")}</div>`:""}
+      ${inst}${note}
+    </div>`;
+  }).join("");
+  const labCls = label==="龙头"?"tag leader":"tag second";
+  return `<div class="role-line"><span class="${labCls}">${label}</span></div><div class="tokgrid">${cards}</div>`;
+}
+
+// ===================== 明细表 =====================
+function renderTable(){
+  const q = document.getElementById("q").value.trim().toLowerCase();
+  const sectOf = {};
+  SECTORS.forEach(s=>s.items.forEach(it=>{ if(!it.cross) sectOf[it.s]=s.name; }));
+  const roleOf = {};
+  SECTORS.forEach(s=>s.items.forEach(it=>{ if(!it.cross) roleOf[it.s]=it.role; }));
+  const rows = TOKENS.map(t=>{
+    const role = roleOf[t.s]||"—";
+    if(roleFilter!=="all" && role!==roleFilter) return null;
+    if(q && !(t.s+" "+t.n+" "+(sectOf[t.s]||"")+" "+(t.inst||"")).toLowerCase().includes(q)) return null;
+    return `<tr>
+      <td class="sym">${esc(t.s)}<div class="sub">${esc(t.n)}</div></td>
+      <td>${esc(sectOf[t.s]||"—")}</td>
+      <td>${role==="龙头"?'<span class="badge ld">龙头</span>':'<span class="badge el">二线</span>'}</td>
+      <td class="num">${fmtPrice(t.p)}</td>
+      <td class="num">${fmtUsd(t.mc)}</td>
+      <td class="num">${fmtUsd(t.fdv)}</td>
+      <td>${esc(t.circ||"—")}</td>
+      <td>${esc(t.max||"—")}</td>
+      <td>${esc(t.unlocked||"—")}</td>
+      <td>${esc(t.inst||"—")}</td>
+      <td>${esc(t.note||"—")}</td>
+    </tr>`;
+  }).filter(Boolean);
+  document.querySelector("#mtable tbody").innerHTML = rows.join("") || `<tr><td colspan="11" style="text-align:center;color:var(--faint);padding:20px">无匹配结果</td></tr>`;
+}
+
+// ===================== 持有建议 =====================
+function renderAdvice(){
+  const roleOf = {};
+  SECTORS.forEach(s=>s.items.forEach(it=>{ if(!it.cross) roleOf[it.s]=it.role; }));
+  const groups = {
+    "核心配置候选":{cls:"tier-core",desc:"大市值龙头，胜率与流动性优先，可作为板块底仓长期持有。",list:[]},
+    "板块核心观察":{cls:"tier-core2",desc:"中小市值龙头，叙事尚未完全兑现，小仓位分批建仓。",list:[]},
+    "卫星配置(波段)":{cls:"tier-sat",desc:"二线中市值标的，弹性大、事件驱动，波段操作、快进快出。",list:[]},
+    "高弹性博弈·小仓位":{cls:"tier-agg",desc:"二线小市值，高赔率高风险，严格控仓、严设止损。",list:[]},
+    "投机·小仓位(≤1-2%)":{cls:"tier-spec",desc:"meme/卡牌/新币，情绪驱动、无基本面，仅限极小投机仓。",list:[]},
+    "无代币·观望":{cls:"tier-watch",desc:"暂无权威代币或数据，等待上市/核实后再评估。",list:[]}
+  };
+  TOKENS.forEach(t=>{
+    const role = roleOf[t.s]||"二线";
+    const tk = tier(t, role);
+    const g = groups[tk.label] || groups["观望"];
+    if(g) g.list.push(t);
+  });
+  const order = ["核心配置候选","板块核心观察","卫星配置(波段)","高弹性博弈·小仓位","投机·小仓位(≤1-2%)","无代币·观望"];
+  const html = order.map(label=>{
+    const g = groups[label];
+    const names = g.list.map(t=>`${t.s}`).join(" · ");
+    return `<div class="card">
+      <h3><span class="tier ${g.cls}">${label}</span></h3>
+      <p>${g.desc}</p>
+      <ul><li><span style="color:var(--dim)">标的：</span><span style="color:var(--txt)">${esc(names||"—")}</span></li></ul>
+    </div>`;
+  }).join("");
+  document.getElementById("advice").innerHTML = html;
+}
+
+// ===================== 交互 =====================
+document.getElementById("q").addEventListener("input",()=>{renderSectors();renderTable();});
+document.querySelectorAll(".pill").forEach(p=>{
+  p.addEventListener("click",()=>{
+    document.querySelectorAll(".pill").forEach(x=>x.classList.remove("active"));
+    p.classList.add("active");
+    roleFilter = p.dataset.role;
+    renderSectors(); renderTable();
+  });
+});
+
+renderSectors(); renderTable(); renderAdvice();
+</script>
+</body>
+</html>
