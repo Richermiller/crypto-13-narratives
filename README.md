@@ -12,17 +12,17 @@
 
 ## 自动更新机制
 
-本仓库通过 **GitHub Actions 定时任务** 每 6 小时自动拉取一次最新行情并重建页面，全程在 GitHub 的服务器上运行，**不占用任何 AI / 模型额度**，也不需要你手动干预。
+本仓库通过 **GitHub Actions 定时任务** 每小时自动拉取一次最新行情并重建页面，全程在 GitHub 的服务器上运行，**不占用任何 AI / 模型额度**，也不需要你手动干预。
 
 | 项目 | 说明 |
 |---|---|
-| 更新频率 | 每 6 小时一次（每天 4 次） |
-| 触发时间 | 北京时间 00:00 / 06:00 / 12:00 / 18:00 |
+| 更新频率 | 每 1 小时一次（每天 24 次） |
+| 触发时间 | 每小时整点（UTC 分钟 0，北京时间每小时 0 分） |
 | 运行位置 | GitHub Actions（免费） |
 | 更新内容 | 价格、市值、FDV、流通量、总供应、最大供应、解锁比例、日线振幅拐点、更新时间戳 |
 
 ### 手动立即刷新
-进入仓库 → **Actions** → 左侧选「每6小时自动更新行情」→ **Run workflow** → 绿色按钮 Run workflow。
+进入仓库 → **Actions** → 左侧选「每小时自动更新行情」→ **Run workflow** → 绿色按钮 Run workflow。
 
 ### 修改更新频率 / 时区
 编辑 `.github/workflows/update.yml` 里的 `cron` 一行即可（UTC 时间）。例如改成每 3 小时：`0 */3 * * *`。
@@ -31,7 +31,7 @@
 `build.js`、`amp.js` 是纯 Node 脚本（仅依赖 `node` + 联网），把它们和 `data.json`、`template.html` 一起放到任意 Linux 服务器，再加一条 crontab 即可：
 
 ```cron
-0 0,6,12,18 * * *  cd /path/to/repo && /usr/bin/node amp.js && /usr/bin/node build.js && git add -A && git commit -m "auto update" && git push
+0 * * * *  cd /path/to/repo && /usr/bin/node amp.js && /usr/bin/node build.js && git add -A && git commit -m "auto update" && git push
 ```
 
 ## 目录结构

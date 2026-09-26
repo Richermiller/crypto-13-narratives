@@ -1,10 +1,10 @@
-name: 每6小时自动更新行情
+name: 每小时自动更新行情
 
 on:
   schedule:
-    # 北京时间 00:00 / 06:00 / 12:00 / 18:00  ←→  UTC 16:00 / 22:00 / 04:00 / 10:00
+    # 每小时整点运行一次（UTC 分钟 0，每天 24 次）
     # GitHub Actions 的 cron 采用 UTC；如需改成其它时区，只改下面这一行即可
-    - cron: '0 16,22,4,10 * * *'
+    - cron: '0 * * * *'
   workflow_dispatch: {}   # 允许在仓库页手动点「Run workflow」随时立即刷新
 
 permissions:
