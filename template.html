@@ -124,9 +124,17 @@
   .amp-turn.risk{color:#fca5a5}
   th.spark{width:130px}
   /* table */
-  .table-wrap{background:var(--card);border:1px solid var(--line);border-radius:16px;overflow:auto;margin-top:8px}
+  .table-wrap{background:var(--card);border:1px solid var(--line);border-radius:16px;overflow:auto;margin-top:8px;
+    scrollbar-width:thin;scrollbar-color:#33465f var(--bg2)}
+  .table-wrap::-webkit-scrollbar{width:10px;height:10px}
+  .table-wrap::-webkit-scrollbar-track{background:var(--bg2);border-radius:8px}
+  .table-wrap::-webkit-scrollbar-thumb{background:#33465f;border-radius:8px;border:2px solid var(--bg2)}
+  .table-wrap::-webkit-scrollbar-thumb:hover{background:#3f5876}
+  .table-wrap::-webkit-scrollbar-corner{background:var(--bg2)}
   .table-wrap.scroll15{max-height:76vh;overflow-y:auto}
   table{width:100%;border-collapse:collapse;font-size:13px;min-width:1080px}
+  #mtable{min-width:1500px}
+  #mtable td{max-width:280px}
   thead th{position:sticky;top:0;z-index:2;background:var(--card2);color:var(--dim);font-weight:700;text-align:left;
     padding:11px 12px;border-bottom:1px solid var(--line);white-space:nowrap;font-size:12px}
   tbody td{padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top}
@@ -211,7 +219,7 @@
     <span class="lg op-swing">波段</span><span class="lg op-watch">观望</span><span class="lg op-avoid">规避/减仓</span>
     <span class="lg-note">「长期」=长期持有星级（5★最高）；「潜力」=是否潜力股；买卖点为 USD 技术参考位，非保证、非投资建议。</span>
   </div>
-  <div class="table-wrap"><table id="opmtable">
+  <div class="table-wrap scroll15"><table id="opmtable">
     <thead><tr>
       <th>代币</th><th>操作建议</th><th>买入参考</th><th>卖出/减仓参考</th><th>长期持有</th><th>潜力</th><th>发展未来 / 判断</th>
     </tr></thead>
