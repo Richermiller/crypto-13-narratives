@@ -24,8 +24,8 @@ const sleep = ms => new Promise(r => setTimeout(r, ms));
 
 async function fetchExchangeDaily(sym) {
   const bases = [
-    ['binance', 'https://api.binance.com/api/v3/klines?symbol={S}USDT&interval=1d&limit=90'],
-    ['mexc', 'https://api.mexc.com/api/v3/klines?symbol={S}USDT&interval=1d&limit=90']
+    ['mexc', 'https://api.mexc.com/api/v3/klines?symbol={S}USDT&interval=1d&limit=90'],
+    ['binance', 'https://api.binance.com/api/v3/klines?symbol={S}USDT&interval=1d&limit=90']
   ];
   for (const [name, b] of bases) {
     for (let a = 0; a < 2; a++) {
