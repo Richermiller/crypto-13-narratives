@@ -65,6 +65,16 @@
   .sec-mc{text-align:right}
   .sec-mc .lbl{color:var(--faint);font-size:11px}
   .sec-mc .val{font-size:20px;font-weight:800;color:var(--gold2)}
+  .sec-head{cursor:pointer;user-select:none}
+  .toggle{width:22px;height:22px;flex:none;display:inline-flex;align-items:center;justify-content:center;
+    border-radius:6px;background:var(--bg2);border:1px solid var(--line);color:var(--dim);font-size:11px;transition:.15s}
+  .toggle::before{content:"▶"}
+  .sector:not(.collapsed) .toggle::before{content:"▼";color:var(--gold)}
+  .sec-count{color:var(--faint);font-size:12px;flex:none;padding:2px 9px;border-radius:999px;
+    background:var(--bg2);border:1px solid var(--line)}
+  .sector.collapsed .sec-body{display:none}
+  .expandall{margin-left:auto;font-size:12px;color:var(--blue);cursor:pointer;user-select:none;font-weight:600}
+  .expandall:hover{color:var(--gold2)}
   .sec-body{padding:14px 16px 16px}
   .role-line{margin:10px 0 4px;font-size:13px;color:var(--dim);font-weight:600}
   .role-line .tag{display:inline-block;padding:1px 8px;border-radius:6px;font-size:11px;margin-right:6px;font-weight:700}
@@ -173,8 +183,8 @@
     <span class="pill" data-role="二线">二线</span>
   </div>
 
-  <h2 class="sec"><span class="bar"></span>板块市值排名（降序）</h2>
-  <div class="hint">每个代币仅在其主属板块计入一次市值，避免 NEAR（隐私/抗量子）、HYPE（永续/回购）、LINK（RWA/基础设施）、XLM（RWA/支付）重复计算；“交叉”标记表示该标的亦归属另一板块。</div>
+  <h2 class="sec"><span class="bar"></span>板块市值排名（降序）<span class="expandall" id="expandall">展开全部</span></h2>
+  <div class="hint">点击板块标题可折叠/展开该板块的代币；每个代币仅在其主属板块计入一次市值，避免 NEAR（隐私/抗量子）、HYPE（永续/回购）、LINK（RWA/基础设施）、XLM（RWA/支付）重复计算；“交叉”标记表示该标的亦归属另一板块。</div>
   <div id="sectors"></div>
 
   <h2 class="sec"><span class="bar"></span>全量标的明细表（点击表头升降序 · 每屏15行可滚动）</h2>
@@ -338,10 +348,12 @@ function renderSectors(){
     const agg = sectorAgg(sec);
     const rk = idx===0?"r1":(idx===1?"r2":(idx===2?"r3":""));
     const secHtml = `
-      <div class="sector">
+      <div class="sector collapsed">
         <div class="sec-head">
           <div class="rank ${rk}">${idx+1}</div>
+          <span class="toggle"></span>
           <div class="sec-title"><div class="nm">${esc(sec.name)}</div><div class="ds">${esc(sec.desc)}</div></div>
+          <span class="sec-count">${sec.items.length} 币</span>
           <div class="sec-mc"><div class="lbl">板块流通市值（去重）</div><div class="val">${fmtUsd(agg)}</div></div>
         </div>
         <div class="sec-body">
@@ -582,7 +594,15 @@ function renderAmp(){
 
 // ===================== 交互 =====================
 const qInput = document.getElementById("q");
-function applySearch(){ renderSectors(); renderTable(); }
+function applySearch(){
+  renderSectors();
+  renderTable();
+  if(qInput.value.trim()){
+    document.querySelectorAll("#sectors .sector").forEach(s=>s.classList.remove("collapsed"));
+    allExpanded = true;
+    document.getElementById("expandall").textContent = "收起全部";
+  }
+}
 qInput.addEventListener("keydown",e=>{ if(e.key==="Enter") applySearch(); });
 document.getElementById("searchbtn").addEventListener("click", applySearch);
 document.querySelectorAll(".pill").forEach(p=>{
@@ -602,6 +622,18 @@ document.querySelectorAll("#mtable th[data-key]").forEach(th=>{
     else { sortKey = key; sortDir = numeric ? -1 : 1; }
     renderTable();
   });
+});
+// 板块折叠/展开
+document.getElementById("sectors").addEventListener("click",e=>{
+  const head = e.target.closest(".sec-head");
+  if(!head) return;
+  head.closest(".sector").classList.toggle("collapsed");
+});
+let allExpanded = false;
+document.getElementById("expandall").addEventListener("click",()=>{
+  allExpanded = !allExpanded;
+  document.querySelectorAll("#sectors .sector").forEach(s=>s.classList.toggle("collapsed", !allExpanded));
+  document.getElementById("expandall").textContent = allExpanded ? "收起全部" : "展开全部";
 });
 
 renderSectors(); renderTable(); renderAdvice(); renderOpTable(); renderAmp();
