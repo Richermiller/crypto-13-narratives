@@ -221,7 +221,13 @@
   </div>
   <div class="table-wrap scroll15"><table id="opmtable">
     <thead><tr>
-      <th>代币</th><th>操作建议</th><th>买入参考</th><th>卖出/减仓参考</th><th>长期持有</th><th>潜力</th><th>发展未来 / 判断</th>
+      <th data-key="s" data-type="str">代币</th>
+      <th data-key="op" data-type="str">操作建议</th>
+      <th data-key="buy" data-type="str">买入参考</th>
+      <th data-key="sell" data-type="str">卖出/减仓参考</th>
+      <th data-key="h" data-type="num">长期持有</th>
+      <th data-key="pot" data-type="str">潜力</th>
+      <th data-key="fut" data-type="str">发展未来 / 判断</th>
     </tr></thead>
     <tbody></tbody>
   </table></div>
@@ -231,9 +237,16 @@
     <span class="lg st-compress">压缩蓄势</span><span class="lg st-spike">波动脉冲</span><span class="lg st-normal">常态</span>
     <span class="lg-note">日振幅 =（最高-最低）/前收盘；比值 = 当日振幅 ÷ 20日均振幅。比值≤0.6=压缩（波动收窄，关注变盘）；≥2.0=脉冲（情绪放大，警惕见顶）。黄点=最近振幅拐点。数据源：Binance/MEXC/CoinGecko 日线。此表按「拐点优先」排序：压缩蓄势在前。</span>
   </div>
-  <div class="table-wrap"><table id="amptable">
+  <div class="table-wrap scroll15"><table id="amptable">
     <thead><tr>
-      <th>代币</th><th class="num">今日振幅</th><th class="num">20日均振幅</th><th class="num">比值</th><th>状态</th><th>拐点提示</th><th>最近拐点</th><th class="spark">振幅走势(60日)</th>
+      <th data-key="s" data-type="str">代币</th>
+      <th data-key="ampPct" data-type="num" class="num">今日振幅</th>
+      <th data-key="ma20Pct" data-type="num" class="num">20日均振幅</th>
+      <th data-key="ratio" data-type="num" class="num">比值</th>
+      <th data-key="state" data-type="str">状态</th>
+      <th data-key="signal" data-type="str">拐点提示</th>
+      <th data-key="lastTurn" data-type="str">最近拐点</th>
+      <th class="spark">振幅走势(60日)</th>
     </tr></thead>
     <tbody></tbody>
   </table></div>
@@ -531,15 +544,35 @@ function advCard(t){
     <div class="adv-row future">${esc(a.fut)}</div>
   </div>`;
 }
+let opSortKey = "h", opSortDir = -1; // 默认按长期持有星级降序
 function renderOpTable(){
   const potRank = {高:3,中:2,低:1};
-  const rows = TOKENS.slice().sort((x,y)=>{
-    const A=ADVICE[x.s], B=ADVICE[y.s];
-    if((B?B.h:0)!==(A?A.h:0)) return (B?B.h:0)-(A?A.h:0);
-    if((B?potRank[B.pot]:0)!==(A?potRank[A.pot]:0)) return (B?potRank[B.pot]:0)-(A?potRank[A.pot]:0);
-    return (y.mc||0)-(x.mc||0);
-  }).map(t=>{
-    const a=ADVICE[t.s]; if(!a) return null;
+  const opRank = {"核心持有":0,"分批建仓":1,"分批建仓·小仓":2,"持有":3,"持有·回踩加":4,"持有·忌追高":5,"波段":6,"波段·配置":7,"波段·谨慎":8,"极小仓投机":9,"观望":10,"观望·小仓":11,"观望·极小仓":12,"规避":13,"规避·极小仓":14};
+  const list = TOKENS.slice().filter(t=>ADVICE[t.s]).map(t=>({t, a:ADVICE[t.s]}));
+  function v(item,key){
+    const a=item.a;
+    if(key==="s") return item.t.s;
+    if(key==="op") return opRank[a.op] ?? 99;
+    if(key==="buy") return a.buy;
+    if(key==="sell") return a.sell;
+    if(key==="h") return a.h;
+    if(key==="pot") return potRank[a.pot] ?? 0;
+    if(key==="fut") return a.fut;
+    return "";
+  }
+  const numeric = ["h","op","pot"].includes(opSortKey);
+  list.sort((x,y)=>{
+    const xv=v(x,opSortKey), yv=v(y,opSortKey);
+    let c;
+    if(numeric) c = (Number(xv)-Number(yv))*opSortDir;
+    else c = String(xv).localeCompare(String(yv))*opSortDir;
+    if(c!==0) return c;
+    // 兜底：星级降序 → 潜力降序 → 市值降序
+    if((y.a.h)!==(x.a.h)) return (y.a.h)-(x.a.h);
+    if((potRank[y.a.pot]||0)!==(potRank[x.a.pot]||0)) return (potRank[y.a.pot]||0)-(potRank[x.a.pot]||0);
+    return (y.t.mc||0)-(x.t.mc||0);
+  });
+  const rows = list.map(({t,a})=>{
     return `<tr>
       <td class="sym">${esc(t.s)}<div class="sub">${esc(t.n)}</div></td>
       <td><span class="op-badge ${opClass(a.op)}">${esc(a.op)}</span></td>
@@ -549,8 +582,12 @@ function renderOpTable(){
       <td><span class="pot ${potCls(a.pot)}">${esc(a.pot)}</span></td>
       <td>${esc(a.fut)}</td>
     </tr>`;
-  }).filter(Boolean);
+  });
   document.querySelector("#opmtable tbody").innerHTML = rows.join("");
+  document.querySelectorAll("#opmtable th[data-key]").forEach(th=>{
+    th.classList.remove("sorted-asc","sorted-desc");
+    if(th.dataset.key===opSortKey) th.classList.add(opSortDir>0?"sorted-asc":"sorted-desc");
+  });
 }
 
 // ===================== 日线振幅拐点 =====================
@@ -572,17 +609,41 @@ function sparkline(series, turnIdx){
   }
   return '<svg width="'+w+'" height="'+h+'" viewBox="0 0 '+w+' '+h+'" preserveAspectRatio="none" style="vertical-align:middle"><polyline points="'+poly+'" fill="none" stroke="#5aa7ff" stroke-width="1.3"/>'+dot+'</svg>';
 }
+let ampSortKey = null, ampSortDir = 1; // null=默认「拐点优先」
 function renderAmp(){
   const coins = AMP.coins || {};
   const mcOf = {}; TOKENS.forEach(t=>mcOf[t.s]=t.mc||0);
   const entries = Object.keys(coins).map(s=>({s, a:coins[s]}));
-  entries.sort((x,y)=>{
-    const ox=ampStateOrder(x.a.state), oy=ampStateOrder(y.a.state);
-    if(ox!==oy) return ox-oy;
-    if(x.a.state==="压缩") return x.a.ratio - y.a.ratio;
-    if(x.a.state==="脉冲") return y.a.ratio - x.a.ratio;
-    return (mcOf[y.s]||0)-(mcOf[x.s]||0);
-  });
+  const stateRank = {"压缩":0,"脉冲":1,"常态":2};
+  if(ampSortKey){
+    entries.sort((x,y)=>{
+      const key=ampSortKey;
+      let c;
+      if(key==="s") c = String(x.s).localeCompare(String(y.s))*ampSortDir;
+      else if(key==="state") c = ((stateRank[x.a.state]??9)-(stateRank[y.a.state]??9))*ampSortDir;
+      else if(key==="signal") c = String(x.a.signal||"").localeCompare(String(y.a.signal||""))*ampSortDir;
+      else if(key==="lastTurn") c = String((x.a.lastTurn&&x.a.lastTurn.date)||"").localeCompare(String((y.a.lastTurn&&y.a.lastTurn.date)||""))*ampSortDir;
+      else { // ampPct / ma20Pct / ratio（数值）
+        const xn=parseFloat(x.a[key]), yn=parseFloat(y.a[key]);
+        const xv=(xn==null||isNaN(xn))? -Infinity : xn;
+        const yv=(yn==null||isNaN(yn))? -Infinity : yn;
+        if(xv===-Infinity && yv===-Infinity) c=0;
+        else if(xv===-Infinity) c=1;
+        else if(yv===-Infinity) c=-1;
+        else c=(xv-yv)*ampSortDir;
+      }
+      return c;
+    });
+  } else {
+    // 默认：拐点优先（压缩在前）
+    entries.sort((x,y)=>{
+      const ox=ampStateOrder(x.a.state), oy=ampStateOrder(y.a.state);
+      if(ox!==oy) return ox-oy;
+      if(x.a.state==="压缩") return x.a.ratio - y.a.ratio;
+      if(x.a.state==="脉冲") return y.a.ratio - x.a.ratio;
+      return (mcOf[y.s]||0)-(mcOf[x.s]||0);
+    });
+  }
   const rows = entries.map(({s,a})=>{
     const t = TM[s];
     const stCls = a.state==="压缩"?"st-compress":(a.state==="脉冲"?"st-spike":"st-normal");
@@ -594,6 +655,10 @@ function renderAmp(){
       '<td>'+esc(a.signal)+'</td><td>'+turn+'</td><td class="spark">'+sparkline(a.series, a.turnIdx)+'</td></tr>';
   }).join("");
   document.querySelector("#amptable tbody").innerHTML = rows || '<tr><td colspan="8" style="text-align:center;color:var(--faint);padding:20px">振幅数据待生成</td></tr>';
+  document.querySelectorAll("#amptable th[data-key]").forEach(th=>{
+    th.classList.remove("sorted-asc","sorted-desc");
+    if(ampSortKey && th.dataset.key===ampSortKey) th.classList.add(ampSortDir>0?"sorted-asc":"sorted-desc");
+  });
 }
 
 // ===================== 交互 =====================
@@ -625,6 +690,23 @@ document.querySelectorAll("#mtable th[data-key]").forEach(th=>{
     if(sortKey===key){ sortDir *= -1; }
     else { sortKey = key; sortDir = numeric ? -1 : 1; }
     renderTable();
+  });
+});
+document.querySelectorAll("#opmtable th[data-key]").forEach(th=>{
+  th.addEventListener("click",()=>{
+    const key = th.dataset.key;
+    if(opSortKey===key){ opSortDir *= -1; }
+    else { opSortKey = key; opSortDir = (key==="h"||key==="pot") ? -1 : 1; }
+    renderOpTable();
+  });
+});
+document.querySelectorAll("#amptable th[data-key]").forEach(th=>{
+  th.addEventListener("click",()=>{
+    const key = th.dataset.key;
+    const numeric = ["ampPct","ma20Pct","ratio"].includes(key);
+    if(ampSortKey===key){ ampSortDir *= -1; }
+    else { ampSortKey = key; ampSortDir = numeric ? -1 : 1; }
+    renderAmp();
   });
 });
 // 板块折叠/展开
