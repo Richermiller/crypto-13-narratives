@@ -1,53 +1,438 @@
 {
-  "updatedAt": "2026-09-27T13:28:21.183Z",
-  "coins": {},
-  "mkt": {
-    "fgi": 70,
-    "fgi_label": "Greed",
-    "stable": 258980743746
-  },
-  "futures": {
-    "BTC": {
-      "funding": null,
-      "oi": null,
-      "price": null,
-      "chg24h": null,
-      "vol24h": null
+  "updatedAt": "2026-09-27T13:37:06.145Z",
+  "source": "cryptoetf.today",
+  "coins": {
+    "LINK": {
+      "date": "2026-09-25",
+      "daily": 1.2,
+      "cum": 162.5,
+      "aum": 0.23,
+      "ytd": 103.3,
+      "count": 2,
+      "funds": [
+        {
+          "ticker": "GLNK",
+          "name": "Grayscale Chainlink Trust ETF",
+          "cum": 120.1
+        },
+        {
+          "ticker": "CLNK",
+          "name": "Bitwise Chainlink ETF",
+          "cum": 16.4
+        }
+      ]
     },
-    "ETH": {
-      "funding": null,
-      "oi": null,
-      "price": null,
-      "chg24h": null,
-      "vol24h": null
+    "HBAR": {
+      "date": "2026-09-25",
+      "daily": 2,
+      "cum": 111.6,
+      "aum": 0.07,
+      "ytd": 27.8,
+      "count": 1,
+      "funds": [
+        {
+          "ticker": "HBR",
+          "name": "Canary HBAR ETF",
+          "cum": 111.6
+        }
+      ]
     },
-    "SOL": {
-      "funding": null,
-      "oi": null,
-      "price": null,
-      "chg24h": null,
-      "vol24h": null
-    },
-    "XRP": {
-      "funding": null,
-      "oi": null,
-      "price": null,
-      "chg24h": null,
-      "vol24h": null
+    "AVAX": {
+      "date": "2026-09-25",
+      "daily": 0,
+      "cum": 34.6,
+      "aum": 0.06,
+      "ytd": 34.6,
+      "count": 3,
+      "funds": [
+        {
+          "ticker": "BAVA",
+          "name": "Bitwise Avalanche ETF",
+          "cum": 22
+        },
+        {
+          "ticker": "VAVX",
+          "name": "VanEck Avalanche ETF",
+          "cum": 2.5
+        },
+        {
+          "ticker": "GAVA",
+          "name": "Grayscale Avalanche Trust ETF",
+          "cum": 1.2
+        }
+      ]
     },
     "DOGE": {
-      "funding": null,
-      "oi": null,
-      "price": null,
-      "chg24h": null,
-      "vol24h": null
+      "date": "2026-09-25",
+      "daily": 0.8,
+      "cum": 15.3,
+      "aum": 0.02,
+      "ytd": 13,
+      "count": 3,
+      "funds": [
+        {
+          "ticker": "GDOG",
+          "name": "Grayscale Dogecoin Trust ETF",
+          "cum": 15.5
+        },
+        {
+          "ticker": "TDOG",
+          "name": "21Shares Dogecoin ETF",
+          "cum": -1.2
+        },
+        {
+          "ticker": "BWOW",
+          "name": "Bitwise Dogecoin ETF",
+          "cum": 0.1
+        }
+      ]
+    },
+    "SUI": {
+      "date": "2026-09-25",
+      "daily": 0,
+      "cum": 14.5,
+      "aum": 0.1,
+      "ytd": 14.5,
+      "count": 3,
+      "funds": [
+        {
+          "ticker": "GSUI",
+          "name": "Grayscale Sui Trust ETF",
+          "cum": 10.1
+        },
+        {
+          "ticker": "TSUI",
+          "name": "21Shares SUI ETF",
+          "cum": 4.4
+        }
+      ]
     },
     "LTC": {
-      "funding": null,
-      "oi": null,
-      "price": null,
-      "chg24h": null,
-      "vol24h": null
+      "date": "2026-09-25",
+      "daily": 1,
+      "cum": 13.5,
+      "aum": 0.01,
+      "ytd": 5.9,
+      "count": 1,
+      "funds": [
+        {
+          "ticker": "LTCC",
+          "name": "Canary Litecoin ETF",
+          "cum": 13.5
+        }
+      ]
+    },
+    "DOT": {
+      "date": "2026-09-25",
+      "daily": 0,
+      "cum": 2.7,
+      "aum": 0.01,
+      "ytd": 2.7,
+      "count": 1,
+      "funds": [
+        {
+          "ticker": "TDOT",
+          "name": "21Shares Polkadot ETF",
+          "cum": 2.7
+        }
+      ]
+    },
+    "BNB": {
+      "date": "2026-09-25",
+      "daily": 0,
+      "cum": 1.1,
+      "aum": 0,
+      "ytd": 1.1,
+      "count": 1,
+      "funds": [
+        {
+          "ticker": "VBNB",
+          "name": "VanEck BNB ETF",
+          "cum": 1.1
+        }
+      ]
+    },
+    "BTC": {
+      "date": "2026-09-25",
+      "daily": 134.5,
+      "cum": 57615.4,
+      "aum": 57.62,
+      "ytd": 1021.2,
+      "count": 12,
+      "funds": [
+        {
+          "ticker": "blackrock",
+          "name": "blackrock",
+          "cum": 65282
+        },
+        {
+          "ticker": "grayscale",
+          "name": "grayscale",
+          "cum": -27841.4
+        },
+        {
+          "ticker": "fidelity",
+          "name": "fidelity",
+          "cum": 11073
+        },
+        {
+          "ticker": "grayscaleBtc",
+          "name": "grayscaleBtc",
+          "cum": 2932
+        },
+        {
+          "ticker": "bitwise",
+          "name": "bitwise",
+          "cum": 2126.3
+        },
+        {
+          "ticker": "twentyOneShares",
+          "name": "twentyOneShares",
+          "cum": 1380.6
+        },
+        {
+          "ticker": "vanEck",
+          "name": "vanEck",
+          "cum": 1013.1
+        },
+        {
+          "ticker": "morganStanley",
+          "name": "morganStanley",
+          "cum": 775.7
+        },
+        {
+          "ticker": "valkyrie",
+          "name": "valkyrie",
+          "cum": 329.2
+        },
+        {
+          "ticker": "franklin",
+          "name": "franklin",
+          "cum": 323.4
+        },
+        {
+          "ticker": "invesco",
+          "name": "invesco",
+          "cum": 143.8
+        },
+        {
+          "ticker": "wisdomTree",
+          "name": "wisdomTree",
+          "cum": 77.9
+        }
+      ]
+    },
+    "ETH": {
+      "date": "2026-09-25",
+      "daily": 87,
+      "cum": 13969.1,
+      "aum": 13.97,
+      "ytd": 1621.9,
+      "count": 10,
+      "funds": [
+        {
+          "ticker": "blackrock",
+          "name": "blackrock",
+          "cum": 13283
+        },
+        {
+          "ticker": "grayscale",
+          "name": "grayscale",
+          "cum": -5412.6
+        },
+        {
+          "ticker": "fidelity",
+          "name": "fidelity",
+          "cum": 2435
+        },
+        {
+          "ticker": "grayscaleCrypto",
+          "name": "grayscaleCrypto",
+          "cum": 2036.2
+        },
+        {
+          "ticker": "blackrock2",
+          "name": "blackrock2",
+          "cum": 885.3
+        },
+        {
+          "ticker": "bitwise",
+          "name": "bitwise",
+          "cum": 398.5
+        },
+        {
+          "ticker": "vanEck",
+          "name": "vanEck",
+          "cum": 163.9
+        },
+        {
+          "ticker": "franklin",
+          "name": "franklin",
+          "cum": 70.8
+        },
+        {
+          "ticker": "twentyOneShares",
+          "name": "twentyOneShares",
+          "cum": 41.8
+        },
+        {
+          "ticker": "morganStanley",
+          "name": "morganStanley",
+          "cum": 40.7
+        },
+        {
+          "ticker": "invesco",
+          "name": "invesco",
+          "cum": 26.5
+        }
+      ]
+    },
+    "SOL": {
+      "date": "2026-09-25",
+      "daily": 86.7,
+      "cum": 1560.6,
+      "aum": 1.56,
+      "ytd": 796.8,
+      "count": 6,
+      "funds": [
+        {
+          "ticker": "bitwise",
+          "name": "bitwise",
+          "cum": 1218.7
+        },
+        {
+          "ticker": "fidelity",
+          "name": "fidelity",
+          "cum": 229.8
+        },
+        {
+          "ticker": "grayscale",
+          "name": "grayscale",
+          "cum": 164.2
+        },
+        {
+          "ticker": "vanEck",
+          "name": "vanEck",
+          "cum": 27.9
+        },
+        {
+          "ticker": "morganStanley",
+          "name": "morganStanley",
+          "cum": 10.1
+        },
+        {
+          "ticker": "franklin",
+          "name": "franklin",
+          "cum": 7.3
+        }
+      ]
+    },
+    "XRP": {
+      "date": "2026-09-25",
+      "daily": 21.2,
+      "cum": 1626.8,
+      "aum": 1.63,
+      "ytd": 578.3,
+      "count": 5,
+      "funds": [
+        {
+          "ticker": "bitwise",
+          "name": "bitwise",
+          "cum": 595.5
+        },
+        {
+          "ticker": "canary",
+          "name": "canary",
+          "cum": 458.9
+        },
+        {
+          "ticker": "franklin",
+          "name": "franklin",
+          "cum": 452.9
+        },
+        {
+          "ticker": "grayscale",
+          "name": "grayscale",
+          "cum": 131.9
+        }
+      ]
+    },
+    "HYPE": {
+      "date": "2026-09-25",
+      "daily": 3.2,
+      "cum": 348.5,
+      "aum": 0.35,
+      "ytd": 348.5,
+      "count": 3,
+      "funds": [
+        {
+          "ticker": "bitwise",
+          "name": "bitwise",
+          "cum": 148.3
+        },
+        {
+          "ticker": "grayscale",
+          "name": "grayscale",
+          "cum": 145.2
+        },
+        {
+          "ticker": "twentyOneShares",
+          "name": "twentyOneShares",
+          "cum": 55
+        }
+      ]
+    }
+  },
+  "mkt": {
+    "etfTotalAum": 75.62,
+    "etfTotalFlow": 337.6,
+    "etfTotalCount": 51,
+    "fgi": 70,
+    "fgi_label": "Greed",
+    "stable": 258978149600
+  },
+  "futures": {
+    "ETH": {
+      "funding": 0.0001,
+      "oi": 2300271.341,
+      "price": 2706.38,
+      "chg24h": 0.861,
+      "vol24h": 331378096.88473
+    },
+    "DOGE": {
+      "funding": 0.00004793,
+      "oi": 3042849575,
+      "price": 0.09749,
+      "chg24h": 0.453,
+      "vol24h": 62102460.81452
+    },
+    "BTC": {
+      "funding": 0.00001449,
+      "oi": 94753.574,
+      "price": 84924,
+      "chg24h": 1.21,
+      "vol24h": 857863838.4179225
+    },
+    "SOL": {
+      "funding": 0.00006689,
+      "oi": 8610632.24,
+      "price": 123.03,
+      "chg24h": 1.99,
+      "vol24h": 290616293.05151
+    },
+    "XRP": {
+      "funding": 0.00009702,
+      "oi": 328628367.3,
+      "price": 1.529,
+      "chg24h": -0.669,
+      "vol24h": 181460885.66327
+    },
+    "LTC": {
+      "funding": 0.00001584,
+      "oi": 1677629.925,
+      "price": 71.09,
+      "chg24h": -1.646,
+      "vol24h": 29832548.04928
     }
   }
 }

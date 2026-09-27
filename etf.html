@@ -49,7 +49,7 @@ iframe{width:100%;height:85vh;border:1px solid var(--bd);border-radius:10px;back
 
 <!-- ============ ① ETF 资金流向 ============ -->
 <div class="pane on" id="pane-etf">
-  <div class="hint" id="etfHint">数据加载中…（若长时间为空，说明 CoinGlass API key 尚未配置，见 etf.js）</div>
+  <div class="hint" id="etfHint">数据源 cryptoetf.today（免费 API，全 13 个现货 ETF 品种）+ 市场资金面，GitHub Actions 每小时自动更新。</div>
   <div class="card">
     <div class="cointabs" id="coinTabs"></div>
     <div id="etfDetail"></div>
@@ -92,10 +92,6 @@ async function loadEtf(){
     const r=await fetch('etf.json?t='+Date.now());
     if(r.ok){ ETF=await r.json(); }
   }catch(e){}
-  try{
-    const r=await fetch('etf_flow.json?t='+Date.now());
-    if(r.ok){ const f=await r.json(); ETF.coins=f.coins||{}; ETF.flowSource=f.source; ETF.flowDate=f.updatedAt; }
-  }catch(e){}
   renderEtf();
 }
 function renderEtf(){
@@ -117,38 +113,27 @@ function renderEtf(){
   renderCoin(coins[curCoin]);
   renderMkt(ETF.mkt, ETF.futures);
 }
-function streakOf(series){
-  if(!series||!series.length) return 0;
-  let s=0; const sign=series[series.length-1]>=0?1:-1;
-  for(let i=series.length-1;i>=0;i--){ if((series[i]>=0?1:-1)===sign) s+=sign; else break; }
-  return s;
-}
 function renderCoin(c){
   const el=document.getElementById('etfDetail');
-  const daily=c.daily; const cum=c.cum; const series=c.series||[]; const funds=c.funds||[];
+  const daily=c.daily, cum=c.cum, aum=c.aum, ytd=c.ytd, funds=c.funds||[];
   const dcls=daily>=0?'pos':'neg';
-  const streak=streakOf(series);
   let h=`<div class="kpis" style="margin-bottom:14px">
     <div class="kpi"><div class="l">最新净流入（${c.date||'—'}）</div><div class="v ${dcls}">${USDM(daily)}</div></div>
     <div class="kpi"><div class="l">累计净流入</div><div class="v ${cum>=0?'pos':'neg'}">${USDM(cum)}</div></div>
-    <div class="kpi"><div class="l">连续流入/流出</div><div class="v ${streak>=0?'pos':'neg'}">${streak>0?'+'+streak+' 天流入':streak<0?streak+' 天流出':'—'}</div></div>
-    <div class="kpi"><div class="l">近${series.length}日累计</div><div class="v ${series.reduce((a,b)=>a+b,0)>=0?'pos':'neg'}">${USDM(series.reduce((a,b)=>a+b,0))}</div></div>
+    <div class="kpi"><div class="l">总资产 AUM</div><div class="v">${USD(aum*1e9)}</div></div>
+    <div class="kpi"><div class="l">年内 YTD</div><div class="v ${ytd>=0?'pos':'neg'}">${USDM(ytd)}</div></div>
   </div>`;
   if(funds.length){
-    h+=`<div class="scroll"><table><thead><tr><th>基金</th><th>发行商</th><th>当日净流入</th><th>累计净流入</th></tr></thead><tbody>`;
+    h+=`<div class="scroll"><table><thead><tr><th>基金</th><th>发行商</th><th>累计净流入</th></tr></thead><tbody>`;
     for(const d of funds){
-      const p=d.net>=0;
       h+=`<tr><td><b>${esc(d.ticker)}</b></td><td>${esc(d.name||'')}</td>
-        <td class="${p?'pos':'neg'}">${USDM(d.net)}</td>
         <td class="${d.cum>=0?'pos':'neg'}">${USDM(d.cum)}</td></tr>`;
     }
     h+=`</tbody></table></div>`;
   }
-  if(series.length){
-    h+=`<div class="mut" style="font-size:12px;margin-top:10px">近${series.length}日净流入(单位百万$)：`+series.map(v=>`<span class="${v>=0?'pos':'neg'}">${v>=0?'+':''}${v}</span>`).join(' → ')+`</div>`;
-  }
   el.innerHTML=h;
 }
+
 function renderMkt(m, fut){
   const el=document.getElementById('mktKpis');
   let h='';
