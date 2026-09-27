@@ -16,7 +16,7 @@ const fs = require('fs');
 const { execSync } = require('child_process');
 const { chromium } = require('playwright');
 
-const PAGES = { BTC:'/btc/', ETH:'/eth/', SOL:'/sol/' };
+const PAGES = { BTC:'/btc/', ETH:'/eth/', SOL:'/sol/', HYPE:'/hyp/' };
 
 const num = t => {
   if(!t || t==='-' || t==='') return 0;
