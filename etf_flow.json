@@ -15,8 +15,8 @@
         -450.4,
         -295.9,
         159.5,
-        433.0,
-        999.0,
+        433,
+        999,
         714.7,
         346.9,
         190.7,
@@ -25,45 +25,81 @@
       "funds": [
         {
           "ticker": "IBIT",
-          "name": "BlackRock",
-          "net": 97.0,
+          "name": "",
+          "net": 97,
           "cum": 65282
         },
         {
+          "ticker": "GBTC",
+          "name": "",
+          "net": 0,
+          "cum": -27841
+        },
+        {
           "ticker": "FBTC",
-          "name": "Fidelity",
+          "name": "",
           "net": 49.3,
           "cum": 11073
         },
         {
+          "ticker": "BTC",
+          "name": "",
+          "net": 0,
+          "cum": 2932
+        },
+        {
           "ticker": "BITB",
-          "name": "Bitwise",
+          "name": "",
           "net": -11.8,
           "cum": 2126
         },
         {
           "ticker": "ARKB",
-          "name": "Ark Invest",
-          "net": 0.0,
+          "name": "",
+          "net": 0,
           "cum": 1381
         },
         {
+          "ticker": "HODL",
+          "name": "",
+          "net": 0,
+          "cum": 1013
+        },
+        {
           "ticker": "MSBT",
-          "name": "BlackRock",
-          "net": 0.0,
+          "name": "",
+          "net": 0,
           "cum": 776
         },
         {
-          "ticker": "GBTC",
-          "name": "Grayscale",
-          "net": 0.0,
-          "cum": -27841
+          "ticker": "BRRR",
+          "name": "",
+          "net": 0,
+          "cum": 329
+        },
+        {
+          "ticker": "EZBC",
+          "name": "",
+          "net": 0,
+          "cum": 323
+        },
+        {
+          "ticker": "BTCO",
+          "name": "",
+          "net": 0,
+          "cum": 144
+        },
+        {
+          "ticker": "BTCW",
+          "name": "",
+          "net": 0,
+          "cum": 78
         }
       ]
     },
     "ETH": {
       "date": "2026-09-25",
-      "daily": 87.0,
+      "daily": 87,
       "cum": 13969,
       "series": [
         -24.3,
@@ -71,34 +107,82 @@
         -29.9,
         216.4,
         121.1,
-        -142.0,
+        -142,
         -224.1,
         -39.3,
         143.7,
-        270.0,
+        270,
         162.2,
         104.5,
         66.1,
-        87.0
+        87
       ],
       "funds": [
         {
           "ticker": "ETHA",
-          "name": "BlackRock",
+          "name": "",
           "net": 50.4,
           "cum": 13283
         },
         {
+          "ticker": "ETHE",
+          "name": "",
+          "net": 0,
+          "cum": -5413
+        },
+        {
           "ticker": "FETH",
-          "name": "Fidelity",
+          "name": "",
           "net": 4.7,
           "cum": 2435
         },
         {
-          "ticker": "ETHE",
-          "name": "Grayscale",
-          "net": 0.0,
-          "cum": -5413
+          "ticker": "ETH",
+          "name": "",
+          "net": 0,
+          "cum": 2036
+        },
+        {
+          "ticker": "ETHB",
+          "name": "",
+          "net": 31.9,
+          "cum": 885
+        },
+        {
+          "ticker": "ETHW",
+          "name": "",
+          "net": 0,
+          "cum": 398
+        },
+        {
+          "ticker": "ETHV",
+          "name": "",
+          "net": 0,
+          "cum": 164
+        },
+        {
+          "ticker": "EZET",
+          "name": "",
+          "net": 0,
+          "cum": 71
+        },
+        {
+          "ticker": "TETH",
+          "name": "",
+          "net": 0,
+          "cum": 42
+        },
+        {
+          "ticker": "MSSE",
+          "name": "",
+          "net": 0,
+          "cum": 41
+        },
+        {
+          "ticker": "QETH",
+          "name": "",
+          "net": 0,
+          "cum": 27
         }
       ]
     },
@@ -111,12 +195,12 @@
         11.8,
         -0.5,
         -0.3,
-        11.0,
+        11,
         1.3,
         0.8,
-        0.0,
+        0,
         47.6,
-        26.0,
+        26,
         28.9,
         13.7,
         32.8,
@@ -125,21 +209,45 @@
       "funds": [
         {
           "ticker": "BSOL",
-          "name": "Bitwise",
+          "name": "",
           "net": 55.7,
           "cum": 1218.5
         },
         {
           "ticker": "FSOL",
-          "name": "Fidelity",
+          "name": "",
           "net": 3.2,
           "cum": 229.8
         },
         {
-          "ticker": "MSOL",
-          "name": "Grayscale",
+          "ticker": "GSOL",
+          "name": "",
           "net": 18.5,
           "cum": 164.2
+        },
+        {
+          "ticker": "TSOL",
+          "name": "",
+          "net": 0,
+          "cum": -97.5
+        },
+        {
+          "ticker": "MSOL",
+          "name": "",
+          "net": 6,
+          "cum": 42.6
+        },
+        {
+          "ticker": "VSOL",
+          "name": "",
+          "net": 3.3,
+          "cum": 27.9
+        },
+        {
+          "ticker": "SOEZ",
+          "name": "",
+          "net": 0,
+          "cum": 13.3
         }
       ]
     }
