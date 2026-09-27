@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-27T18:03:45.668Z",
+  "updatedAt": "2026-09-27T21:00:25.404Z",
   "source": "cryptoetf.today",
   "coins": {
     "LINK": {
@@ -405,14 +405,14 @@
       "chg24h": null,
       "vol24h": null
     },
-    "SOL": {
+    "XRP": {
       "funding": null,
       "oi": null,
       "price": null,
       "chg24h": null,
       "vol24h": null
     },
-    "XRP": {
+    "SOL": {
       "funding": null,
       "oi": null,
       "price": null,
@@ -528,29 +528,23 @@
       "sol": 0,
       "xrp": 458.9
     },
-    "clnk": {
-      "link": 61
+    "gava": {
+      "avax": 7.6
     },
-    "gsui": {
-      "sui": 41.6
-    },
-    "tsui": {
-      "sui": 28.5
+    "bwow": {
+      "doge": 0.8
     },
     "tdot": {
       "dot": 11.4
     },
-    "glnk": {
-      "link": 164.7
+    "gsui": {
+      "sui": 41.6
     },
     "gdog": {
       "doge": 13.1
     },
-    "suis": {
-      "sui": 33.3
-    },
-    "gava": {
-      "avax": 7.6
+    "clnk": {
+      "link": 61
     },
     "tdog": {
       "doge": 2.4
@@ -564,14 +558,20 @@
     "ltcc": {
       "ltc": 12.4
     },
-    "bwow": {
-      "doge": 0.8
+    "suis": {
+      "sui": 33.3
     },
-    "vavx": {
-      "avax": 20.7
+    "tsui": {
+      "sui": 28.5
+    },
+    "glnk": {
+      "link": 164.7
     },
     "vbnb": {
       "bnb": 2.7
+    },
+    "vavx": {
+      "avax": 20.7
     }
   }
 }
