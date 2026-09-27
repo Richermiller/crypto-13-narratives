@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-27T14:21:06.251Z",
+  "updatedAt": "2026-09-27T18:03:45.668Z",
   "source": "cryptoetf.today",
   "coins": {
     "LINK": {
@@ -388,51 +388,50 @@
     "etfTotalFlow": 337.6,
     "etfTotalCount": 51,
     "fgi": 70,
-    "fgi_label": "Greed",
-    "stable": 258995378896
+    "fgi_label": "Greed"
   },
   "futures": {
-    "SOL": {
-      "funding": 0.00006689,
-      "oi": 8606239.19,
-      "price": 122.61,
-      "chg24h": 1.339,
-      "vol24h": 292064241.05838
+    "BTC": {
+      "funding": null,
+      "oi": null,
+      "price": null,
+      "chg24h": null,
+      "vol24h": null
     },
     "ETH": {
-      "funding": 0.0001,
-      "oi": 2299961.454,
-      "price": 2702.35,
-      "chg24h": 0.548,
-      "vol24h": 339110842.817809
+      "funding": null,
+      "oi": null,
+      "price": null,
+      "chg24h": null,
+      "vol24h": null
     },
-    "BTC": {
-      "funding": 0.00001449,
-      "oi": 94934.442,
-      "price": 84906.99,
-      "chg24h": 1.114,
-      "vol24h": 853231144.7139359
-    },
-    "DOGE": {
-      "funding": 0.00004793,
-      "oi": 3048720537,
-      "price": 0.09739,
-      "chg24h": 0.021,
-      "vol24h": 62535913.72368
-    },
-    "LTC": {
-      "funding": 0.00001584,
-      "oi": 1676843.693,
-      "price": 71.13,
-      "chg24h": -1.863,
-      "vol24h": 29236047.26161
+    "SOL": {
+      "funding": null,
+      "oi": null,
+      "price": null,
+      "chg24h": null,
+      "vol24h": null
     },
     "XRP": {
-      "funding": 0.00009702,
-      "oi": 329117250.7,
-      "price": 1.5282,
-      "chg24h": -1.075,
-      "vol24h": 181477696.82132
+      "funding": null,
+      "oi": null,
+      "price": null,
+      "chg24h": null,
+      "vol24h": null
+    },
+    "DOGE": {
+      "funding": null,
+      "oi": null,
+      "price": null,
+      "chg24h": null,
+      "vol24h": null
+    },
+    "LTC": {
+      "funding": null,
+      "oi": null,
+      "price": null,
+      "chg24h": null,
+      "vol24h": null
     }
   },
   "issuers": {
@@ -529,17 +528,20 @@
       "sol": 0,
       "xrp": 458.9
     },
-    "tdot": {
-      "dot": 11.4
-    },
-    "gava": {
-      "avax": 7.6
-    },
     "clnk": {
       "link": 61
     },
-    "bwow": {
-      "doge": 0.8
+    "gsui": {
+      "sui": 41.6
+    },
+    "tsui": {
+      "sui": 28.5
+    },
+    "tdot": {
+      "dot": 11.4
+    },
+    "glnk": {
+      "link": 164.7
     },
     "gdog": {
       "doge": 13.1
@@ -547,26 +549,23 @@
     "suis": {
       "sui": 33.3
     },
-    "ltcc": {
-      "ltc": 12.4
-    },
-    "hbr": {
-      "hbar": 73.5
-    },
-    "bava": {
-      "avax": 27.9
+    "gava": {
+      "avax": 7.6
     },
     "tdog": {
       "doge": 2.4
     },
-    "tsui": {
-      "sui": 28.5
+    "bava": {
+      "avax": 27.9
     },
-    "gsui": {
-      "sui": 41.6
+    "hbr": {
+      "hbar": 73.5
     },
-    "glnk": {
-      "link": 164.7
+    "ltcc": {
+      "ltc": 12.4
+    },
+    "bwow": {
+      "doge": 0.8
     },
     "vavx": {
       "avax": 20.7
