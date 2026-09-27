@@ -1,0 +1,147 @@
+{
+  "updatedAt": "2026-09-27",
+  "source": "Farside Investors (farside.co.uk)",
+  "coins": {
+    "BTC": {
+      "date": "2026-09-25",
+      "daily": 134.5,
+      "cum": 57616,
+      "series": [
+        -46.6,
+        -120.2,
+        -282.7,
+        -13.2,
+        159.9,
+        -450.4,
+        -295.9,
+        159.5,
+        433.0,
+        999.0,
+        714.7,
+        346.9,
+        190.7,
+        134.5
+      ],
+      "funds": [
+        {
+          "ticker": "IBIT",
+          "name": "BlackRock",
+          "net": 97.0,
+          "cum": 65282
+        },
+        {
+          "ticker": "FBTC",
+          "name": "Fidelity",
+          "net": 49.3,
+          "cum": 11073
+        },
+        {
+          "ticker": "BITB",
+          "name": "Bitwise",
+          "net": -11.8,
+          "cum": 2126
+        },
+        {
+          "ticker": "ARKB",
+          "name": "Ark Invest",
+          "net": 0.0,
+          "cum": 1381
+        },
+        {
+          "ticker": "MSBT",
+          "name": "BlackRock",
+          "net": 0.0,
+          "cum": 776
+        },
+        {
+          "ticker": "GBTC",
+          "name": "Grayscale",
+          "net": 0.0,
+          "cum": -27841
+        }
+      ]
+    },
+    "ETH": {
+      "date": "2026-09-25",
+      "daily": 87.0,
+      "cum": 13969,
+      "series": [
+        -24.3,
+        34.7,
+        -29.9,
+        216.4,
+        121.1,
+        -142.0,
+        -224.1,
+        -39.3,
+        143.7,
+        270.0,
+        162.2,
+        104.5,
+        66.1,
+        87.0
+      ],
+      "funds": [
+        {
+          "ticker": "ETHA",
+          "name": "BlackRock",
+          "net": 50.4,
+          "cum": 13283
+        },
+        {
+          "ticker": "FETH",
+          "name": "Fidelity",
+          "net": 4.7,
+          "cum": 2435
+        },
+        {
+          "ticker": "ETHE",
+          "name": "Grayscale",
+          "net": 0.0,
+          "cum": -5413
+        }
+      ]
+    },
+    "SOL": {
+      "date": "2026-09-25",
+      "daily": 86.7,
+      "cum": 1599,
+      "series": [
+        -0.7,
+        11.8,
+        -0.5,
+        -0.3,
+        11.0,
+        1.3,
+        0.8,
+        0.0,
+        47.6,
+        26.0,
+        28.9,
+        13.7,
+        32.8,
+        86.7
+      ],
+      "funds": [
+        {
+          "ticker": "BSOL",
+          "name": "Bitwise",
+          "net": 55.7,
+          "cum": 1218.5
+        },
+        {
+          "ticker": "FSOL",
+          "name": "Fidelity",
+          "net": 3.2,
+          "cum": 229.8
+        },
+        {
+          "ticker": "MSOL",
+          "name": "Grayscale",
+          "net": 18.5,
+          "cum": 164.2
+        }
+      ]
+    }
+  }
+}

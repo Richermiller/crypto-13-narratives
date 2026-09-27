@@ -74,6 +74,7 @@ iframe{width:100%;height:85vh;border:1px solid var(--bd);border-radius:10px;back
 const esc=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
 const fmt=(v,d=2)=>v==null||isNaN(v)?'—':Number(v).toFixed(d);
 const USD=v=>{v=Number(v);if(v==null||isNaN(v))return'—';const a=Math.abs(v);const s=a>=1e9?(a/1e9).toFixed(2)+'B':(a>=1e6?(a/1e6).toFixed(2)+'M':(a>=1e3?(a/1e3).toFixed(1)+'K':a.toFixed(0)));return(v<0?'-':'')+'$'+s;};
+const USDM=v=>{v=Number(v);if(v==null||isNaN(v))return'—';const a=Math.abs(v);const s=a>=1000?'$'+(a/1000).toFixed(1)+'B':'$'+a.toFixed(0)+'M';return(v<0?'−':'+')+s;};
 
 /* ============ 标签页切换 ============ */
 document.querySelectorAll('.tab').forEach(t=>t.onclick=()=>{
@@ -90,6 +91,10 @@ async function loadEtf(){
   try{
     const r=await fetch('etf.json?t='+Date.now());
     if(r.ok){ ETF=await r.json(); }
+  }catch(e){}
+  try{
+    const r=await fetch('etf_flow.json?t='+Date.now());
+    if(r.ok){ const f=await r.json(); ETF.coins=f.coins||{}; ETF.flowSource=f.source; ETF.flowDate=f.updatedAt; }
   }catch(e){}
   renderEtf();
 }
@@ -112,31 +117,35 @@ function renderEtf(){
   renderCoin(coins[curCoin]);
   renderMkt(ETF.mkt, ETF.futures);
 }
+function streakOf(series){
+  if(!series||!series.length) return 0;
+  let s=0; const sign=series[series.length-1]>=0?1:-1;
+  for(let i=series.length-1;i>=0;i--){ if((series[i]>=0?1:-1)===sign) s+=sign; else break; }
+  return s;
+}
 function renderCoin(c){
   const el=document.getElementById('etfDetail');
-  const f=c.flow||{};
-  const pos=f.daily>=0;
-  const dcls=pos?'pos':'neg';
+  const daily=c.daily; const cum=c.cum; const series=c.series||[]; const funds=c.funds||[];
+  const dcls=daily>=0?'pos':'neg';
+  const streak=streakOf(series);
   let h=`<div class="kpis" style="margin-bottom:14px">
-    <div class="kpi"><div class="l">最新净流入（${f.date||'—'}）</div><div class="v ${dcls}">${USD(f.daily)}</div></div>
-    <div class="kpi"><div class="l">累计净流入</div><div class="v ${f.cum>=0?'pos':'neg'}">${USD(f.cum)}</div></div>
-    <div class="kpi"><div class="l">连续流入/流出</div><div class="v ${f.streak>=0?'pos':'neg'}">${f.streak>0?'+'+f.streak+' 天流入':f.streak<0?f.streak+' 天流出':'—'}</div></div>
-    <div class="kpi"><div class="l">总资产规模(AUM)</div><div class="v">${USD(f.aum)}</div></div>
+    <div class="kpi"><div class="l">最新净流入（${c.date||'—'}）</div><div class="v ${dcls}">${USDM(daily)}</div></div>
+    <div class="kpi"><div class="l">累计净流入</div><div class="v ${cum>=0?'pos':'neg'}">${USDM(cum)}</div></div>
+    <div class="kpi"><div class="l">连续流入/流出</div><div class="v ${streak>=0?'pos':'neg'}">${streak>0?'+'+streak+' 天流入':streak<0?streak+' 天流出':'—'}</div></div>
+    <div class="kpi"><div class="l">近${series.length}日累计</div><div class="v ${series.reduce((a,b)=>a+b,0)>=0?'pos':'neg'}">${USDM(series.reduce((a,b)=>a+b,0))}</div></div>
   </div>`;
-  const funds=f.funds||[];
   if(funds.length){
-    h+=`<div class="scroll"><table><thead><tr><th>基金</th><th>发行商</th><th>当日净流入</th><th>累计净流入</th><th>AUM</th></tr></thead><tbody>`;
+    h+=`<div class="scroll"><table><thead><tr><th>基金</th><th>发行商</th><th>当日净流入</th><th>累计净流入</th></tr></thead><tbody>`;
     for(const d of funds){
       const p=d.net>=0;
       h+=`<tr><td><b>${esc(d.ticker)}</b></td><td>${esc(d.name||'')}</td>
-        <td class="${p?'pos':'neg'}">${USD(d.net)}</td>
-        <td class="${d.cum>=0?'pos':'neg'}">${USD(d.cum)}</td><td>${USD(d.aum)}</td></tr>`;
+        <td class="${p?'pos':'neg'}">${USDM(d.net)}</td>
+        <td class="${d.cum>=0?'pos':'neg'}">${USDM(d.cum)}</td></tr>`;
     }
     h+=`</tbody></table></div>`;
   }
-  // 7日迷你走势
-  if(f.series&&f.series.length){
-    h+=`<div class="mut" style="font-size:12px;margin-top:10px">近${f.series.length}日净流入序列：`+f.series.map(v=>`<span class="${v>=0?'pos':'neg'}">${USD(v)}</span>`).join(' → ')+`</div>`;
+  if(series.length){
+    h+=`<div class="mut" style="font-size:12px;margin-top:10px">近${series.length}日净流入(单位百万$)：`+series.map(v=>`<span class="${v>=0?'pos':'neg'}">${v>=0?'+':''}${v}</span>`).join(' → ')+`</div>`;
   }
   el.innerHTML=h;
 }
