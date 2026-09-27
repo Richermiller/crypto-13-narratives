@@ -27,8 +27,8 @@ const num = t => {
 };
 
 async function scrapeCoin(page, path){
-  await page.goto('https://farside.co.uk'+path, {waitUntil:'domcontentloaded', timeout:30000});
-  await page.waitForSelector('table tbody tr td', {timeout:45000});
+  await page.goto('https://farside.co.uk'+path, {waitUntil:'domcontentloaded', timeout:60000});
+  await page.waitForSelector('table tbody tr td', {timeout:60000});
   const raw = await page.evaluate(()=>{
     const ths=[...document.querySelectorAll('table thead tr th')].map(t=>t.textContent.trim());
     const rows=[...document.querySelectorAll('table tbody tr')].map(tr=>[...tr.querySelectorAll('td')].map(td=>td.textContent.trim()));
@@ -59,20 +59,31 @@ async function scrapeCoin(page, path){
 }
 
 (async()=>{
+  // 保留旧数据：失败的币种不覆盖
+  let out;
+  try { out = JSON.parse(fs.readFileSync('etf_flow.json','utf8')); } catch(e){}
+  if(!out || !out.coins) out = { coins:{} };
+  out.updatedAt = new Date().toISOString().slice(0,10);
+  out.source = 'Farside Investors (farside.co.uk)';
+
   const context = await chromium.launchPersistentContext('/tmp/farside-pw-profile', {channel:'chrome', headless:false, args:['--disable-blink-features=AutomationControlled','--window-position=-3000,-3000']});
-  const out = { updatedAt: new Date().toISOString().slice(0,10), source:'Farside Investors (farside.co.uk)', coins:{} };
   for(const [coin,path] of Object.entries(PAGES)){
-    const page = await context.newPage();
-    try{
-      out.coins[coin] = await scrapeCoin(page, path);
-      console.log(`✅ ${coin}: 最新 ${out.coins[coin].daily}M | 累计 ${out.coins[coin].cum}M`);
-    }catch(e){ console.error(`❌ ${coin}:`, e.message); }
-    await page.close();
-    await new Promise(r=>setTimeout(r,3000));
+    let ok=false;
+    for(let attempt=1; attempt<=3 && !ok; attempt++){
+      const page = await context.newPage();
+      try{
+        const r = await scrapeCoin(page, path);
+        out.coins[coin] = r;
+        console.log(`✅ ${coin}: 最新 ${r.daily}M | 累计 ${r.cum}M`);
+        ok=true;
+      }catch(e){ console.error(`❌ ${coin} 第${attempt}次失败:`, e.message); }
+      await page.close();
+      await new Promise(r=>setTimeout(r,4000));
+    }
   }
   await context.close();
   fs.writeFileSync('etf_flow.json', JSON.stringify(out, null, 2));
-  console.log('etf_flow.json 已写出');
+  console.log('etf_flow.json 已写出（含 '+Object.keys(out.coins).length+' 个币种）');
 
   if(process.argv.includes('--push')){
     try{
