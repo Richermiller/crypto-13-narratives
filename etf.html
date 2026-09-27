@@ -57,7 +57,8 @@ iframe{width:100%;height:85vh;border:1px solid var(--bd);border-radius:10px;back
   <div class="card">
     <h2 style="font-size:15px;margin:0 0 10px">重要市场指标（资金面 · 情绪面 · 杠杆面）</h2>
     <div class="kpis" id="mktKpis"></div>
-    <div class="mut" style="font-size:12px;margin-top:8px">恐惧贪婪 / 资金费率 / OI / 爆仓 / 稳定币市值 —— 与 ETF 资金流共振时信号最强。</div>
+    <div class="scroll" id="futTable" style="margin-top:12px"></div>
+    <div class="mut" style="font-size:12px;margin-top:8px">恐惧贪婪 / 稳定币 / 资金费率 / OI / 24h 涨跌成交 —— 与 ETF 资金流共振时信号最强。</div>
   </div>
 </div>
 
@@ -100,7 +101,7 @@ function renderEtf(){
     hint.innerHTML='⚠️ 暂无 ETF 数据：<b>etf.json 为空</b>。需配置 CoinGlass API key 后由 etf.js 定时抓取。骨架已就绪，等 key 到位即可自动填数据。';
     document.getElementById('coinTabs').innerHTML='';
     document.getElementById('etfDetail').innerHTML='';
-    renderMkt(null);
+    renderMkt(null,null);
     return;
   }
   hint.style.display='none';
@@ -109,7 +110,7 @@ function renderEtf(){
     `<span class="ctab ${k===curCoin?'on':''}" data-c="${k}">${k} ETF</span>`).join('');
   document.querySelectorAll('.ctab').forEach(el=>el.onclick=()=>{curCoin=el.dataset.c;renderEtf();});
   renderCoin(coins[curCoin]);
-  renderMkt(ETF.mkt);
+  renderMkt(ETF.mkt, ETF.futures);
 }
 function renderCoin(c){
   const el=document.getElementById('etfDetail');
@@ -139,17 +140,28 @@ function renderCoin(c){
   }
   el.innerHTML=h;
 }
-function renderMkt(m){
+function renderMkt(m, fut){
   const el=document.getElementById('mktKpis');
-  if(!m){el.innerHTML='<div class="kpi"><div class="l">市场指标</div><div class="v mut">待配置</div></div>';return;}
-  const row=(l,v,c)=>{const cls=v>=0?'pos':'neg';return `<div class="kpi"><div class="l">${l}</div><div class="v ${c||cls}">${v}</div></div>`;};
   let h='';
-  if(m.fgi!=null) h+=`<div class="kpi"><div class="l">恐惧贪婪指数</div><div class="v">${m.fgi}</div></div>`;
-  if(m.funding!=null) h+=row('BTC 资金费率',(m.funding*100).toFixed(3)+'%');
-  if(m.oi!=null) h+=`<div class="kpi"><div class="l">BTC 未平仓</div><div class="v">${USD(m.oi)}</div></div>`;
-  if(m.liq!=null) h+=row('24h 爆仓',USD(m.liq));
-  if(m.stable!=null) h+=`<div class="kpi"><div class="l">稳定币市值</div><div class="v">${USD(m.stable)}</div></div>`;
-  el.innerHTML=h||'<div class="kpi"><div class="l">市场指标</div><div class="v mut">暂无</div></div>';
+  if(m&&m.fgi!=null) h+=`<div class="kpi"><div class="l">恐惧贪婪指数</div><div class="v">${m.fgi}${m.fgi_label?' <span class="mut" style="font-size:12px">'+esc(m.fgi_label)+'</span>':''}</div></div>`;
+  if(m&&m.stable!=null) h+=`<div class="kpi"><div class="l">稳定币市值(USDT+USDC)</div><div class="v">${USD(m.stable)}</div></div>`;
+  el.innerHTML=h||'<div class="kpi"><div class="l">市场指标</div><div class="v mut">待配置</div></div>';
+  const fe=document.getElementById('futTable');
+  const coins=fut?Object.keys(fut):[];
+  if(!coins.length){ fe.innerHTML='<div class="mut" style="padding:8px">暂无期货资金面数据</div>'; return; }
+  let t='<table><thead><tr><th>币种</th><th>资金费率</th><th>未平仓 OI</th><th>24h 涨跌</th><th>24h 成交额</th></tr></thead><tbody>';
+  for(const c of coins){
+    const r=fut[c]||{};
+    const fr=r.funding!=null?r.funding*100:null;
+    const chg=r.chg24h;
+    t+=`<tr><td><b>${esc(c)}</b></td>
+      <td class="${fr!=null&&fr>=0?'pos':'neg'}">${fr==null?'—':fr.toFixed(4)+'%'}</td>
+      <td>${r.oi==null?'—':USD(r.oi)+' '+esc(c)}</td>
+      <td class="${chg!=null&&chg>=0?'pos':'neg'}">${chg==null?'—':(chg>=0?'+':'')+chg.toFixed(2)+'%'}</td>
+      <td>${r.vol24h==null?'—':USD(r.vol24h)}</td></tr>`;
+  }
+  t+='</tbody></table>';
+  fe.innerHTML=t;
 }
 loadEtf();
 </script>
