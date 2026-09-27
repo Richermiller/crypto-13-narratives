@@ -28,11 +28,16 @@ jobs:
       - name: 拉取 CoinGecko 行情并重建页面
         run: node build.js
 
+      - name: 拉取 ETF 资金流与市场情绪
+        run: node etf.js
+        env:
+          COINGLASS_API_KEY: ${{ secrets.COINGLASS_API_KEY }}
+
       - name: 提交并推送（数据有变化才提交）
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add data.json index.html amp.json
+          git add data.json index.html amp.json etf.json
           if git diff --cached --quiet; then
             echo "行情数据无变化，跳过提交"
           else

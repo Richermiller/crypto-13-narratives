@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ETF 资金流向 · 全市场监控台</title>
+<style>
+:root{--bd:#dbe4ec;--ink:#17324d;--mut:#6b7c8d;--blu:#2c6fb0;--bg:#f2f5f9;--red:#c0392b;--grn:#1a7f45}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.55 -apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif}
+.wrap{max-width:1400px;margin:0 auto;padding:18px 20px 60px}
+h1{font-size:21px;margin:0 0 2px}
+.sub{color:var(--mut);font-size:12.5px;margin-bottom:14px}
+.tabs{display:flex;gap:6px;border-bottom:1px solid var(--bd);margin-bottom:16px;flex-wrap:wrap}
+.tab{padding:9px 18px;border:1px solid var(--bd);border-bottom:none;border-radius:9px 9px 0 0;background:#fff;color:var(--mut);cursor:pointer;font-weight:600;margin-bottom:-1px}
+.tab.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+.pane{display:none}.pane.on{display:block}
+.card{background:#fff;border:1px solid var(--bd);border-radius:10px;padding:16px 18px;margin-bottom:14px}
+.cointabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px}
+.ctab{padding:7px 16px;border:1px solid var(--bd);border-radius:20px;background:#fff;cursor:pointer;font-weight:600;color:var(--mut)}
+.ctab.on{background:var(--blu);color:#fff;border-color:var(--blu)}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px}
+.kpi{background:#fff;border:1px solid var(--bd);border-radius:10px;padding:12px 14px}
+.kpi .l{color:var(--mut);font-size:12px}
+.kpi .v{font-size:22px;font-weight:700;margin-top:3px}
+.pos{color:var(--red)}.neg{color:var(--grn)}
+table{border-collapse:collapse;width:100%;font-size:12.5px}
+th,td{padding:6px 9px;border-bottom:1px solid #eef2f7;text-align:right;white-space:nowrap}
+th{background:#f7fafd;font-weight:700}td:first-child,th:first-child{text-align:left}
+tr:hover td{background:#f6faff}
+.scroll{max-height:520px;overflow:auto;border:1px solid var(--bd);border-radius:8px}
+.mut{color:var(--mut)}
+.bignum{font-size:30px;font-weight:700}
+.hint{background:#fff8e6;border:1px solid #f0e0a8;border-radius:8px;padding:10px 14px;font-size:13px;color:#8a6d1a;margin-bottom:14px}
+iframe{width:100%;height:85vh;border:1px solid var(--bd);border-radius:10px;background:#fff}
+.badge{display:inline-block;padding:1px 8px;border-radius:12px;font-size:11px;background:#eef4fa;color:var(--blu)}
+</style>
+</head>
+<body>
+<div class="wrap">
+<h1>ETF 资金流向 · 全市场监控台</h1>
+<div class="sub">资金走向验证买卖力度｜数据源 CoinGlass（T+1 披露为准）｜GitHub Actions 定时自动更新，长期在线</div>
+
+<div class="tabs">
+  <div class="tab on" data-t="etf">① ETF 资金流向</div>
+  <div class="tab" data-t="tool">② 采集工具（三级研判）</div>
+  <div class="tab" data-t="narr">③ 叙事主线</div>
+</div>
+
+<!-- ============ ① ETF 资金流向 ============ -->
+<div class="pane on" id="pane-etf">
+  <div class="hint" id="etfHint">数据加载中…（若长时间为空，说明 CoinGlass API key 尚未配置，见 etf.js）</div>
+  <div class="card">
+    <div class="cointabs" id="coinTabs"></div>
+    <div id="etfDetail"></div>
+  </div>
+  <div class="card">
+    <h2 style="font-size:15px;margin:0 0 10px">重要市场指标（资金面 · 情绪面 · 杠杆面）</h2>
+    <div class="kpis" id="mktKpis"></div>
+    <div class="mut" style="font-size:12px;margin-top:8px">恐惧贪婪 / 资金费率 / OI / 爆仓 / 稳定币市值 —— 与 ETF 资金流共振时信号最强。</div>
+  </div>
+</div>
+
+<!-- ============ ② 采集工具 ============ -->
+<div class="pane" id="pane-tool"><iframe src="amp-tool-ours.html" loading="lazy"></iframe></div>
+
+<!-- ============ ③ 叙事主线 ============ -->
+<div class="pane" id="pane-narr"><iframe src="index.html" loading="lazy"></iframe></div>
+
+</div>
+<script>
+'use strict';
+const esc=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+const fmt=(v,d=2)=>v==null||isNaN(v)?'—':Number(v).toFixed(d);
+const USD=v=>{v=Number(v);if(v==null||isNaN(v))return'—';const a=Math.abs(v);const s=a>=1e9?(a/1e9).toFixed(2)+'B':(a>=1e6?(a/1e6).toFixed(2)+'M':(a>=1e3?(a/1e3).toFixed(1)+'K':a.toFixed(0)));return(v<0?'-':'')+'$'+s;};
+
+/* ============ 标签页切换 ============ */
+document.querySelectorAll('.tab').forEach(t=>t.onclick=()=>{
+  document.querySelectorAll('.tab').forEach(x=>x.classList.remove('on'));
+  document.querySelectorAll('.pane').forEach(x=>x.classList.remove('on'));
+  t.classList.add('on');
+  document.getElementById('pane-'+t.dataset.t).classList.add('on');
+});
+
+/* ============ 渲染 ETF 数据 ============ */
+let ETF={}, curCoin=null;
+
+async function loadEtf(){
+  try{
+    const r=await fetch('etf.json?t='+Date.now());
+    if(r.ok){ ETF=await r.json(); }
+  }catch(e){}
+  renderEtf();
+}
+function renderEtf(){
+  const hint=document.getElementById('etfHint');
+  const coins=ETF.coins||{};
+  const keys=Object.keys(coins);
+  if(!keys.length){
+    hint.innerHTML='⚠️ 暂无 ETF 数据：<b>etf.json 为空</b>。需配置 CoinGlass API key 后由 etf.js 定时抓取。骨架已就绪，等 key 到位即可自动填数据。';
+    document.getElementById('coinTabs').innerHTML='';
+    document.getElementById('etfDetail').innerHTML='';
+    renderMkt(null);
+    return;
+  }
+  hint.style.display='none';
+  if(!curCoin || !coins[curCoin]) curCoin=keys[0];
+  document.getElementById('coinTabs').innerHTML=keys.map(k=>
+    `<span class="ctab ${k===curCoin?'on':''}" data-c="${k}">${k} ETF</span>`).join('');
+  document.querySelectorAll('.ctab').forEach(el=>el.onclick=()=>{curCoin=el.dataset.c;renderEtf();});
+  renderCoin(coins[curCoin]);
+  renderMkt(ETF.mkt);
+}
+function renderCoin(c){
+  const el=document.getElementById('etfDetail');
+  const f=c.flow||{};
+  const pos=f.daily>=0;
+  const dcls=pos?'pos':'neg';
+  let h=`<div class="kpis" style="margin-bottom:14px">
+    <div class="kpi"><div class="l">最新净流入（${f.date||'—'}）</div><div class="v ${dcls}">${USD(f.daily)}</div></div>
+    <div class="kpi"><div class="l">累计净流入</div><div class="v ${f.cum>=0?'pos':'neg'}">${USD(f.cum)}</div></div>
+    <div class="kpi"><div class="l">连续流入/流出</div><div class="v ${f.streak>=0?'pos':'neg'}">${f.streak>0?'+'+f.streak+' 天流入':f.streak<0?f.streak+' 天流出':'—'}</div></div>
+    <div class="kpi"><div class="l">总资产规模(AUM)</div><div class="v">${USD(f.aum)}</div></div>
+  </div>`;
+  const funds=f.funds||[];
+  if(funds.length){
+    h+=`<div class="scroll"><table><thead><tr><th>基金</th><th>发行商</th><th>当日净流入</th><th>累计净流入</th><th>AUM</th></tr></thead><tbody>`;
+    for(const d of funds){
+      const p=d.net>=0;
+      h+=`<tr><td><b>${esc(d.ticker)}</b></td><td>${esc(d.name||'')}</td>
+        <td class="${p?'pos':'neg'}">${USD(d.net)}</td>
+        <td class="${d.cum>=0?'pos':'neg'}">${USD(d.cum)}</td><td>${USD(d.aum)}</td></tr>`;
+    }
+    h+=`</tbody></table></div>`;
+  }
+  // 7日迷你走势
+  if(f.series&&f.series.length){
+    h+=`<div class="mut" style="font-size:12px;margin-top:10px">近${f.series.length}日净流入序列：`+f.series.map(v=>`<span class="${v>=0?'pos':'neg'}">${USD(v)}</span>`).join(' → ')+`</div>`;
+  }
+  el.innerHTML=h;
+}
+function renderMkt(m){
+  const el=document.getElementById('mktKpis');
+  if(!m){el.innerHTML='<div class="kpi"><div class="l">市场指标</div><div class="v mut">待配置</div></div>';return;}
+  const row=(l,v,c)=>{const cls=v>=0?'pos':'neg';return `<div class="kpi"><div class="l">${l}</div><div class="v ${c||cls}">${v}</div></div>`;};
+  let h='';
+  if(m.fgi!=null) h+=`<div class="kpi"><div class="l">恐惧贪婪指数</div><div class="v">${m.fgi}</div></div>`;
+  if(m.funding!=null) h+=row('BTC 资金费率',(m.funding*100).toFixed(3)+'%');
+  if(m.oi!=null) h+=`<div class="kpi"><div class="l">BTC 未平仓</div><div class="v">${USD(m.oi)}</div></div>`;
+  if(m.liq!=null) h+=row('24h 爆仓',USD(m.liq));
+  if(m.stable!=null) h+=`<div class="kpi"><div class="l">稳定币市值</div><div class="v">${USD(m.stable)}</div></div>`;
+  el.innerHTML=h||'<div class="kpi"><div class="l">市场指标</div><div class="v mut">暂无</div></div>';
+}
+loadEtf();
+</script>
+</body>
+</html>
