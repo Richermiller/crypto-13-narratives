@@ -1,4 +1,4 @@
-// build.js —— 拉取 CoinGecko 实时行情，重建 index.html（供 GitHub Actions 定时调用）
+// build.js —— 拉取 CoinGecko 实时行情，重建 narrative.html（叙事主线页；首页是 index.html=ETF）
 const fs = require('fs');
 const https = require('https');
 
@@ -94,7 +94,7 @@ function fetchMarkets(ids) {
   tpl = tpl.replace('__ADVICE__', JSON.stringify(DATA.advice));
   tpl = tpl.replace('__AMP__', JSON.stringify(AMP));
   tpl = tpl.replace('__UPDATED_AT__', stamp);
-  fs.writeFileSync('index.html', tpl);
+  fs.writeFileSync('narrative.html', tpl);
 
   console.log('live:', liveCount, '/', coins.length, '| 振幅币数:', Object.keys(AMP.coins || {}).length, '| 数据源错误:', srcErr || '无', '| 时间戳:', stamp);
 })();

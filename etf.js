@@ -30,6 +30,7 @@ async function main(){
   let out = { updatedAt: new Date().toISOString(), source:'cryptoetf.today', coins:{}, mkt:{}, futures:{} };
 
   // ① cryptoetf.today 全品种 ETF 资金流
+  let fh = {};
   try{
     const [sum, iss, hold] = await Promise.all([
       fetchJson('https://api.cryptoetf.today/api/summary'),
@@ -40,7 +41,7 @@ async function main(){
     for(const a of (iss.assets||[])) issMap[String(a.asset).toUpperCase()] = a;
     // 主币种累计净流入在 holdings.summary
     const hs = (hold && hold.summary) || {};
-    const fh = (hold && hold.fundHoldings) || {};
+    fh = (hold && hold.fundHoldings) || {};
     const CUM_MAIN = { BTC: hs.totalBtc, ETH: hs.totalEth, SOL: hs.totalSol, XRP: hs.totalXrp, HYPE: hs.totalHyp };
     const ASSET_LOWER = { BTC:'btc', ETH:'eth', SOL:'sol', XRP:'xrp', HYPE:'hyp' };
 
@@ -90,6 +91,7 @@ async function main(){
     out.futures[c]=r;
   }));
 
+  out.issuers = fh;   // 发行商跨币种持仓(近似一篮子)
   fs.writeFileSync('etf.json', JSON.stringify(out, null, 2));
   console.log('etf.json 已写出：', Object.keys(out.coins).length, '个 ETF 品种');
   console.log('mkt:', JSON.stringify(out.mkt).slice(0,200));
