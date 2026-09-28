@@ -46,6 +46,11 @@
   th.sorted-asc::after{content:" ▲";color:var(--gold);font-size:10px}
   th.sorted-desc::after{content:" ▼";color:var(--gold);font-size:10px}
   h2.sec{font-size:19px;font-weight:800;margin:34px 0 6px;display:flex;align-items:center;gap:10px}
+  h2.sec{cursor:pointer;user-select:none}
+  .sec-arrow{margin-left:auto;font-size:13px;color:var(--faint);flex:none}
+  .sec-arrow::before{content:"▾"}
+  h2.sec.collapsed .sec-arrow::before{content:"▸"}
+  h2.sec.collapsed + .sec-wrap{display:none}
   h2.sec .bar{width:5px;height:20px;border-radius:3px;background:linear-gradient(#f5c451,#f472b6)}
   .hint{color:var(--faint);font-size:12.5px;margin-bottom:14px}
   /* sector cards */
@@ -187,11 +192,14 @@
     <span class="pill" data-role="二线">二线</span>
   </div>
 
-  <h2 class="sec"><span class="bar"></span>板块市值排名（降序）</h2>
-  <div class="hint">点击板块标签展开查看该板块代币（手风琴式：点新标签自动收起上一个），再次点击收起；每个代币仅在其主属板块计入一次市值，避免 NEAR（隐私/抗量子）、HYPE（永续/回购）、LINK（RWA/基础设施）、XLM（RWA/支付）重复计算。</div>
-  <div id="sectors"></div>
+  <h2 class="sec"><span class="bar"></span>板块市值排名（降序）<span class="sec-arrow"></span></h2>
+  <div class="sec-wrap">
+    <div class="hint">点击板块标签展开查看该板块代币（手风琴式：点新标签自动收起上一个），再次点击收起；每个代币仅在其主属板块计入一次市值，避免 NEAR（隐私/抗量子）、HYPE（永续/回购）、LINK（RWA/基础设施）、XLM（RWA/支付）重复计算。</div>
+    <div id="sectors"></div>
+  </div>
 
-  <h2 class="sec"><span class="bar"></span>全量标的明细表（点击表头升降序 · 每屏15行可滚动）</h2>
+  <h2 class="sec"><span class="bar"></span>全量标的明细表（点击表头升降序 · 每屏15行可滚动）<span class="sec-arrow"></span></h2>
+  <div class="sec-wrap">
   <div class="table-wrap scroll15"><table id="mtable">
     <thead><tr>
       <th data-key="s" data-type="str">代币</th>
@@ -208,11 +216,15 @@
     </tr></thead>
     <tbody></tbody>
   </table></div>
+  </div>
 
-  <h2 class="sec"><span class="bar"></span>持有建议（分层框架）</h2>
+  <h2 class="sec"><span class="bar"></span>持有建议（分层框架）<span class="sec-arrow"></span></h2>
+  <div class="sec-wrap">
   <div class="advice" id="advice"></div>
+  </div>
 
-  <h2 class="sec"><span class="bar"></span>每个代币操作建议（买卖点 · 长期持有 · 潜力）</h2>
+  <h2 class="sec"><span class="bar"></span>每个代币操作建议（买卖点 · 长期持有 · 潜力）<span class="sec-arrow"></span></h2>
+  <div class="sec-wrap">
   <div class="hint">
     <span class="lg op-buy">买/建仓</span><span class="lg op-hold">持有/配置</span>
     <span class="lg op-swing">波段</span><span class="lg op-watch">观望</span><span class="lg op-avoid">规避/减仓</span>
@@ -230,8 +242,10 @@
     </tr></thead>
     <tbody></tbody>
   </table></div>
+  </div>
 
-  <h2 class="sec"><span class="bar"></span>日线振幅拐点（波动率择时）</h2>
+  <h2 class="sec"><span class="bar"></span>日线振幅拐点（波动率择时）<span class="sec-arrow"></span></h2>
+  <div class="sec-wrap">
   <div class="hint">
     <span class="lg st-compress">压缩蓄势</span><span class="lg st-spike">波动脉冲</span><span class="lg st-normal">常态</span>
     <span class="lg-note">日振幅 =（最高-最低）/前收盘；比值 = 当日振幅 ÷ 20日均振幅。比值≤0.6=压缩（波动收窄，关注变盘）；≥2.0=脉冲（情绪放大，警惕见顶）。黄点=最近振幅拐点。数据源：Binance/MEXC/CoinGecko 日线。此表按「拐点优先」排序：压缩蓄势在前。</span>
@@ -249,6 +263,7 @@
     </tr></thead>
     <tbody></tbody>
   </table></div>
+  </div>
 
   <div class="disclaim">
     <b>重要风险提示：</b>本页面为公开信息整理与叙事速查，所有价格、市值、FDV、供应量、解锁比例均为 2026-09-26 前后来自 CoinMarketCap / CoinGecko / 公开报道的<b>近似值</b>，存在时滞与误差，不构成任何投资建议或买卖要约。加密货币波动剧烈，部分标的（HYPE、ASTER、LIT、KITE、KMNO、SUI、ONDO、PUMP 等）为高 FDV、低流通结构，存在持续解锁抛压；meme 币与极小市值新币（USELESS、READY、CARDS、GIGGLE 等）投机风险极高。请务必自行核实最新数据并独立决策。
@@ -729,6 +744,10 @@ document.getElementById("advice").addEventListener("click", e=>{
     tag.textContent="收起 ▴";
     symlist.textContent = symlist.dataset.full;
   }
+});
+// 大区块折叠/展开（点标题切换）
+document.querySelectorAll("h2.sec").forEach(h=>{
+  h.addEventListener("click",()=>{ h.classList.toggle("collapsed"); });
 });
 
 renderSectors(); renderTable(); renderAdvice(); renderOpTable(); renderAmp();
