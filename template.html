@@ -50,17 +50,17 @@
   .hint{color:var(--faint);font-size:12.5px;margin-bottom:14px}
   /* sector cards */
   .sector{background:var(--card);border:1px solid var(--line);border-radius:16px;margin-bottom:18px;overflow:hidden}
-  .sector-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:8px}
-  .sector-cell{aspect-ratio:1/1;background:var(--card);border:1px solid var(--line);border-radius:14px;
-    display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;cursor:pointer;
-    transition:.15s;padding:12px;text-align:center}
-  .sector-cell:hover{border-color:var(--blue);box-shadow:0 3px 12px rgba(26,115,232,.14)}
-  .sector-cell.open{border-color:var(--blue);background:rgba(26,115,232,.06);box-shadow:0 0 0 2px rgba(26,115,232,.22)}
-  .cell-no{font-size:15px;font-weight:800;color:var(--dim)}
-  .cell-no.r1{color:var(--gold)}
-  .cell-no.r2{color:#6b7686}
-  .cell-no.r3{color:#b8741a}
-  .cell-name{font-size:15px;font-weight:700;color:var(--txt);line-height:1.35}
+  .sector-tabs{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+  .sector-tab{display:inline-flex;align-items:center;gap:6px;padding:6px 12px;background:var(--card);
+    border:1px solid var(--line);border-radius:999px;cursor:pointer;transition:.15s;user-select:none}
+  .sector-tab:hover{border-color:var(--blue)}
+  .sector-tab.active{border-color:var(--blue);background:rgba(26,115,232,.1);box-shadow:0 0 0 1px rgba(26,115,232,.2)}
+  .tab-no{font-size:12px;font-weight:800;color:var(--dim)}
+  .sector-tab.active .tab-no{color:var(--blue)}
+  .tab-no.r1{color:var(--gold)}
+  .tab-no.r2{color:#6b7686}
+  .tab-no.r3{color:#b8741a}
+  .tab-name{font-size:13px;font-weight:600;color:var(--txt)}
   .sector-detail{margin-top:16px}
   .detail-head{display:flex;flex-wrap:wrap;align-items:baseline;gap:10px;padding:14px 18px;
     background:var(--card);border:1px solid var(--line);border-radius:14px 14px 0 0}
@@ -188,7 +188,7 @@
   </div>
 
   <h2 class="sec"><span class="bar"></span>板块市值排名（降序）</h2>
-  <div class="hint">点击板块格子展开查看该板块代币，再次点击收起；每个代币仅在其主属板块计入一次市值，避免 NEAR（隐私/抗量子）、HYPE（永续/回购）、LINK（RWA/基础设施）、XLM（RWA/支付）重复计算。</div>
+  <div class="hint">点击板块标签展开查看该板块代币（手风琴式：点新标签自动收起上一个），再次点击收起；每个代币仅在其主属板块计入一次市值，避免 NEAR（隐私/抗量子）、HYPE（永续/回购）、LINK（RWA/基础设施）、XLM（RWA/支付）重复计算。</div>
   <div id="sectors"></div>
 
   <h2 class="sec"><span class="bar"></span>全量标的明细表（点击表头升降序 · 每屏15行可滚动）</h2>
@@ -358,25 +358,25 @@ function sectorAgg(sec){
 let roleFilter = "all";
 function renderSectors(){
   const sorted = [...SECTORS].sort((a,b)=>sectorAgg(b)-sectorAgg(a));
-  const cells = sorted.map((sec,idx)=>{
+  const tabs = sorted.map((sec,idx)=>{
     const rk = idx===0?"r1":(idx===1?"r2":(idx===2?"r3":""));
-    return `<div class="sector-cell" data-name="${esc(sec.name)}" title="${esc(sec.desc)}">
-      <span class="cell-no ${rk}">${idx+1}</span>
-      <span class="cell-name">${esc(sec.name)}</span>
+    return `<div class="sector-tab" data-name="${esc(sec.name)}" title="${esc(sec.desc)}">
+      <span class="tab-no ${rk}">${idx+1}</span>
+      <span class="tab-name">${esc(sec.name)}</span>
     </div>`;
   }).join("");
   document.getElementById("sectors").innerHTML = `
-    <div class="sector-grid">${cells}</div>
+    <div class="sector-tabs">${tabs}</div>
     <div id="sectorDetail" class="sector-detail" style="display:none"></div>`;
-  document.querySelectorAll(".sector-cell").forEach(cell=>{
-    cell.addEventListener("click",()=>{
-      const name = cell.dataset.name;
+  document.querySelectorAll(".sector-tab").forEach(tab=>{
+    tab.addEventListener("click",()=>{
+      const name = tab.dataset.name;
       const sec = SECTORS.find(s=>s.name===name);
       const detail = document.getElementById("sectorDetail");
-      const wasOpen = cell.classList.contains("open");
-      document.querySelectorAll(".sector-cell").forEach(c=>c.classList.remove("open"));
-      if(wasOpen){ detail.style.display="none"; detail.innerHTML=""; return; }
-      cell.classList.add("open");
+      const wasActive = tab.classList.contains("active");
+      document.querySelectorAll(".sector-tab").forEach(t=>t.classList.remove("active"));
+      if(wasActive){ detail.style.display="none"; detail.innerHTML=""; return; }
+      tab.classList.add("active");
       const leaders = sec.items.filter(i=>i.role==="龙头");
       const seconds = sec.items.filter(i=>i.role==="二线");
       detail.innerHTML = `
