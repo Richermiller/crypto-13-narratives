@@ -119,9 +119,27 @@ function renderEtf(){
   renderIssuers();
   renderAnalysis();
 }
+let SORT = {};
+function toggleSort(tid, key, renderFn){
+  const st = SORT[tid] || (SORT[tid]={key:null,dir:-1});
+  if(st.key===key) st.dir*=-1; else { st.key=key; st.dir=-1; }
+  renderFn();
+}
+function thLabel(tid, label, key){
+  const st = SORT[tid];
+  const arrow = (st && st.key===key) ? (st.dir>0?' ▲':' ▼') : '';
+  return `<th data-k="${key}" style="cursor:pointer;user-select:none">${label}${arrow}</th>`;
+}
+function bindSort(tid, renderFn){
+  const el = document.getElementById(tid);
+  el.querySelectorAll('th[data-k]').forEach(t=>{
+    t.onclick = ()=>{ toggleSort(tid, t.dataset.k, renderFn); };
+  });
+}
+
 function renderCoin(c){
   const el=document.getElementById('etfDetail');
-  const daily=c.daily, cum=c.cum, aum=c.aum, ytd=c.ytd, funds=c.funds||[];
+  const daily=c.daily, cum=c.cum, aum=c.aum, ytd=c.ytd, funds=(c.funds||[]).slice();
   const dcls=daily>=0?'pos':'neg';
   let h=`<div class="kpis" style="margin-bottom:14px">
     <div class="kpi"><div class="l">最新净流入（${c.date||'—'}）</div><div class="v ${dcls}">${USDM(daily)}</div></div>
@@ -131,7 +149,13 @@ function renderCoin(c){
     <div class="kpi"><div class="l">稳定币市值</div><div class="v">${USD((ETF.mkt&&ETF.mkt.stable)||0)}</div></div>
   </div>`;
   if(funds.length){
-    h+=`<div class="scroll"><table><thead><tr><th>基金</th><th>发行商</th><th>累计净流入</th></tr></thead><tbody>`;
+    const fs = SORT['fund'] || (SORT['fund']={key:'cum',dir:-1});
+    if(fs.key==='ticker') funds.sort((a,b)=>a.ticker.localeCompare(b.ticker)*fs.dir);
+    else if(fs.key==='name') funds.sort((a,b)=>String(a.name||'').localeCompare(String(b.name||''))*fs.dir);
+    else funds.sort((a,b)=>((a.cum||0)-(b.cum||0))*fs.dir);
+    h+=`<div class="scroll"><table><thead><tr>`+
+       thLabel('fund','基金','ticker')+thLabel('fund','发行商','name')+thLabel('fund','累计净流入','cum')+
+       `</tr></thead><tbody>`;
     for(const d of funds){
       h+=`<tr><td><b>${esc(d.ticker)}</b></td><td>${esc(d.name||'')}</td>
         <td class="${d.cum>=0?'pos':'neg'}">${USDM(d.cum)}</td></tr>`;
@@ -139,6 +163,7 @@ function renderCoin(c){
     h+=`</tbody></table></div>`;
   }
   el.innerHTML=h;
+  if(funds.length) bindSort('fund', ()=>renderCoin(c));
 }
 
 function renderAnalysis(){
@@ -147,10 +172,38 @@ function renderAnalysis(){
   const order = Object.keys(coins);
   const el = document.getElementById('analysisTable');
   if(!order.length){ el.innerHTML='<div class="mut" style="padding:8px">暂无数据</div>'; return; }
+  const s = SORT['analysis'] || (SORT['analysis']={key:null,dir:-1});
   const fgi = m.fgi!=null ? m.fgi : null;
   const tf = m.etfTotalFlow, tc = m.etfPrevChange;
-  let h='<table><thead><tr><th>币种</th><th>3日均值</th><th>7日均值</th><th>30日均值</th><th>3/30比值</th><th>7/30比值</th><th>较前一日变化</th><th>贪婪指数</th><th>每日总流入</th><th>较前一日总流入变化</th></tr></thead><tbody>';
-  for(const tk of order){
+  const val = (tk, k) => {
+    const c = coins[tk];
+    if(k==='name') return tk;
+    if(k==='fgi') return fgi==null?-Infinity:fgi;
+    if(k==='tf') return tf==null?-Infinity:tf;
+    if(k==='tc') return tc==null?-Infinity:tc;
+    return c[k]!=null ? c[k] : -Infinity;
+  };
+  const sorted = [...order];
+  if(s.key){
+    sorted.sort((a,b)=>{
+      const va=val(a,s.key), vb=val(b,s.key);
+      if(s.key==='name') return va.localeCompare(vb)*s.dir;
+      return (va-vb)*s.dir;
+    });
+  }
+  let h='<table><thead><tr>'
+    + thLabel('analysis','币种','name')
+    + thLabel('analysis','3日均值','avg3')
+    + thLabel('analysis','7日均值','avg7')
+    + thLabel('analysis','30日均值','avg30')
+    + thLabel('analysis','3/30比值','ratio3')
+    + thLabel('analysis','7/30比值','ratio')
+    + thLabel('analysis','较前一日变化','prevChange')
+    + thLabel('analysis','贪婪指数','fgi')
+    + thLabel('analysis','每日总流入','tf')
+    + thLabel('analysis','较前一日总流入变化','tc')
+    + '</tr></thead><tbody>';
+  for(const tk of sorted){
     const c = coins[tk];
     h+=`<tr><td><b>${esc(tk)}</b></td>
       <td class="${c.avg3>=0?'pos':'neg'}">${c.avg3==null?'—':USDM(c.avg3)}</td>
@@ -165,6 +218,7 @@ function renderAnalysis(){
   }
   h+='</tbody></table>';
   el.innerHTML=h;
+  bindSort('analysis', renderAnalysis);
 }
 
 function renderIssuers(){
@@ -172,13 +226,26 @@ function renderIssuers(){
   const issuers = Object.keys(iss);
   const el = document.getElementById('issuerTable');
   if(!issuers.length){ el.innerHTML='<div class="mut" style="padding:8px">暂无发行商持仓数据</div>'; return; }
+  const s = SORT['issuer'] || (SORT['issuer']={key:null,dir:-1});
   const assets = [['btc','BTC'],['eth','ETH'],['sol','SOL'],['xrp','XRP'],['hyp','HYPE']];
-  let h='<table><thead><tr><th>发行商</th>'+assets.map(a=>`<th>${a[1]}</th>`).join('')+'<th>合计</th></tr></thead><tbody>';
   const rows = issuers.map(is=>{
     const hh = iss[is]||{};
     const total = Object.values(hh).reduce((a,b)=>a+(+b||0),0);
     return {is, hh, total};
-  }).sort((a,b)=>Math.abs(b.total)-Math.abs(a.total));
+  });
+  if(s.key){
+    rows.sort((a,b)=>{
+      if(s.key==='name') return a.is.localeCompare(b.is)*s.dir;
+      const va = s.key==='total' ? a.total : (+a.hh[s.key]||0);
+      const vb = s.key==='total' ? b.total : (+b.hh[s.key]||0);
+      return (va-vb)*s.dir;
+    });
+  }
+  let h='<table><thead><tr>'
+    + thLabel('issuer','发行商','name')
+    + assets.map(a=>thLabel('issuer',a[1],a[0])).join('')
+    + thLabel('issuer','合计','total')
+    + '</tr></thead><tbody>';
   for(const r of rows){
     h+=`<tr><td><b>${esc(r.is)}</b></td>`;
     for(const [k] of assets){ const v=+r.hh[k]||0; h+=`<td class="${v>=0?'pos':'neg'}">${v===0?'—':USDM(v)}</td>`; }
@@ -186,78 +253,9 @@ function renderIssuers(){
   }
   h+='</tbody></table>';
   el.innerHTML=h;
+  bindSort('issuer', renderIssuers);
 }
 
-function renderAnalysis(){
-  const coins = ETF.coins || {};
-  const m = ETF.mkt || {};
-  const order = Object.keys(coins);
-  const el = document.getElementById('analysisTable');
-  if(!order.length){ el.innerHTML='<div class="mut" style="padding:8px">暂无数据</div>'; return; }
-  const fgi = m.fgi!=null ? m.fgi : null;
-  const tf = m.etfTotalFlow, tc = m.etfPrevChange;
-  let h='<table><thead><tr><th>币种</th><th>3日均值</th><th>7日均值</th><th>30日均值</th><th>3/30比值</th><th>7/30比值</th><th>较前一日变化</th><th>贪婪指数</th><th>每日总流入</th><th>较前一日总流入变化</th></tr></thead><tbody>';
-  for(const tk of order){
-    const c = coins[tk];
-    h+=`<tr><td><b>${esc(tk)}</b></td>
-      <td class="${c.avg3>=0?'pos':'neg'}">${c.avg3==null?'—':USDM(c.avg3)}</td>
-      <td class="${c.avg7>=0?'pos':'neg'}">${c.avg7==null?'—':USDM(c.avg7)}</td>
-      <td class="${c.avg30>=0?'pos':'neg'}">${c.avg30==null?'—':USDM(c.avg30)}</td>
-      <td>${c.ratio3==null?'—':c.ratio3.toFixed(2)}</td>
-      <td>${c.ratio==null?'—':c.ratio.toFixed(2)}</td>
-      <td class="${c.prevChange>=0?'pos':'neg'}">${c.prevChange==null?'—':USDM(c.prevChange)}</td>
-      <td>${fgi==null?'—':fgi}</td>
-      <td class="${tf>=0?'pos':'neg'}">${tf==null?'—':USDM(tf)}</td>
-      <td class="${tc>=0?'pos':'neg'}">${tc==null?'—':USDM(tc)}</td></tr>`;
-  }
-  h+='</tbody></table>';
-  el.innerHTML=h;
-}
-
-function renderIssuers(){
-  const iss = ETF.issuers || {};
-  const issuers = Object.keys(iss);
-  const el = document.getElementById('issuerTable');
-  if(!issuers.length){ el.innerHTML='<div class="mut" style="padding:8px">暂无发行商持仓数据</div>'; return; }
-  const assets = [['btc','BTC'],['eth','ETH'],['sol','SOL'],['xrp','XRP'],['hyp','HYPE']];
-  let h='<table><thead><tr><th>发行商</th>'+assets.map(a=>`<th>${a[1]}</th>`).join('')+'<th>合计</th></tr></thead><tbody>';
-  const rows = issuers.map(is=>{
-    const hh = iss[is]||{};
-    const total = Object.values(hh).reduce((a,b)=>a+(+b||0),0);
-    return {is, hh, total};
-  }).sort((a,b)=>Math.abs(b.total)-Math.abs(a.total));
-  for(const r of rows){
-    h+=`<tr><td><b>${esc(r.is)}</b></td>`;
-    for(const [k] of assets){ const v=+r.hh[k]||0; h+=`<td class="${v>=0?'pos':'neg'}">${v===0?'—':USDM(v)}</td>`; }
-    h+=`<td class="${r.total>=0?'pos':'neg'}"><b>${USDM(r.total)}</b></td></tr>`;
-  }
-  h+='</tbody></table>';
-  el.innerHTML=h;
-}
-
-function renderMkt(m, fut){
-  const el=document.getElementById('mktKpis');
-  let h='';
-  if(m&&m.fgi!=null) h+=`<div class="kpi"><div class="l">恐惧贪婪指数</div><div class="v">${m.fgi}${m.fgi_label?' <span class="mut" style="font-size:12px">'+esc(m.fgi_label)+'</span>':''}</div></div>`;
-  if(m&&m.stable!=null) h+=`<div class="kpi"><div class="l">稳定币市值(USDT+USDC)</div><div class="v">${USD(m.stable)}</div></div>`;
-  el.innerHTML=h||'<div class="kpi"><div class="l">市场指标</div><div class="v mut">待配置</div></div>';
-  const fe=document.getElementById('futTable');
-  const coins=fut?Object.keys(fut):[];
-  if(!coins.length){ fe.innerHTML='<div class="mut" style="padding:8px">暂无期货资金面数据</div>'; return; }
-  let t='<table><thead><tr><th>币种</th><th>资金费率</th><th>未平仓 OI</th><th>24h 涨跌</th><th>24h 成交额</th></tr></thead><tbody>';
-  for(const c of coins){
-    const r=fut[c]||{};
-    const fr=r.funding!=null?r.funding*100:null;
-    const chg=r.chg24h;
-    t+=`<tr><td><b>${esc(c)}</b></td>
-      <td class="${fr!=null&&fr>=0?'pos':'neg'}">${fr==null?'—':fr.toFixed(4)+'%'}</td>
-      <td>${r.oi==null?'—':USD(r.oi)+' '+esc(c)}</td>
-      <td class="${chg!=null&&chg>=0?'pos':'neg'}">${chg==null?'—':(chg>=0?'+':'')+chg.toFixed(2)+'%'}</td>
-      <td>${r.vol24h==null?'—':USD(r.vol24h)}</td></tr>`;
-  }
-  t+='</tbody></table>';
-  fe.innerHTML=t;
-}
 loadEtf();
 </script>
 </body>
