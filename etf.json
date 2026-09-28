@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-28T02:33:42.505Z",
+  "updatedAt": "2026-09-28T09:10:10.535Z",
   "source": "cryptoetf.today",
   "coins": {
     "LINK": {
@@ -567,17 +567,8 @@
     "clnk": {
       "link": 61
     },
-    "bwow": {
-      "doge": 0.8
-    },
-    "gdog": {
-      "doge": 13.1
-    },
     "gava": {
       "avax": 7.6
-    },
-    "glnk": {
-      "link": 164.7
     },
     "gsui": {
       "sui": 41.6
@@ -585,11 +576,17 @@
     "tsui": {
       "sui": 28.5
     },
+    "glnk": {
+      "link": 164.7
+    },
     "tdog": {
       "doge": 2.4
     },
     "bava": {
       "avax": 27.9
+    },
+    "gdog": {
+      "doge": 13.1
     },
     "hbr": {
       "hbar": 73.5
@@ -600,14 +597,17 @@
     "suis": {
       "sui": 33.3
     },
+    "bwow": {
+      "doge": 0.8
+    },
     "tdot": {
       "dot": 11.4
     },
-    "vbnb": {
-      "bnb": 2.7
-    },
     "vavx": {
       "avax": 20.7
+    },
+    "vbnb": {
+      "bnb": 2.7
     }
   }
 }
