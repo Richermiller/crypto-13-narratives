@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-27T23:35:50.240Z",
+  "updatedAt": "2026-09-28T00:25:09.618Z",
   "source": "cryptoetf.today",
   "coins": {
     "LINK": {
@@ -20,7 +20,11 @@
           "name": "Bitwise Chainlink ETF",
           "cum": 16.4
         }
-      ]
+      ],
+      "avg7": 1.2092857142857143,
+      "avg30": 1.1518,
+      "ratio": 1.0499094584873367,
+      "prevChange": 1.229
     },
     "HBAR": {
       "date": "2026-09-25",
@@ -35,7 +39,11 @@
           "name": "Canary HBAR ETF",
           "cum": 111.6
         }
-      ]
+      ],
+      "avg7": 0.3492857142857143,
+      "avg30": 0.1953,
+      "ratio": 1.7884573184112356,
+      "prevChange": 2.043
     },
     "AVAX": {
       "date": "2026-09-25",
@@ -60,7 +68,11 @@
           "name": "Grayscale Avalanche Trust ETF",
           "cum": 1.2
         }
-      ]
+      ],
+      "avg7": 0.246,
+      "avg30": 0.12646666666666667,
+      "ratio": 1.945176594623089,
+      "prevChange": 0
     },
     "DOGE": {
       "date": "2026-09-25",
@@ -85,7 +97,11 @@
           "name": "Bitwise Dogecoin ETF",
           "cum": 0.1
         }
-      ]
+      ],
+      "avg7": 0.41285714285714287,
+      "avg30": 0.12106666666666667,
+      "ratio": 3.410163624921334,
+      "prevChange": 0.806
     },
     "SUI": {
       "date": "2026-09-25",
@@ -105,7 +121,11 @@
           "name": "21Shares SUI ETF",
           "cum": 4.4
         }
-      ]
+      ],
+      "avg7": 0.2715714285714285,
+      "avg30": 0.22216666666666668,
+      "ratio": 1.2223770228271351,
+      "prevChange": 0
     },
     "LTC": {
       "date": "2026-09-25",
@@ -120,7 +140,11 @@
           "name": "Canary Litecoin ETF",
           "cum": 13.5
         }
-      ]
+      ],
+      "avg7": 0.3772857142857143,
+      "avg30": 0.10990000000000001,
+      "ratio": 3.432991030807227,
+      "prevChange": -0.6970000000000001
     },
     "DOT": {
       "date": "2026-09-25",
@@ -135,7 +159,11 @@
           "name": "21Shares Polkadot ETF",
           "cum": 2.7
         }
-      ]
+      ],
+      "avg7": 0,
+      "avg30": 0.0221,
+      "ratio": 0,
+      "prevChange": 0
     },
     "BNB": {
       "date": "2026-09-25",
@@ -150,7 +178,11 @@
           "name": "VanEck BNB ETF",
           "cum": 1.1
         }
-      ]
+      ],
+      "avg7": 0,
+      "avg30": -0.008733333333333334,
+      "ratio": 0,
+      "prevChange": 0
     },
     "BTC": {
       "date": "2026-09-25",
@@ -220,7 +252,11 @@
           "name": "wisdomTree",
           "cum": 77.9
         }
-      ]
+      ],
+      "avg7": 425.4585714285714,
+      "avg30": 190.06320000000002,
+      "ratio": 2.2385110396361387,
+      "prevChange": -56.233000000000004
     },
     "ETH": {
       "date": "2026-09-25",
@@ -285,7 +321,11 @@
           "name": "invesco",
           "cum": 26.5
         }
-      ]
+      ],
+      "avg7": 113.49928571428573,
+      "avg30": 83.08066666666667,
+      "ratio": 1.3661335454813281,
+      "prevChange": 20.939999999999998
     },
     "SOL": {
       "date": "2026-09-25",
@@ -325,7 +365,11 @@
           "name": "franklin",
           "cum": 7.3
         }
-      ]
+      ],
+      "avg7": 33.807857142857145,
+      "avg30": 14.225466666666671,
+      "ratio": 2.3765727996872137,
+      "prevChange": 53.93500000000001
     },
     "XRP": {
       "date": "2026-09-25",
@@ -355,7 +399,11 @@
           "name": "grayscale",
           "cum": 131.9
         }
-      ]
+      ],
+      "avg7": 10.345142857142857,
+      "avg30": 7.725133333333332,
+      "ratio": 1.3391539551174338,
+      "prevChange": 6.279000000000002
     },
     "HYPE": {
       "date": "2026-09-25",
@@ -380,61 +428,23 @@
           "name": "twentyOneShares",
           "cum": 55
         }
-      ]
+      ],
+      "avg7": 2.31,
+      "avg30": 1.3901333333333334,
+      "ratio": 1.661711106848264,
+      "prevChange": -1.5750000000000002
     }
   },
   "mkt": {
     "etfTotalAum": 75.62,
-    "etfTotalFlow": 337.6,
+    "etfTotalFlow": 337.59999999999997,
     "etfTotalCount": 51,
-    "fgi": 70,
+    "etfPrevChange": 26.726999999999975,
+    "fgi": 74,
     "fgi_label": "Greed",
-    "stable": 258926151063
+    "stable": 258923060334
   },
-  "futures": {
-    "ETH": {
-      "funding": null,
-      "oi": null,
-      "price": null,
-      "chg24h": null,
-      "vol24h": null
-    },
-    "SOL": {
-      "funding": null,
-      "oi": null,
-      "price": null,
-      "chg24h": null,
-      "vol24h": null
-    },
-    "BTC": {
-      "funding": null,
-      "oi": null,
-      "price": null,
-      "chg24h": null,
-      "vol24h": null
-    },
-    "XRP": {
-      "funding": null,
-      "oi": null,
-      "price": null,
-      "chg24h": null,
-      "vol24h": null
-    },
-    "DOGE": {
-      "funding": null,
-      "oi": null,
-      "price": null,
-      "chg24h": null,
-      "vol24h": null
-    },
-    "LTC": {
-      "funding": null,
-      "oi": null,
-      "price": null,
-      "chg24h": null,
-      "vol24h": null
-    }
-  },
+  "futures": {},
   "issuers": {
     "blackrock": {
       "eth": 13283,
@@ -529,14 +539,8 @@
       "sol": 0,
       "xrp": 458.9
     },
-    "ltcc": {
-      "ltc": 12.4
-    },
     "gsui": {
       "sui": 41.6
-    },
-    "clnk": {
-      "link": 61
     },
     "gdog": {
       "doge": 13.1
@@ -547,26 +551,32 @@
     "bwow": {
       "doge": 0.8
     },
+    "tdot": {
+      "dot": 11.4
+    },
     "glnk": {
       "link": 164.7
     },
-    "suis": {
-      "sui": 33.3
+    "clnk": {
+      "link": 61
     },
     "tdog": {
       "doge": 2.4
     },
-    "tdot": {
-      "dot": 11.4
-    },
     "bava": {
       "avax": 27.9
     },
-    "tsui": {
-      "sui": 28.5
-    },
     "hbr": {
       "hbar": 73.5
+    },
+    "ltcc": {
+      "ltc": 12.4
+    },
+    "suis": {
+      "sui": 33.3
+    },
+    "tsui": {
+      "sui": 28.5
     },
     "vbnb": {
       "bnb": 2.7

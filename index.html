@@ -55,15 +55,14 @@ iframe{width:100%;height:85vh;border:1px solid var(--bd);border-radius:10px;back
     <div id="etfDetail"></div>
   </div>
   <div class="card">
+    <h2 style="font-size:15px;margin:0 0 10px">数据分析模块（13 币种 · 7日/30日资金流）</h2>
+    <div class="scroll" id="analysisTable"></div>
+    <div class="mut" style="font-size:12px;margin-top:8px">7日/30日均值 = 已披露日线平均净流入；比值 = 7日均值 ÷ 30日均值（&gt;1 短期资金加速流入）；较前一日变化 = 最新披露值 − 前一日；贪婪指数 / 每日总流入 / 变化为全市场值。</div>
+  </div>
+  <div class="card">
     <h2 style="font-size:15px;margin:0 0 10px">发行商一篮子持仓（跨币种资金分布，近似指数 ETF）</h2>
     <div class="scroll" id="issuerTable"></div>
     <div class="mut" style="font-size:12px;margin-top:8px">各发行商（BlackRock/Fidelity/Grayscale 等）跨 BTC/ETH/SOL/XRP/HYPE 的累计净流入，反映"一篮子"资金如何分布。</div>
-  </div>
-  <div class="card">
-    <h2 style="font-size:15px;margin:0 0 10px">重要市场指标（资金面 · 情绪面 · 杠杆面）</h2>
-    <div class="kpis" id="mktKpis"></div>
-    <div class="scroll" id="futTable" style="margin-top:12px"></div>
-    <div class="mut" style="font-size:12px;margin-top:8px">恐惧贪婪 / 稳定币 / 资金费率 / OI / 24h 涨跌成交 —— 与 ETF 资金流共振时信号最强。</div>
   </div>
 </div>
 
@@ -107,7 +106,7 @@ function renderEtf(){
     hint.innerHTML='⚠️ 暂无 ETF 数据：<b>etf.json 为空</b>。需配置 CoinGlass API key 后由 etf.js 定时抓取。骨架已就绪，等 key 到位即可自动填数据。';
     document.getElementById('coinTabs').innerHTML='';
     document.getElementById('etfDetail').innerHTML='';
-    renderMkt(null,null);
+    renderAnalysis();
     return;
   }
   hint.style.display='none';
@@ -117,7 +116,7 @@ function renderEtf(){
   document.querySelectorAll('.ctab').forEach(el=>el.onclick=()=>{curCoin=el.dataset.c;renderEtf();});
   renderCoin(coins[curCoin]);
   renderIssuers();
-  renderMkt(ETF.mkt, ETF.futures);
+  renderAnalysis();
 }
 function renderCoin(c){
   const el=document.getElementById('etfDetail');
@@ -128,6 +127,7 @@ function renderCoin(c){
     <div class="kpi"><div class="l">累计净流入</div><div class="v ${cum>=0?'pos':'neg'}">${USDM(cum)}</div></div>
     <div class="kpi"><div class="l">总资产 AUM</div><div class="v">${USD(aum*1e9)}</div></div>
     <div class="kpi"><div class="l">年内 YTD</div><div class="v ${ytd>=0?'pos':'neg'}">${USDM(ytd)}</div></div>
+    <div class="kpi"><div class="l">稳定币市值</div><div class="v">${USD((ETF.mkt&&ETF.mkt.stable)||0)}</div></div>
   </div>`;
   if(funds.length){
     h+=`<div class="scroll"><table><thead><tr><th>基金</th><th>发行商</th><th>累计净流入</th></tr></thead><tbody>`;
@@ -137,6 +137,75 @@ function renderCoin(c){
     }
     h+=`</tbody></table></div>`;
   }
+  el.innerHTML=h;
+}
+
+function renderAnalysis(){
+  const coins = ETF.coins || {};
+  const m = ETF.mkt || {};
+  const order = Object.keys(coins);
+  const el = document.getElementById('analysisTable');
+  if(!order.length){ el.innerHTML='<div class="mut" style="padding:8px">暂无数据</div>'; return; }
+  const fgi = m.fgi!=null ? m.fgi : null;
+  const tf = m.etfTotalFlow, tc = m.etfPrevChange;
+  let h='<table><thead><tr><th>币种</th><th>7日均值</th><th>30日均值</th><th>7/30比值</th><th>较前一日变化</th><th>贪婪指数</th><th>每日总流入</th><th>较前一日总流入变化</th></tr></thead><tbody>';
+  for(const tk of order){
+    const c = coins[tk];
+    h+=`<tr><td><b>${esc(tk)}</b></td>
+      <td class="${c.avg7>=0?'pos':'neg'}">${c.avg7==null?'—':USDM(c.avg7)}</td>
+      <td class="${c.avg30>=0?'pos':'neg'}">${c.avg30==null?'—':USDM(c.avg30)}</td>
+      <td>${c.ratio==null?'—':c.ratio.toFixed(2)}</td>
+      <td class="${c.prevChange>=0?'pos':'neg'}">${c.prevChange==null?'—':USDM(c.prevChange)}</td>
+      <td>${fgi==null?'—':fgi}</td>
+      <td class="${tf>=0?'pos':'neg'}">${tf==null?'—':USDM(tf)}</td>
+      <td class="${tc>=0?'pos':'neg'}">${tc==null?'—':USDM(tc)}</td></tr>`;
+  }
+  h+='</tbody></table>';
+  el.innerHTML=h;
+}
+
+function renderIssuers(){
+  const iss = ETF.issuers || {};
+  const issuers = Object.keys(iss);
+  const el = document.getElementById('issuerTable');
+  if(!issuers.length){ el.innerHTML='<div class="mut" style="padding:8px">暂无发行商持仓数据</div>'; return; }
+  const assets = [['btc','BTC'],['eth','ETH'],['sol','SOL'],['xrp','XRP'],['hyp','HYPE']];
+  let h='<table><thead><tr><th>发行商</th>'+assets.map(a=>`<th>${a[1]}</th>`).join('')+'<th>合计</th></tr></thead><tbody>';
+  const rows = issuers.map(is=>{
+    const hh = iss[is]||{};
+    const total = Object.values(hh).reduce((a,b)=>a+(+b||0),0);
+    return {is, hh, total};
+  }).sort((a,b)=>Math.abs(b.total)-Math.abs(a.total));
+  for(const r of rows){
+    h+=`<tr><td><b>${esc(r.is)}</b></td>`;
+    for(const [k] of assets){ const v=+r.hh[k]||0; h+=`<td class="${v>=0?'pos':'neg'}">${v===0?'—':USDM(v)}</td>`; }
+    h+=`<td class="${r.total>=0?'pos':'neg'}"><b>${USDM(r.total)}</b></td></tr>`;
+  }
+  h+='</tbody></table>';
+  el.innerHTML=h;
+}
+
+function renderAnalysis(){
+  const coins = ETF.coins || {};
+  const m = ETF.mkt || {};
+  const order = Object.keys(coins);
+  const el = document.getElementById('analysisTable');
+  if(!order.length){ el.innerHTML='<div class="mut" style="padding:8px">暂无数据</div>'; return; }
+  const fgi = m.fgi!=null ? m.fgi : null;
+  const tf = m.etfTotalFlow, tc = m.etfPrevChange;
+  let h='<table><thead><tr><th>币种</th><th>7日均值</th><th>30日均值</th><th>7/30比值</th><th>较前一日变化</th><th>贪婪指数</th><th>每日总流入</th><th>较前一日总流入变化</th></tr></thead><tbody>';
+  for(const tk of order){
+    const c = coins[tk];
+    h+=`<tr><td><b>${esc(tk)}</b></td>
+      <td class="${c.avg7>=0?'pos':'neg'}">${c.avg7==null?'—':USDM(c.avg7)}</td>
+      <td class="${c.avg30>=0?'pos':'neg'}">${c.avg30==null?'—':USDM(c.avg30)}</td>
+      <td>${c.ratio==null?'—':c.ratio.toFixed(2)}</td>
+      <td class="${c.prevChange>=0?'pos':'neg'}">${c.prevChange==null?'—':USDM(c.prevChange)}</td>
+      <td>${fgi==null?'—':fgi}</td>
+      <td class="${tf>=0?'pos':'neg'}">${tf==null?'—':USDM(tf)}</td>
+      <td class="${tc>=0?'pos':'neg'}">${tc==null?'—':USDM(tc)}</td></tr>`;
+  }
+  h+='</tbody></table>';
   el.innerHTML=h;
 }
 
