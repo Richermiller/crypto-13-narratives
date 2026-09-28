@@ -149,12 +149,12 @@ function renderCoin(c){
     <div class="kpi"><div class="l">稳定币市值</div><div class="v">${USD((ETF.mkt&&ETF.mkt.stable)||0)}</div></div>
   </div>`;
   if(funds.length){
-    const fs = SORT['fund'] || (SORT['fund']={key:'cum',dir:-1});
+    const fs = SORT['fundTable'] || (SORT['fundTable']={key:'cum',dir:-1});
     if(fs.key==='ticker') funds.sort((a,b)=>a.ticker.localeCompare(b.ticker)*fs.dir);
     else if(fs.key==='name') funds.sort((a,b)=>String(a.name||'').localeCompare(String(b.name||''))*fs.dir);
     else funds.sort((a,b)=>((a.cum||0)-(b.cum||0))*fs.dir);
-    h+=`<div class="scroll"><table><thead><tr>`+
-       thLabel('fund','基金','ticker')+thLabel('fund','发行商','name')+thLabel('fund','累计净流入','cum')+
+    h+=`<div class="scroll" id="fundTable"><table><thead><tr>`+
+       thLabel('fundTable','基金','ticker')+thLabel('fundTable','发行商','name')+thLabel('fundTable','累计净流入','cum')+
        `</tr></thead><tbody>`;
     for(const d of funds){
       h+=`<tr><td><b>${esc(d.ticker)}</b></td><td>${esc(d.name||'')}</td>
@@ -163,7 +163,7 @@ function renderCoin(c){
     h+=`</tbody></table></div>`;
   }
   el.innerHTML=h;
-  if(funds.length) bindSort('fund', ()=>renderCoin(c));
+  if(funds.length) bindSort('fundTable', ()=>renderCoin(c));
 }
 
 function renderAnalysis(){
@@ -172,7 +172,7 @@ function renderAnalysis(){
   const order = Object.keys(coins);
   const el = document.getElementById('analysisTable');
   if(!order.length){ el.innerHTML='<div class="mut" style="padding:8px">暂无数据</div>'; return; }
-  const s = SORT['analysis'] || (SORT['analysis']={key:null,dir:-1});
+  const s = SORT['analysisTable'] || (SORT['analysisTable']={key:null,dir:-1});
   const fgi = m.fgi!=null ? m.fgi : null;
   const tf = m.etfTotalFlow, tc = m.etfPrevChange;
   const val = (tk, k) => {
@@ -192,16 +192,16 @@ function renderAnalysis(){
     });
   }
   let h='<table><thead><tr>'
-    + thLabel('analysis','币种','name')
-    + thLabel('analysis','3日均值','avg3')
-    + thLabel('analysis','7日均值','avg7')
-    + thLabel('analysis','30日均值','avg30')
-    + thLabel('analysis','3/30比值','ratio3')
-    + thLabel('analysis','7/30比值','ratio')
-    + thLabel('analysis','较前一日变化','prevChange')
-    + thLabel('analysis','贪婪指数','fgi')
-    + thLabel('analysis','每日总流入','tf')
-    + thLabel('analysis','较前一日总流入变化','tc')
+    + thLabel('analysisTable','币种','name')
+    + thLabel('analysisTable','3日均值','avg3')
+    + thLabel('analysisTable','7日均值','avg7')
+    + thLabel('analysisTable','30日均值','avg30')
+    + thLabel('analysisTable','3/30比值','ratio3')
+    + thLabel('analysisTable','7/30比值','ratio')
+    + thLabel('analysisTable','较前一日变化','prevChange')
+    + thLabel('analysisTable','贪婪指数','fgi')
+    + thLabel('analysisTable','每日总流入','tf')
+    + thLabel('analysisTable','较前一日总流入变化','tc')
     + '</tr></thead><tbody>';
   for(const tk of sorted){
     const c = coins[tk];
@@ -218,7 +218,7 @@ function renderAnalysis(){
   }
   h+='</tbody></table>';
   el.innerHTML=h;
-  bindSort('analysis', renderAnalysis);
+  bindSort('analysisTable', renderAnalysis);
 }
 
 function renderIssuers(){
@@ -226,7 +226,7 @@ function renderIssuers(){
   const issuers = Object.keys(iss);
   const el = document.getElementById('issuerTable');
   if(!issuers.length){ el.innerHTML='<div class="mut" style="padding:8px">暂无发行商持仓数据</div>'; return; }
-  const s = SORT['issuer'] || (SORT['issuer']={key:null,dir:-1});
+  const s = SORT['issuerTable'] || (SORT['issuerTable']={key:null,dir:-1});
   const assets = [['btc','BTC'],['eth','ETH'],['sol','SOL'],['xrp','XRP'],['hyp','HYPE']];
   const rows = issuers.map(is=>{
     const hh = iss[is]||{};
@@ -242,9 +242,9 @@ function renderIssuers(){
     });
   }
   let h='<table><thead><tr>'
-    + thLabel('issuer','发行商','name')
+    + thLabel('issuerTable','发行商','name')
     + assets.map(a=>thLabel('issuer',a[1],a[0])).join('')
-    + thLabel('issuer','合计','total')
+    + thLabel('issuerTable','合计','total')
     + '</tr></thead><tbody>';
   for(const r of rows){
     h+=`<tr><td><b>${esc(r.is)}</b></td>`;
@@ -253,7 +253,7 @@ function renderIssuers(){
   }
   h+='</tbody></table>';
   el.innerHTML=h;
-  bindSort('issuer', renderIssuers);
+  bindSort('issuerTable', renderIssuers);
 }
 
 loadEtf();
