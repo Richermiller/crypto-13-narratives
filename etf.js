@@ -30,10 +30,12 @@ function stats(series, lastDate){
   const vals = valid.map(r=>+r.total||0);
   const avg = (n) => { const s=vals.slice(-n); return s.length? s.reduce((a,b)=>a+b,0)/s.length : null; };
   const last = vals[vals.length-1], prev = vals[vals.length-2];
+  const a3=avg(3), a7=avg(7), a30=avg(30);
   return {
     prevChange: last!=null&&prev!=null ? last-prev : null,
-    avg7: avg(7), avg30: avg(30),
-    ratio: (()=>{ const a7=avg(7), a30=avg(30); return (a7!=null&&a30!=null&&a30!==0)? a7/a30 : null; })(),
+    avg3: a3, avg7: a7, avg30: a30,
+    ratio: (a7!=null&&a30!=null&&a30!==0)? a7/a30 : null,
+    ratio3: (a3!=null&&a30!=null&&a30!==0)? a3/a30 : null,
   };
 }
 
@@ -67,7 +69,7 @@ async function main(){
       out.coins[tk] = {
         date: s.latestDate || '', daily: +(s.currentFlow)||0, cum: cum,
         aum: +(s.totalAssets)||0, ytd: +(s.ytdFlow)||0, count: s.count, funds: funds,
-        avg7:null, avg30:null, ratio:null, prevChange:null,
+        avg3:null, avg7:null, avg30:null, ratio:null, ratio3:null, prevChange:null,
       };
     }
     if(sum.overall) out.mkt.etfTotalAum = +(sum.overall.totalAssets)||0;
@@ -81,7 +83,7 @@ async function main(){
       const series = await fetchJson('https://api.cryptoetf.today/api/etf-flow/'+ep);
       if(out.coins[tk]){
         const st = stats(series, out.coins[tk] && out.coins[tk].date);
-        Object.assign(out.coins[tk], { prevChange: st.prevChange, avg7: st.avg7, avg30: st.avg30, ratio: st.ratio });
+        Object.assign(out.coins[tk], { prevChange: st.prevChange, avg3: st.avg3, avg7: st.avg7, avg30: st.avg30, ratio: st.ratio, ratio3: st.ratio3 });
       }
     }catch(e){ console.error('日线 '+tk+' 失败', e.message); }
   }));

@@ -57,7 +57,7 @@ iframe{width:100%;height:85vh;border:1px solid var(--bd);border-radius:10px;back
   <div class="card">
     <h2 style="font-size:15px;margin:0 0 10px">数据分析模块（13 币种 · 7日/30日资金流）</h2>
     <div class="scroll" id="analysisTable"></div>
-    <div class="mut" style="font-size:12px;margin-top:8px">7日/30日均值 = 已披露日线平均净流入；比值 = 7日均值 ÷ 30日均值（&gt;1 短期资金加速流入）；较前一日变化 = 最新披露值 − 前一日；贪婪指数 / 每日总流入 / 变化为全市场值。</div>
+    <div class="mut" style="font-size:12px;margin-top:8px">3日/7日/30日均值 = 已披露日线平均净流入；比值 = 3日(或7日)均值 ÷ 30日均值（&gt;1 短期资金加速流入）；较前一日变化 = 最新披露值 − 前一日；贪婪指数 / 每日总流入 / 变化为全市场值。</div>
   </div>
   <div class="card">
     <h2 style="font-size:15px;margin:0 0 10px">发行商一篮子持仓（跨币种资金分布，近似指数 ETF）</h2>
@@ -148,12 +148,14 @@ function renderAnalysis(){
   if(!order.length){ el.innerHTML='<div class="mut" style="padding:8px">暂无数据</div>'; return; }
   const fgi = m.fgi!=null ? m.fgi : null;
   const tf = m.etfTotalFlow, tc = m.etfPrevChange;
-  let h='<table><thead><tr><th>币种</th><th>7日均值</th><th>30日均值</th><th>7/30比值</th><th>较前一日变化</th><th>贪婪指数</th><th>每日总流入</th><th>较前一日总流入变化</th></tr></thead><tbody>';
+  let h='<table><thead><tr><th>币种</th><th>3日均值</th><th>7日均值</th><th>30日均值</th><th>3/30比值</th><th>7/30比值</th><th>较前一日变化</th><th>贪婪指数</th><th>每日总流入</th><th>较前一日总流入变化</th></tr></thead><tbody>';
   for(const tk of order){
     const c = coins[tk];
     h+=`<tr><td><b>${esc(tk)}</b></td>
+      <td class="${c.avg3>=0?'pos':'neg'}">${c.avg3==null?'—':USDM(c.avg3)}</td>
       <td class="${c.avg7>=0?'pos':'neg'}">${c.avg7==null?'—':USDM(c.avg7)}</td>
       <td class="${c.avg30>=0?'pos':'neg'}">${c.avg30==null?'—':USDM(c.avg30)}</td>
+      <td>${c.ratio3==null?'—':c.ratio3.toFixed(2)}</td>
       <td>${c.ratio==null?'—':c.ratio.toFixed(2)}</td>
       <td class="${c.prevChange>=0?'pos':'neg'}">${c.prevChange==null?'—':USDM(c.prevChange)}</td>
       <td>${fgi==null?'—':fgi}</td>
@@ -193,12 +195,14 @@ function renderAnalysis(){
   if(!order.length){ el.innerHTML='<div class="mut" style="padding:8px">暂无数据</div>'; return; }
   const fgi = m.fgi!=null ? m.fgi : null;
   const tf = m.etfTotalFlow, tc = m.etfPrevChange;
-  let h='<table><thead><tr><th>币种</th><th>7日均值</th><th>30日均值</th><th>7/30比值</th><th>较前一日变化</th><th>贪婪指数</th><th>每日总流入</th><th>较前一日总流入变化</th></tr></thead><tbody>';
+  let h='<table><thead><tr><th>币种</th><th>3日均值</th><th>7日均值</th><th>30日均值</th><th>3/30比值</th><th>7/30比值</th><th>较前一日变化</th><th>贪婪指数</th><th>每日总流入</th><th>较前一日总流入变化</th></tr></thead><tbody>';
   for(const tk of order){
     const c = coins[tk];
     h+=`<tr><td><b>${esc(tk)}</b></td>
+      <td class="${c.avg3>=0?'pos':'neg'}">${c.avg3==null?'—':USDM(c.avg3)}</td>
       <td class="${c.avg7>=0?'pos':'neg'}">${c.avg7==null?'—':USDM(c.avg7)}</td>
       <td class="${c.avg30>=0?'pos':'neg'}">${c.avg30==null?'—':USDM(c.avg30)}</td>
+      <td>${c.ratio3==null?'—':c.ratio3.toFixed(2)}</td>
       <td>${c.ratio==null?'—':c.ratio.toFixed(2)}</td>
       <td class="${c.prevChange>=0?'pos':'neg'}">${c.prevChange==null?'—':USDM(c.prevChange)}</td>
       <td>${fgi==null?'—':fgi}</td>
