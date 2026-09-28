@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-28T09:10:10.535Z",
+  "updatedAt": "2026-09-28T17:57:22.758Z",
   "source": "cryptoetf.today",
   "coins": {
     "LINK": {
@@ -467,7 +467,8 @@
     "etfTotalCount": 51,
     "etfPrevChange": 26.726999999999975,
     "fgi": 74,
-    "fgi_label": "Greed"
+    "fgi_label": "Greed",
+    "stable": 258548893668
   },
   "futures": {},
   "issuers": {
@@ -564,20 +565,35 @@
       "sol": 0,
       "xrp": 458.9
     },
-    "clnk": {
-      "link": 61
-    },
-    "gava": {
-      "avax": 7.6
-    },
     "gsui": {
       "sui": 41.6
     },
     "tsui": {
       "sui": 28.5
     },
+    "bwow": {
+      "doge": 0.8
+    },
     "glnk": {
       "link": 164.7
+    },
+    "clnk": {
+      "link": 61
+    },
+    "gava": {
+      "avax": 7.6
+    },
+    "ltcc": {
+      "ltc": 12.4
+    },
+    "vbnb": {
+      "bnb": 2.7
+    },
+    "gdog": {
+      "doge": 13.1
+    },
+    "suis": {
+      "sui": 33.3
     },
     "tdog": {
       "doge": 2.4
@@ -585,29 +601,14 @@
     "bava": {
       "avax": 27.9
     },
-    "gdog": {
-      "doge": 13.1
+    "vavx": {
+      "avax": 20.7
     },
     "hbr": {
       "hbar": 73.5
     },
-    "ltcc": {
-      "ltc": 12.4
-    },
-    "suis": {
-      "sui": 33.3
-    },
-    "bwow": {
-      "doge": 0.8
-    },
     "tdot": {
       "dot": 11.4
-    },
-    "vavx": {
-      "avax": 20.7
-    },
-    "vbnb": {
-      "bnb": 2.7
     }
   }
 }
