@@ -24,9 +24,13 @@ jobs:
 
       - name: 拉取日线OHLC并计算振幅拐点（日线数据，20小时内复用缓存）
         run: node amp.js
+        env:
+          COINGECKO_API_KEY: ${{ secrets.COINGECKO_API_KEY }}
 
       - name: 拉取 CoinGecko 行情并重建页面
         run: node build.js
+        env:
+          COINGECKO_API_KEY: ${{ secrets.COINGECKO_API_KEY }}
 
       - name: 拉取 ETF 资金流与市场情绪
         run: node etf.js

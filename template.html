@@ -808,6 +808,57 @@ document.querySelectorAll("h2.sec").forEach(h=>{
 });
 
 renderSectors(); renderTable(); renderAdvice(); renderOpTable(); renderAmp();
+
+// ===================== 根治「数据冻结」：客户端实时价格 + 自动刷新 =====================
+(function(){
+  // ① 客户端直连 Binance 拉实时价格（浏览器在墙内可直连，不依赖 GitHub 定时任务）
+  function applyLivePrices(){
+    fetch('https://api.binance.com/api/v3/ticker/price', {cache:'no-store'})
+      .then(r=>r.json())
+      .then(list=>{
+        if(!Array.isArray(list)) return;
+        const pm = {};
+        list.forEach(x=>{ if(x && x.symbol) pm[x.symbol] = +x.price; });
+        let changed = 0;
+        TOKENS.forEach(t=>{
+          const np = pm[t.s + 'USDT'];
+          if(np && np > 0){
+            const oldP = t.p;
+            if(!oldP || Math.abs(np - oldP) > oldP * 1e-4){
+              t.p = np;
+              // 按价格比例同步市值/FDV，保持口径一致（与后端 Binance 兜底一致）
+              if(oldP && oldP > 0){
+                if(t.mc != null) t.mc = t.mc * (np / oldP);
+                if(t.fdv != null) t.fdv = t.fdv * (np / oldP);
+              }
+              changed++;
+            }
+          }
+        });
+        if(changed > 0){
+          renderSectors(); renderTable(); renderOpTable();
+          const stamp = document.querySelector('.stamp');
+          if(stamp){
+            const first = stamp.textContent.split('·')[0].trim();
+            stamp.textContent = first + ' · 价格实时(Binance ' + new Date().toLocaleTimeString('zh-CN',{hour12:false}) + ') · 非投资建议';
+          }
+        }
+      })
+      .catch(()=>{});
+  }
+  let liveTimer = null;
+  function startLive(){
+    if(liveTimer) return;
+    applyLivePrices();
+    liveTimer = setInterval(applyLivePrices, 60 * 1000); // 每 60 秒刷新价格
+  }
+  function stopLive(){ if(liveTimer){ clearInterval(liveTimer); liveTimer = null; } }
+  document.addEventListener('visibilitychange', ()=> document.hidden ? stopLive() : startLive());
+  startLive();
+
+  // ② 定时重载页面，拾取后端新构建的「振幅拐点」数据（GitHub Actions 每小时算，这里每 30 分钟重载一次）
+  setTimeout(()=>{ location.reload(); }, 30 * 60 * 1000);
+})();
 </script>
 </body>
 </html>

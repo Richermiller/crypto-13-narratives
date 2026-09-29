@@ -20,11 +20,17 @@ function fmtSupply(n) {
   if (n >= 1e3) return trim(n / 1e3) + 'K';
   return String(Math.round(n));
 }
+function cgHeaders() {
+  const h = { 'User-Agent': 'crypto-dashboard/1.0', 'Accept': 'application/json' };
+  // CoinGecko 免费 demo key：解决无 key 时 403 限流。设置 GitHub secret COINGECKO_API_KEY 即生效
+  if (process.env.COINGECKO_API_KEY) h['x-cg-demo-api-key'] = process.env.COINGECKO_API_KEY;
+  return h;
+}
 function fetchMarkets(ids) {
   const url = 'https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=' +
     ids.join(',') + '&order=market_cap_desc&per_page=250&sparkline=false';
   return new Promise((resolve, reject) => {
-    const req = https.get(url, { headers: { 'User-Agent': 'crypto-dashboard/1.0', 'Accept': 'application/json' }, timeout: 60000 }, res => {
+    const req = https.get(url, { headers: cgHeaders(), timeout: 60000 }, res => {
       let d = '';
       res.on('data', c => d += c);
       res.on('end', () => { try { resolve(JSON.parse(d)); } catch (e) { reject(e); } });

@@ -14,8 +14,11 @@ const DAILY_MS = 24 * 3600 * 1000;   // 日线缓存 24h（每天 10 点刷新�
 const HOURLY_MS = 1 * 3600 * 1000;   // 小时线缓存 1h
 
 function fetchJSON(url, timeout = 30000) {
+  const h = { 'User-Agent': 'Mozilla/5.0', 'Accept': 'application/json' };
+  // CoinGecko 免费 demo key：解决无 key 时 403 限流（仅对 CoinGecko 请求有意义，Binance/MEXC 会忽略该头）
+  if (process.env.COINGECKO_API_KEY) h['x-cg-demo-api-key'] = process.env.COINGECKO_API_KEY;
   return new Promise((resolve, reject) => {
-    const req = https.get(url, { headers: { 'User-Agent': 'Mozilla/5.0', 'Accept': 'application/json' }, timeout }, res => {
+    const req = https.get(url, { headers: h, timeout }, res => {
       let d = ''; res.on('data', c => d += c);
       res.on('end', () => { try { resolve(JSON.parse(d)); } catch (e) { reject(e); } });
     });
