@@ -245,11 +245,11 @@
   </table></div>
   </div>
 
-  <h2 class="sec"><span class="bar"></span>日线振幅拐点（波动率择时）<input class="sec-search" id="q-amp" placeholder="搜索币种…"><span class="sec-arrow"></span></h2>
+  <h2 class="sec"><span class="bar"></span>振幅拐点（小时级 + 日线级）<input class="sec-search" id="q-amp" placeholder="搜索币种…"><span class="sec-arrow"></span></h2>
   <div class="sec-wrap">
   <div class="hint">
     <span class="lg st-compress">压缩蓄势</span><span class="lg st-spike">波动脉冲</span><span class="lg st-normal">常态</span>
-    <span class="lg-note">日振幅 =（最高-最低）/前收盘；比值 = 当日振幅 ÷ 20日均振幅。比值≤0.6=压缩（波动收窄，关注变盘）；≥2.0=脉冲（情绪放大，警惕见顶）。黄点=最近振幅拐点。数据源：Binance/MEXC/CoinGecko 日线。此表按「拐点优先」排序：压缩蓄势在前。</span>
+    <span class="lg-note">振幅 =（最高-最低）/前收盘；比值 = 当期振幅 ÷ 20周期均振幅。比值≤0.6=压缩（波动收窄，关注变盘）；≥2.0=脉冲（情绪放大，警惕见顶）。「小时拐点」每小时刷新、「日线拐点」每天10点刷新，时间为策略判读的真实时间戳。此表默认「脉冲拐点·退潮/见顶」置顶。</span>
   </div>
   <div class="table-wrap scroll15"><table id="amptable">
     <thead><tr>
@@ -259,7 +259,8 @@
       <th data-key="ratio" data-type="num" class="num">比值</th>
       <th data-key="state" data-type="str">状态</th>
       <th data-key="signal" data-type="str">拐点提示</th>
-      <th data-key="lastTurn" data-type="str">最近拐点</th>
+      <th data-key="hLastTurn" data-type="str">小时拐点</th>
+      <th data-key="lastTurn" data-type="str">日线拐点</th>
       <th class="spark">振幅走势(60日)</th>
     </tr></thead>
     <tbody></tbody>
@@ -673,7 +674,12 @@ function renderAmp(){
       if(key==="s") c = String(x.s).localeCompare(String(y.s))*ampSortDir;
       else if(key==="state") c = ((stateRank[x.a.state]??9)-(stateRank[y.a.state]??9))*ampSortDir;
       else if(key==="signal") c = String(x.a.signal||"").localeCompare(String(y.a.signal||""))*ampSortDir;
-      else if(key==="lastTurn") c = String((x.a.lastTurn&&x.a.lastTurn.date)||"").localeCompare(String((y.a.lastTurn&&y.a.lastTurn.date)||""))*ampSortDir;
+      else if(key==="hLastTurn" || key==="lastTurn"){
+        const xlt = x.a[key], ylt = y.a[key];
+        const xd = xlt && xlt.detectedAt ? +xlt.detectedAt : -1;
+        const yd = ylt && ylt.detectedAt ? +ylt.detectedAt : -1;
+        if(xd<0 && yd<0) c = 0; else if(xd<0) c = 1; else if(yd<0) c = -1; else c = (xd-yd)*ampSortDir;
+      }
       else { // ampPct / ma20Pct / ratio（数值）
         const xn=parseFloat(x.a[key]), yn=parseFloat(y.a[key]);
         const xv=(xn==null||isNaN(xn))? -Infinity : xn;
@@ -699,13 +705,15 @@ function renderAmp(){
     const t = TM[s];
     const stCls = a.state==="压缩"?"st-compress":(a.state==="脉冲"?"st-spike":"st-normal");
     const arrow = a.dir==="up" ? '<span class="up">▲</span>' : '<span class="down">▼</span>';
-    const turn = a.lastTurn ? '<span class="amp-turn '+a.lastTurn.dir+'" title="拐点发生日：'+esc(a.lastTurn.date)+'">'+esc(fmtTurnTime(AMP.updatedAt))+' · '+esc(a.lastTurn.type)+'</span>' : '—';
+    const turnOf = (lt, fb) => lt ? '<span class="amp-turn '+lt.dir+'" title="拐点发生：'+esc(lt.date)+'">'+esc(fmtTurnTime(lt.detectedAt || fb))+' · '+esc(lt.type)+'</span>' : '—';
+    const hTurn = turnOf(a.hLastTurn, AMP.hourlyUpdatedAt || AMP.updatedAt);
+    const turn = turnOf(a.lastTurn, AMP.dailyUpdatedAt || AMP.updatedAt);
     return '<tr><td class="sym">'+esc(s)+'<div class="sub">'+esc(t?t.n:s)+'</div></td>'+
       '<td class="num">'+a.ampPct+'%</td><td class="num">'+a.ma20Pct+'%</td><td class="num">'+a.ratio+'</td>'+
       '<td><span class="st-badge '+stCls+'">'+esc(a.state)+'</span> '+arrow+'</td>'+
-      '<td>'+esc(a.signal)+'</td><td>'+turn+'</td><td class="spark">'+sparkline(a.series, a.turnIdx)+'</td></tr>';
+      '<td>'+esc(a.signal)+'</td><td>'+hTurn+'</td><td>'+turn+'</td><td class="spark">'+sparkline(a.series, a.turnIdx)+'</td></tr>';
   }).join("");
-  document.querySelector("#amptable tbody").innerHTML = rows || '<tr><td colspan="8" style="text-align:center;color:var(--faint);padding:20px">振幅数据待生成</td></tr>';
+  document.querySelector("#amptable tbody").innerHTML = rows || '<tr><td colspan="9" style="text-align:center;color:var(--faint);padding:20px">振幅数据待生成</td></tr>';
   document.querySelectorAll("#amptable th[data-key]").forEach(th=>{
     th.classList.remove("sorted-asc","sorted-desc");
     if(ampSortKey && th.dataset.key===ampSortKey) th.classList.add(ampSortDir>0?"sorted-asc":"sorted-desc");
