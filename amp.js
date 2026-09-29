@@ -32,7 +32,7 @@ async function fetchExchangeDaily(sym) {
       try {
         const j = await fetchJSON(b.replace('{S}', sym));
         if (Array.isArray(j) && j.length >= 25) {
-          const daily = j.map(k => ({ date: new Date(k[0]).toISOString().slice(0, 16), o: +k[1], h: +k[2], l: +k[3], c: +k[4] }));
+          const daily = j.map(k => ({ date: new Date(k[0]).toISOString().slice(0, 10), o: +k[1], h: +k[2], l: +k[3], c: +k[4] }));
           return { daily, src: name };
         }
       } catch (e) { /* retry */ }
