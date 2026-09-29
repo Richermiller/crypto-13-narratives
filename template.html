@@ -126,6 +126,10 @@
   .amp-turn{font-size:11.5px}
   .amp-turn.watch{color:#0c8599}
   .amp-turn.risk{color:#c62828}
+  .topbtn{margin-left:5px;padding:1px 6px;font-size:10px;font-weight:700;border-radius:4px;
+    border:1px solid rgba(198,40,40,.4);background:rgba(198,40,40,.08);color:#c62828;cursor:pointer;white-space:nowrap}
+  .topbtn:hover{background:rgba(198,40,40,.16)}
+  .topbtn.active{background:#c62828;color:#fff;border-color:#c62828}
   th.spark{width:130px}
   /* table */
   .table-wrap{background:var(--card);border:1px solid var(--line);border-radius:16px;overflow:auto;margin-top:8px;
@@ -259,8 +263,8 @@
       <th data-key="ratio" data-type="num" class="num">比值</th>
       <th data-key="state" data-type="str">状态</th>
       <th data-key="signal" data-type="str">拐点提示</th>
-      <th data-key="hLastTurn" data-type="str">小时拐点</th>
-      <th data-key="lastTurn" data-type="str">日线拐点</th>
+      <th data-key="hLastTurn" data-type="str">小时拐点<button class="topbtn" data-top="hLastTurn" title="按小时级见顶状态优先排列">见顶</button></th>
+      <th data-key="lastTurn" data-type="str">日线拐点<button class="topbtn" data-top="lastTurn" title="按日线级见顶状态优先排列">见顶</button></th>
       <th class="spark">振幅走势(60日)</th>
     </tr></thead>
     <tbody></tbody>
@@ -655,7 +659,8 @@ function fmtTurnTime(t){
   const p = n => String(n).padStart(2,'0');
   return `${bj.getUTCFullYear()}-${p(bj.getUTCMonth()+1)}-${p(bj.getUTCDate())} ${p(bj.getUTCHours())}:${p(bj.getUTCMinutes())}`;
 }
-let ampSortKey = null, ampSortDir = 1; // null=默认「脉冲拐点优先」
+let ampSortKey = null, ampSortDir = 1; // null=默认排序
+let ampTopKey = null; // null | "hLastTurn" | "lastTurn" —— 见顶按钮触发的优先排序
 function renderAmp(){
   const q = document.getElementById("q-amp").value.trim().toLowerCase();
   const coins = AMP.coins || {};
@@ -692,9 +697,10 @@ function renderAmp(){
       return c;
     });
   } else {
-    // 默认：脉冲拐点（退潮/见顶）置顶，其次压缩拐点，再其余
+    // 默认：见顶按钮选中的级别（脉冲拐点·退潮/见顶）优先，其次压缩拐点，再其余
+    const topKey = ampTopKey || "lastTurn";
     entries.sort((x,y)=>{
-      const rx=turnRank(x.a.lastTurn), ry=turnRank(y.a.lastTurn);
+      const rx=turnRank(x.a[topKey]), ry=turnRank(y.a[topKey]);
       if(rx!==ry) return rx-ry;
       if(rx===0) return (y.a.ratio||0)-(x.a.ratio||0); // 脉冲：比值大的在前
       if(rx===1) return (x.a.ratio||0)-(y.a.ratio||0); // 压缩：比值小的在前
@@ -717,6 +723,9 @@ function renderAmp(){
   document.querySelectorAll("#amptable th[data-key]").forEach(th=>{
     th.classList.remove("sorted-asc","sorted-desc");
     if(ampSortKey && th.dataset.key===ampSortKey) th.classList.add(ampSortDir>0?"sorted-asc":"sorted-desc");
+  });
+  document.querySelectorAll("#amptable .topbtn").forEach(btn=>{
+    btn.classList.toggle("active", btn.dataset.top===ampTopKey);
   });
 }
 
@@ -756,11 +765,21 @@ document.querySelectorAll("#opmtable th[data-key]").forEach(th=>{
   });
 });
 document.querySelectorAll("#amptable th[data-key]").forEach(th=>{
-  th.addEventListener("click",()=>{
+  th.addEventListener("click",e=>{
+    if(e.target.closest(".topbtn")) return; // 见顶按钮点击不触发列排序
     const key = th.dataset.key;
     const numeric = ["ampPct","ma20Pct","ratio"].includes(key);
     if(ampSortKey===key){ ampSortDir *= -1; }
     else { ampSortKey = key; ampSortDir = numeric ? -1 : 1; }
+    renderAmp();
+  });
+});
+// 见顶按钮：按对应级别「脉冲拐点·退潮/见顶」优先排列
+document.querySelectorAll("#amptable .topbtn").forEach(btn=>{
+  btn.addEventListener("click",()=>{
+    const top = btn.dataset.top;
+    if(ampTopKey===top){ ampTopKey = null; } // 再点取消
+    else { ampTopKey = top; ampSortKey = null; }
     renderAmp();
   });
 });
