@@ -33,6 +33,19 @@ function fetchMarkets(ids) {
     req.on('error', reject);
   });
 }
+// Binance 全量价格兜底（无需 key，CoinGecko 被 403 时用）
+function fetchBinancePrices() {
+  const url = 'https://api.binance.com/api/v3/ticker/price';
+  return new Promise((resolve, reject) => {
+    const req = https.get(url, { headers: { 'User-Agent': 'crypto-dashboard/1.0', 'Accept': 'application/json' }, timeout: 30000 }, res => {
+      let d = '';
+      res.on('data', c => d += c);
+      res.on('end', () => { try { resolve(JSON.parse(d)); } catch (e) { reject(e); } });
+    });
+    req.on('timeout', () => req.destroy(new Error('timeout')));
+    req.on('error', reject);
+  });
+}
 
 (async function main() {
   const coins = DATA.coins;
@@ -76,6 +89,30 @@ function fetchMarkets(ids) {
   // 回写 data.json，保证兜底数据始终为最近一次成功值
   fs.writeFileSync('data.json', JSON.stringify(DATA, null, 1));
 
+  // CoinGecko 被 403/限流时，用 Binance 价格兜底（无需 key）：更新价格，并按价格比例缩放市值/FDV
+  let binanceCount = 0;
+  if (live.length === 0) {
+    try {
+      const bp = await fetchBinancePrices();
+      const bySym = {};
+      bp.forEach(x => bySym[x.symbol] = +x.price);
+      coins.forEach(c => {
+        const p = bySym[c.s + 'USDT'];
+        if (p != null && p > 0) {
+          const oldP = c.p;
+          if (oldP != null && oldP > 0) {
+            if (c.mc != null) c.mc = c.mc * (p / oldP);
+            if (c.fdv != null) c.fdv = c.fdv * (p / oldP);
+          }
+          c.p = p;
+          binanceCount++;
+        }
+      });
+      if (binanceCount > 0) srcErr = null;
+    } catch (e) {}
+  }
+  if (binanceCount > 0) fs.writeFileSync('data.json', JSON.stringify(DATA, null, 1));
+
   const TOKENS = coins.map(c => ({
     s: c.s, n: c.n,
     p: c.p ?? null, mc: c.mc ?? null, fdv: c.fdv ?? null,
@@ -89,12 +126,14 @@ function fetchMarkets(ids) {
   try { if (fs.existsSync('amp.json')) AMP = JSON.parse(fs.readFileSync('amp.json', 'utf8')); } catch (e) {}
 
   let tpl = fs.readFileSync('template.html', 'utf8');
-  const stamp = beijingNow() + (srcErr ? ' · 数据源暂不可用(展示上次数据)' : '');
+  let stamp = beijingNow();
+  if (binanceCount > 0) stamp += ' · 价格来自 Binance 兜底（CoinGecko 需 API key）';
+  else if (srcErr) stamp += ' · 数据源暂不可用(展示上次数据)';
   tpl = tpl.replace('__TOKENS__', JSON.stringify(TOKENS));
   tpl = tpl.replace('__ADVICE__', JSON.stringify(DATA.advice));
   tpl = tpl.replace('__AMP__', JSON.stringify(AMP));
   tpl = tpl.replace('__UPDATED_AT__', stamp);
   fs.writeFileSync('narrative.html', tpl);
 
-  console.log('live:', liveCount, '/', coins.length, '| 振幅币数:', Object.keys(AMP.coins || {}).length, '| 数据源错误:', srcErr || '无', '| 时间戳:', stamp);
+  console.log('live:', liveCount, '/', coins.length, '| Binance兜底:', binanceCount, '| 振幅币数:', Object.keys(AMP.coins || {}).length, '| 数据源错误:', srcErr || '无', '| 时间戳:', stamp);
 })();
