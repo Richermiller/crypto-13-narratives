@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-06T09:49:32.058Z",
+  "updatedAt": "2026-10-06T16:38:13.093Z",
   "source": "cryptoetf.today",
   "coins": {
     "LINK": {
@@ -48,6 +48,27 @@
       "ratio": 2.582048240411229,
       "ratio3": 2.7692104916304205,
       "prevChange": 0
+    },
+    "BNB": {
+      "date": "2026-10-05",
+      "daily": 0,
+      "cum": 98.6,
+      "aum": 0.1,
+      "ytd": 98.6,
+      "count": 1,
+      "funds": [
+        {
+          "ticker": "VBNB",
+          "name": "VanEck BNB ETF",
+          "cum": 98.6
+        }
+      ],
+      "avg3": 32.48566666666667,
+      "avg7": 13.92242857142857,
+      "avg30": 3.2485666666666666,
+      "ratio": 4.285714285714286,
+      "ratio3": 10,
+      "prevChange": -97.457
     },
     "AVAX": {
       "date": "2026-10-05",
@@ -115,7 +136,7 @@
       "date": "2026-10-05",
       "daily": 0,
       "cum": 16.1,
-      "aum": 0.01,
+      "aum": 0.02,
       "ytd": 8.5,
       "count": 1,
       "funds": [
@@ -182,27 +203,6 @@
       "avg30": 0.0221,
       "ratio": 0,
       "ratio3": 0,
-      "prevChange": 0
-    },
-    "BNB": {
-      "date": "2026-10-05",
-      "daily": 0,
-      "cum": 1.1,
-      "aum": 0,
-      "ytd": 1.1,
-      "count": 1,
-      "funds": [
-        {
-          "ticker": "VBNB",
-          "name": "VanEck BNB ETF",
-          "cum": 1.1
-        }
-      ],
-      "avg3": 0,
-      "avg7": 0,
-      "avg30": 0,
-      "ratio": null,
-      "ratio3": null,
       "prevChange": 0
     },
     "BTC": {
@@ -472,13 +472,13 @@
     }
   },
   "mkt": {
-    "etfTotalAum": 76.54,
+    "etfTotalAum": 76.65,
     "etfTotalFlow": -120.6,
     "etfTotalCount": 54,
-    "etfPrevChange": -274.35699999999997,
+    "etfPrevChange": -371.81399999999996,
     "fgi": 73,
     "fgi_label": "Greed",
-    "stable": 258222869324
+    "stable": 258207739578
   },
   "futures": {},
   "issuers": {
@@ -575,59 +575,59 @@
       "sol": 1.7,
       "xrp": 459.7
     },
-    "tsui": {
-      "sui": 31.7
-    },
-    "glnk": {
-      "link": 169.3
-    },
-    "bwow": {
-      "doge": 0.8
-    },
-    "nrr": {
-      "near": 60.2
+    "tdog": {
+      "doge": 2.3
     },
     "zcsh": {
       "zec": 785.5
     },
-    "gsui": {
-      "sui": 48
+    "tsui": {
+      "sui": 31.7
     },
-    "gava": {
-      "avax": 8.1
-    },
-    "tdog": {
-      "doge": 2.3
-    },
-    "gdog": {
-      "doge": 13.8
-    },
-    "clnk": {
-      "link": 66.3
-    },
-    "bava": {
-      "avax": 29
+    "suis": {
+      "sui": 35.3
     },
     "tdot": {
       "dot": 11.7
     },
+    "bwow": {
+      "doge": 0.8
+    },
     "vbnb": {
-      "bnb": 2.7
+      "bnb": 102.9
+    },
+    "gdog": {
+      "doge": 13.8
     },
     "ltcc": {
-      "ltc": 14.7
+      "ltc": 15
     },
-    "hbr": {
-      "hbar": 80
+    "glnk": {
+      "link": 169.3
+    },
+    "bava": {
+      "avax": 29
     },
     "vavx": {
-      "avax": 21
+      "avax": 21.6
+    },
+    "clnk": {
+      "link": 66.3
+    },
+    "gava": {
+      "avax": 8.1
+    },
+    "hbr": {
+      "hbar": 81.9
     },
     "trxs": {
-      "trx": 50.2
+      "trx": 50.5
     },
-    "suis": {
-      "sui": 33.1
+    "gsui": {
+      "sui": 48
+    },
+    "nrr": {
+      "near": 60.2
     }
   }
 }
