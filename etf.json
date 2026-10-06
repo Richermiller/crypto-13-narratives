@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-06T16:38:13.093Z",
+  "updatedAt": "2026-10-06T21:37:33.565Z",
   "source": "cryptoetf.today",
   "coins": {
     "LINK": {
@@ -432,12 +432,12 @@
           "cum": 131.9
         }
       ],
-      "avg3": 0.2616666666666669,
-      "avg7": 6.038571428571428,
-      "avg30": 7.588633333333332,
-      "ratio": 0.7957389905830338,
-      "ratio3": 0.03448139542034362,
-      "prevChange": 3.28
+      "avg3": 0.20866666666666692,
+      "avg7": 8.615857142857143,
+      "avg30": 7.663366666666666,
+      "ratio": 1.1242913875351317,
+      "ratio3": 0.027229111661106337,
+      "prevChange": -7.345000000000001
     },
     "HYPE": {
       "date": "2026-10-05",
@@ -475,10 +475,10 @@
     "etfTotalAum": 76.65,
     "etfTotalFlow": -120.6,
     "etfTotalCount": 54,
-    "etfPrevChange": -371.81399999999996,
+    "etfPrevChange": -382.43899999999996,
     "fgi": 73,
     "fgi_label": "Greed",
-    "stable": 258207739578
+    "stable": 258256032205
   },
   "futures": {},
   "issuers": {
@@ -575,35 +575,29 @@
       "sol": 1.7,
       "xrp": 459.7
     },
-    "tdog": {
-      "doge": 2.3
-    },
     "zcsh": {
       "zec": 785.5
-    },
-    "tsui": {
-      "sui": 31.7
-    },
-    "suis": {
-      "sui": 35.3
     },
     "tdot": {
       "dot": 11.7
     },
-    "bwow": {
-      "doge": 0.8
+    "glnk": {
+      "link": 169.3
     },
     "vbnb": {
       "bnb": 102.9
     },
-    "gdog": {
-      "doge": 13.8
-    },
     "ltcc": {
       "ltc": 15
     },
-    "glnk": {
-      "link": 169.3
+    "bwow": {
+      "doge": 0.8
+    },
+    "gdog": {
+      "doge": 13.8
+    },
+    "tsui": {
+      "sui": 31.7
     },
     "bava": {
       "avax": 29
@@ -611,8 +605,11 @@
     "vavx": {
       "avax": 21.6
     },
-    "clnk": {
-      "link": 66.3
+    "gsui": {
+      "sui": 48
+    },
+    "tdog": {
+      "doge": 2.3
     },
     "gava": {
       "avax": 8.1
@@ -620,14 +617,17 @@
     "hbr": {
       "hbar": 81.9
     },
+    "suis": {
+      "sui": 35.3
+    },
     "trxs": {
       "trx": 50.5
     },
-    "gsui": {
-      "sui": 48
-    },
     "nrr": {
       "near": 60.2
+    },
+    "clnk": {
+      "link": 66.3
     }
   }
 }
