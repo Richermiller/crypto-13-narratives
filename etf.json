@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-07T08:07:57.247Z",
+  "updatedAt": "2026-10-07T20:33:05.706Z",
   "source": "cryptoetf.today",
   "coins": {
     "LINK": {
@@ -136,7 +136,7 @@
       "date": "2026-10-06",
       "daily": 0,
       "cum": 16.1,
-      "aum": 0.02,
+      "aum": 0.01,
       "ytd": 8.5,
       "count": 1,
       "funds": [
@@ -405,10 +405,10 @@
     },
     "XRP": {
       "date": "2026-10-06",
-      "daily": 5.6,
-      "cum": 1638.7,
+      "daily": 4.5,
+      "cum": 1637.5,
       "aum": 1.64,
-      "ytd": 590.2,
+      "ytd": 589,
       "count": 5,
       "funds": [
         {
@@ -419,7 +419,7 @@
         {
           "ticker": "canary",
           "name": "canary",
-          "cum": 457.5
+          "cum": 456.3
         },
         {
           "ticker": "franklin",
@@ -432,12 +432,12 @@
           "cum": 131.9
         }
       ],
-      "avg3": 2.1393333333333335,
-      "avg7": 6.843285714285714,
-      "avg30": 7.776399999999999,
-      "ratio": 0.880006907346036,
-      "ratio3": 0.27510587589801627,
-      "prevChange": 8.913
+      "avg3": 1.7646666666666668,
+      "avg7": 6.682714285714285,
+      "avg30": 7.738933333333332,
+      "ratio": 0.8635187819657687,
+      "ratio3": 0.2280245339581683,
+      "prevChange": 7.789
     },
     "HYPE": {
       "date": "2026-10-06",
@@ -473,12 +473,12 @@
   },
   "mkt": {
     "etfTotalAum": 76.54,
-    "etfTotalFlow": -78.20000000000002,
+    "etfTotalFlow": -79.30000000000001,
     "etfTotalCount": 54,
-    "etfPrevChange": 77.74600000000001,
+    "etfPrevChange": 76.62200000000001,
     "fgi": 71,
     "fgi_label": "Greed",
-    "stable": 258083147910
+    "stable": 257804798639
   },
   "futures": {},
   "issuers": {
@@ -573,61 +573,61 @@
       "eth": 0,
       "btc": 0,
       "sol": 1.7,
-      "xrp": 457.5
+      "xrp": 456.3
+    },
+    "vbnb": {
+      "bnb": 102
     },
     "tdot": {
       "dot": 11.7
+    },
+    "vavx": {
+      "avax": 22.5
+    },
+    "bava": {
+      "avax": 30.5
+    },
+    "clnk": {
+      "link": 66.4
+    },
+    "glnk": {
+      "link": 170
+    },
+    "gdog": {
+      "doge": 13.6
+    },
+    "bwow": {
+      "doge": 0.8
+    },
+    "tdog": {
+      "doge": 2.3
+    },
+    "nrr": {
+      "near": 59
+    },
+    "hbr": {
+      "hbar": 80.8
+    },
+    "trxs": {
+      "trx": 50.4
+    },
+    "ltcc": {
+      "ltc": 14.9
+    },
+    "suis": {
+      "sui": 35
+    },
+    "zcsh": {
+      "zec": 789.3
+    },
+    "gsui": {
+      "sui": 47.2
     },
     "gava": {
       "avax": 8.6
     },
     "tsui": {
       "sui": 31.5
-    },
-    "nrr": {
-      "near": 59
-    },
-    "gdog": {
-      "doge": 13.6
-    },
-    "zcsh": {
-      "zec": 789.3
-    },
-    "tdog": {
-      "doge": 2.3
-    },
-    "bwow": {
-      "doge": 0.8
-    },
-    "clnk": {
-      "link": 66.4
-    },
-    "gsui": {
-      "sui": 47.2
-    },
-    "glnk": {
-      "link": 170
-    },
-    "bava": {
-      "avax": 30.5
-    },
-    "suis": {
-      "sui": 35.3
-    },
-    "vavx": {
-      "avax": 21.6
-    },
-    "trxs": {
-      "trx": 50.5
-    },
-    "vbnb": {
-      "bnb": 102.9
-    },
-    "ltcc": {
-      "ltc": 15
-    },
-    "hbr": {
-      "hbar": 81.9
     }
   }
 }
