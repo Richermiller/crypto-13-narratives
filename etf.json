@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-11T09:43:23.662Z",
+  "updatedAt": "2026-10-11T16:18:00.719Z",
   "source": "cryptoetf.today",
   "coins": {
     "LINK": {
@@ -208,7 +208,7 @@
     "BTC": {
       "date": "2026-10-09",
       "daily": 21.1,
-      "cum": 105907.8,
+      "cum": 105906.8,
       "aum": 105.91,
       "ytd": 581.2,
       "count": 12,
@@ -221,7 +221,7 @@
         {
           "ticker": "fidelity",
           "name": "fidelity",
-          "cum": 14757.1
+          "cum": 14756
         },
         {
           "ticker": "grayscale",
@@ -284,7 +284,7 @@
     "ETH": {
       "date": "2026-10-09",
       "daily": -56.1,
-      "cum": 15835,
+      "cum": 15835.5,
       "aum": 15.84,
       "ytd": 941.7,
       "count": 10,
@@ -307,7 +307,7 @@
         {
           "ticker": "fidelity",
           "name": "fidelity",
-          "cum": 1464.2
+          "cum": 1464.7
         },
         {
           "ticker": "blackrock2",
@@ -493,7 +493,7 @@
     "etfPrevChange": 276.716,
     "fgi": 61,
     "fgi_label": "Greed",
-    "stable": 257045822988
+    "stable": 257039910555
   },
   "futures": {},
   "issuers": {
@@ -510,8 +510,8 @@
       "xrp": 0
     },
     "fidelity": {
-      "eth": 1464.2,
-      "btc": 14757.1,
+      "eth": 1464.7,
+      "btc": 14756,
       "sol": 215.9,
       "xrp": 0
     },
@@ -590,53 +590,53 @@
       "sol": 3.8,
       "xrp": 339.8
     },
-    "glnk": {
-      "link": 155
-    },
     "gsui": {
       "sui": 42
-    },
-    "zcsh": {
-      "zec": 674.2
-    },
-    "bava": {
-      "avax": 27.1
-    },
-    "tsui": {
-      "sui": 29.8
     },
     "gava": {
       "avax": 9.1
     },
-    "tdot": {
-      "dot": 11.6
-    },
-    "hbr": {
-      "hbar": 72.4
-    },
-    "suis": {
-      "sui": 31.3
-    },
-    "gdog": {
-      "doge": 12.2
-    },
-    "trxs": {
-      "trx": 49.8
+    "clnk": {
+      "link": 60.9
     },
     "ltcc": {
       "ltc": 14
     },
+    "gdog": {
+      "doge": 12.2
+    },
     "tdog": {
       "doge": 2
     },
-    "clnk": {
-      "link": 60.9
+    "hbr": {
+      "hbar": 72.4
+    },
+    "tsui": {
+      "sui": 29.8
     },
     "bwow": {
       "doge": 0.7
     },
+    "suis": {
+      "sui": 31.3
+    },
+    "bava": {
+      "avax": 27.1
+    },
+    "glnk": {
+      "link": 155
+    },
+    "tdot": {
+      "dot": 11.6
+    },
     "nrr": {
       "near": 66.7
+    },
+    "zcsh": {
+      "zec": 674.2
+    },
+    "trxs": {
+      "trx": 49.8
     },
     "vbnb": {
       "bnb": 95.4
