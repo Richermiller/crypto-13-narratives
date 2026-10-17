@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-17T12:05:25.181Z",
+  "updatedAt": "2026-10-17T14:51:42.065Z",
   "source": "cryptoetf.today",
   "coins": {
     "LINK": {
@@ -473,22 +473,22 @@
           "cum": 61.3
         }
       ],
-      "avg3": -5.075666666666667,
-      "avg7": -3.857142857142857,
-      "avg30": 1.1682999999999992,
-      "ratio": -3.3015003484917056,
-      "ratio3": -4.344489143770153,
-      "prevChange": 10.277
+      "avg3": -5.857666666666667,
+      "avg7": -3.375714285714286,
+      "avg30": 1.261633333333333,
+      "ratio": -2.6756698610644563,
+      "ratio3": -4.642923194800392,
+      "prevChange": -5.326999999999999
     }
   },
   "mkt": {
     "etfTotalAum": 124.35,
     "etfTotalFlow": -168.3,
     "etfTotalCount": 54,
-    "etfPrevChange": -92.377,
+    "etfPrevChange": -107.981,
     "fgi": 55,
     "fgi_label": "Greed",
-    "stable": 256037274508
+    "stable": 256017872422
   },
   "futures": {},
   "issuers": {
@@ -585,11 +585,29 @@
       "sol": 3.6,
       "xrp": 315.5
     },
-    "tdog": {
-      "doge": 1.9
+    "bava": {
+      "avax": 26.6
+    },
+    "gsui": {
+      "sui": 40.5
+    },
+    "gava": {
+      "avax": 8.9
     },
     "hbr": {
       "hbar": 65.8
+    },
+    "suis": {
+      "sui": 29.8
+    },
+    "nrr": {
+      "near": 82.4
+    },
+    "tdot": {
+      "dot": 11.6
+    },
+    "glnk": {
+      "link": 157.9
     },
     "zcsh": {
       "zec": 626.6
@@ -597,47 +615,29 @@
     "trxs": {
       "trx": 50.2
     },
-    "gsui": {
-      "sui": 40.5
-    },
-    "gdog": {
-      "doge": 11.2
-    },
-    "nrr": {
-      "near": 82.4
+    "clnk": {
+      "link": 61.5
     },
     "ltcc": {
       "ltc": 13.2
     },
-    "tsui": {
-      "sui": 28.5
+    "gdog": {
+      "doge": 11.2
     },
-    "clnk": {
-      "link": 61.5
-    },
-    "suis": {
-      "sui": 29.8
+    "tdog": {
+      "doge": 1.9
     },
     "bwow": {
       "doge": 0.5
     },
-    "glnk": {
-      "link": 157.9
-    },
-    "tdot": {
-      "dot": 11.6
-    },
-    "bava": {
-      "avax": 26.6
-    },
-    "gava": {
-      "avax": 8.9
-    },
-    "vavx": {
-      "avax": 20.8
+    "tsui": {
+      "sui": 28.5
     },
     "vbnb": {
       "bnb": 97.3
+    },
+    "vavx": {
+      "avax": 20.8
     }
   }
 }
