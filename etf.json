@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-18T19:19:03.726Z",
+  "updatedAt": "2026-10-18T22:17:19.844Z",
   "source": "cryptoetf.today",
   "coins": {},
   "mkt": {
@@ -7,7 +7,7 @@
     "etfPrevChange": 0,
     "fgi": 53,
     "fgi_label": "Neutral",
-    "stable": 255962486489
+    "stable": 255997261578
   },
   "futures": {},
   "issuers": {}
