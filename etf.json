@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-19T05:43:28.428Z",
+  "updatedAt": "2026-10-19T11:46:25.001Z",
   "source": "cryptoetf.today",
   "coins": {},
   "mkt": {
@@ -7,7 +7,7 @@
     "etfPrevChange": 0,
     "fgi": 59,
     "fgi_label": "Greed",
-    "stable": 256030294102
+    "stable": 255959616322
   },
   "futures": {},
   "issuers": {}
