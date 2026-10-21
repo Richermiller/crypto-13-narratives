@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-21T07:00:26.759Z",
+  "updatedAt": "2026-10-21T12:49:08.126Z",
   "source": "cryptoetf.today",
   "coins": {
     "LINK": {
@@ -203,9 +203,9 @@
     "BTC": {
       "date": "2026-10-20",
       "daily": 23.2,
-      "cum": 106339.8,
+      "cum": 106339.7,
       "aum": 106.34,
-      "ytd": 902.3,
+      "ytd": 902.4,
       "count": 12,
       "funds": [
         {
@@ -241,7 +241,7 @@
         {
           "ticker": "vanEck",
           "name": "vanEck",
-          "cum": 1209
+          "cum": 1208.9
         },
         {
           "ticker": "morganStanley",
@@ -269,12 +269,12 @@
           "cum": 169.3
         }
       ],
-      "avg3": 156.85,
-      "avg7": 46.392714285714284,
-      "avg30": 61.89489999999999,
-      "ratio": 0.7495401767466187,
-      "ratio3": 2.5341344763461935,
-      "prevChange": -503.4149999999999
+      "avg3": 156.85833333333332,
+      "avg7": 46.396285714285725,
+      "avg30": 61.895733333333325,
+      "ratio": 0.7495877860340249,
+      "ratio3": 2.5342349930420625,
+      "prevChange": -506.864
     },
     "ETH": {
       "date": "2026-10-20",
@@ -302,7 +302,7 @@
         {
           "ticker": "fidelity",
           "name": "fidelity",
-          "cum": 1444.7
+          "cum": 1444.6
         },
         {
           "ticker": "blackrock2",
@@ -411,7 +411,7 @@
     "XRP": {
       "date": "2026-10-20",
       "daily": 0,
-      "cum": 1502.5,
+      "cum": 1502.4,
       "aum": 1.5,
       "ytd": 638.8,
       "count": 5,
@@ -429,7 +429,7 @@
         {
           "ticker": "canary",
           "name": "canary",
-          "cum": 322.1
+          "cum": 322
         },
         {
           "ticker": "twentyOneShares",
@@ -442,12 +442,12 @@
           "cum": 86.8
         }
       ],
-      "avg3": -0.859,
-      "avg7": 0.7345714285714288,
-      "avg30": 7.763699999999999,
-      "ratio": 0.09461615319646932,
-      "ratio3": -0.11064312119221506,
-      "prevChange": 2.473
+      "avg3": -0.6123333333333333,
+      "avg7": 1.3152857142857144,
+      "avg30": 8.224099999999998,
+      "ratio": 0.15993065676313697,
+      "ratio3": -0.07445596883954882,
+      "prevChange": -2.3689999999999998
     },
     "HYPE": {
       "date": "2026-10-20",
@@ -482,13 +482,13 @@
     }
   },
   "mkt": {
-    "etfTotalAum": 126.32,
+    "etfTotalAum": 126.33,
     "etfTotalFlow": -12.900000000000002,
     "etfTotalCount": 54,
-    "etfPrevChange": -419.3209999999999,
+    "etfPrevChange": -427.612,
     "fgi": 63,
     "fgi_label": "Greed",
-    "stable": 254872748724
+    "stable": 254810333899
   },
   "futures": {},
   "issuers": {
@@ -505,7 +505,7 @@
       "xrp": 0
     },
     "fidelity": {
-      "eth": 1444.7,
+      "eth": 1444.6,
       "btc": 14628,
       "sol": 207.8,
       "xrp": 0
@@ -526,7 +526,7 @@
     },
     "vanEck": {
       "eth": 110.2,
-      "btc": 1209,
+      "btc": 1208.9,
       "sol": 21.3,
       "xrp": 0
     },
@@ -583,22 +583,25 @@
       "eth": 0,
       "btc": 0,
       "sol": 3.6,
-      "xrp": 322.1
+      "xrp": 322
     },
-    "tdog": {
-      "doge": 2
+    "suis": {
+      "sui": 30
     },
-    "zcsh": {
-      "zec": 648
+    "tsui": {
+      "sui": 28.6
+    },
+    "trxs": {
+      "trx": 49.6
     },
     "tdot": {
       "dot": 11.7
     },
-    "gsui": {
-      "sui": 42.8
+    "vbnb": {
+      "bnb": 97.6
     },
-    "bava": {
-      "avax": 25.7
+    "bwow": {
+      "doge": 0.5
     },
     "clnk": {
       "link": 61
@@ -606,38 +609,35 @@
     "glnk": {
       "link": 155
     },
-    "bwow": {
-      "doge": 0.5
-    },
-    "gdog": {
-      "doge": 11.4
-    },
     "nrr": {
       "near": 83
     },
-    "tsui": {
-      "sui": 28.6
+    "gsui": {
+      "sui": 42.8
     },
     "gava": {
       "avax": 8.6
     },
-    "vbnb": {
-      "bnb": 96.1
+    "bava": {
+      "avax": 25.7
     },
-    "trxs": {
-      "trx": 49.6
+    "gdog": {
+      "doge": 11.4
+    },
+    "zcsh": {
+      "zec": 648
     },
     "ltcc": {
-      "ltc": 13.8
-    },
-    "hbr": {
-      "hbar": 65.7
+      "ltc": 14
     },
     "vavx": {
-      "avax": 19.8
+      "avax": 19.9
     },
-    "suis": {
-      "sui": 29.1
+    "hbr": {
+      "hbar": 66.5
+    },
+    "tdog": {
+      "doge": 2
     }
   }
 }
