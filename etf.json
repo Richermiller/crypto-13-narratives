@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-25T00:55:37.444Z",
+  "updatedAt": "2026-10-25T05:44:03.977Z",
   "source": "cryptoetf.today",
   "coins": {
     "LINK": {
@@ -488,7 +488,7 @@
     "etfPrevChange": 605.559,
     "fgi": 54,
     "fgi_label": "Neutral",
-    "stable": 254050614459
+    "stable": 254022773692
   },
   "futures": {},
   "issuers": {
@@ -585,11 +585,8 @@
       "sol": 4,
       "xrp": 317
     },
-    "glnk": {
-      "link": 151.3
-    },
-    "nrr": {
-      "near": 83.4
+    "gdog": {
+      "doge": 11.1
     },
     "gava": {
       "avax": 8.1
@@ -597,44 +594,47 @@
     "tsui": {
       "sui": 27.5
     },
-    "tdot": {
-      "dot": 11.3
-    },
-    "gdog": {
-      "doge": 11.1
-    },
     "clnk": {
       "link": 59.8
-    },
-    "gsui": {
-      "sui": 40.7
-    },
-    "tdog": {
-      "doge": 1.9
-    },
-    "bava": {
-      "avax": 24.2
     },
     "zcsh": {
       "zec": 686.2
     },
-    "vavx": {
-      "avax": 18.9
+    "tdot": {
+      "dot": 11.3
+    },
+    "bava": {
+      "avax": 24.2
+    },
+    "glnk": {
+      "link": 151.3
+    },
+    "gsui": {
+      "sui": 40.7
+    },
+    "nrr": {
+      "near": 83.4
+    },
+    "tdog": {
+      "doge": 1.9
     },
     "suis": {
       "sui": 28.9
+    },
+    "vavx": {
+      "avax": 18.9
+    },
+    "hbr": {
+      "hbar": 63.4
+    },
+    "vbnb": {
+      "bnb": 96.7
     },
     "ltcc": {
       "ltc": 13.5
     },
     "trxs": {
       "trx": 49.2
-    },
-    "vbnb": {
-      "bnb": 96.7
-    },
-    "hbr": {
-      "hbar": 63.4
     },
     "bwow": {
       "doge": 0.5
