@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-25T10:36:19.744Z",
+  "updatedAt": "2026-10-25T14:54:55.678Z",
   "source": "cryptoetf.today",
   "coins": {
     "LINK": {
@@ -203,7 +203,7 @@
     "BTC": {
       "date": "2026-10-23",
       "daily": -137.9,
-      "cum": 104629.4,
+      "cum": 104630.4,
       "aum": 104.63,
       "ytd": 658.1,
       "count": 12,
@@ -216,7 +216,7 @@
         {
           "ticker": "fidelity",
           "name": "fidelity",
-          "cum": 14369.6
+          "cum": 14370.6
         },
         {
           "ticker": "grayscale",
@@ -279,7 +279,7 @@
     "ETH": {
       "date": "2026-10-23",
       "daily": 4.4,
-      "cum": 14704.2,
+      "cum": 14704.1,
       "aum": 14.7,
       "ytd": 401.1,
       "count": 10,
@@ -302,7 +302,7 @@
         {
           "ticker": "fidelity",
           "name": "fidelity",
-          "cum": 1440.4
+          "cum": 1440.3
         },
         {
           "ticker": "blackrock2",
@@ -488,7 +488,7 @@
     "etfPrevChange": 605.559,
     "fgi": 54,
     "fgi_label": "Neutral",
-    "stable": 254030123665
+    "stable": 254008332785
   },
   "futures": {},
   "issuers": {
@@ -505,8 +505,8 @@
       "xrp": 0
     },
     "fidelity": {
-      "eth": 1440.4,
-      "btc": 14369.6,
+      "eth": 1440.3,
+      "btc": 14370.6,
       "sol": 203.8,
       "xrp": 0
     },
@@ -585,20 +585,14 @@
       "sol": 4,
       "xrp": 317
     },
-    "gdog": {
-      "doge": 11.1
-    },
     "gsui": {
       "sui": 40.7
     },
-    "clnk": {
-      "link": 59.8
+    "gdog": {
+      "doge": 11.1
     },
-    "glnk": {
-      "link": 151.3
-    },
-    "bava": {
-      "avax": 24.2
+    "gava": {
+      "avax": 8.1
     },
     "tdog": {
       "doge": 1.9
@@ -606,17 +600,23 @@
     "zcsh": {
       "zec": 686.2
     },
+    "hbr": {
+      "hbar": 62.6
+    },
+    "bava": {
+      "avax": 24.2
+    },
     "nrr": {
       "near": 83.4
     },
+    "glnk": {
+      "link": 151.3
+    },
+    "clnk": {
+      "link": 59.8
+    },
     "tdot": {
       "dot": 11.3
-    },
-    "gava": {
-      "avax": 8.1
-    },
-    "hbr": {
-      "hbar": 62.6
     },
     "ltcc": {
       "ltc": 13.5
@@ -630,11 +630,11 @@
     "trxs": {
       "trx": 49.5
     },
-    "vbnb": {
-      "bnb": 96.7
-    },
     "vavx": {
       "avax": 18.9
+    },
+    "vbnb": {
+      "bnb": 96.7
     },
     "bwow": {
       "doge": 0.5
