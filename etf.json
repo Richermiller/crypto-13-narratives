@@ -1,12 +1,12 @@
 {
-  "updatedAt": "2026-10-26T18:07:10.355Z",
+  "updatedAt": "2026-10-26T22:18:33.871Z",
   "source": "cryptoetf.today",
   "coins": {
     "LINK": {
       "date": "2026-10-23",
       "daily": 0,
       "cum": 181.1,
-      "aum": 0.21,
+      "aum": 0.2,
       "ytd": 121.9,
       "count": 2,
       "funds": [
@@ -105,7 +105,7 @@
       "date": "2026-10-23",
       "daily": 0,
       "cum": 24.2,
-      "aum": 0.1,
+      "aum": 0.09,
       "ytd": 24.2,
       "count": 3,
       "funds": [
@@ -203,7 +203,7 @@
     "BTC": {
       "date": "2026-10-23",
       "daily": -137.9,
-      "cum": 104630.3,
+      "cum": 104629.5,
       "aum": 104.63,
       "ytd": 658.1,
       "count": 12,
@@ -221,12 +221,12 @@
         {
           "ticker": "grayscale",
           "name": "grayscale",
-          "cum": 10170.5
+          "cum": 10168.8
         },
         {
           "ticker": "grayscaleBtc",
           "name": "grayscaleBtc",
-          "cum": 5125.1
+          "cum": 5126
         },
         {
           "ticker": "bitwise",
@@ -279,7 +279,7 @@
     "ETH": {
       "date": "2026-10-23",
       "daily": 4.4,
-      "cum": 14704.1,
+      "cum": 14703.9,
       "aum": 14.7,
       "ytd": 401.1,
       "count": 10,
@@ -292,12 +292,12 @@
         {
           "ticker": "grayscaleCrypto",
           "name": "grayscaleCrypto",
-          "cum": 2229.2
+          "cum": 2229.6
         },
         {
           "ticker": "grayscale",
           "name": "grayscale",
-          "cum": 1663.1
+          "cum": 1662.5
         },
         {
           "ticker": "fidelity",
@@ -350,8 +350,8 @@
     "SOL": {
       "date": "2026-10-23",
       "daily": 0,
-      "cum": 1605.5,
-      "aum": 1.61,
+      "cum": 1600.2,
+      "aum": 1.6,
       "ytd": 763.8,
       "count": 6,
       "funds": [
@@ -368,7 +368,7 @@
         {
           "ticker": "grayscale",
           "name": "grayscale",
-          "cum": 178.1
+          "cum": 172.7
         },
         {
           "ticker": "morganStanley",
@@ -411,7 +411,7 @@
     "XRP": {
       "date": "2026-10-23",
       "daily": 0,
-      "cum": 1482.7,
+      "cum": 1482.1,
       "aum": 1.48,
       "ytd": 643.1,
       "count": 5,
@@ -439,7 +439,7 @@
         {
           "ticker": "grayscale",
           "name": "grayscale",
-          "cum": 85.2
+          "cum": 84.5
         }
       ],
       "avg3": 0.594,
@@ -452,7 +452,7 @@
     "HYPE": {
       "date": "2026-10-23",
       "daily": 0,
-      "cum": 385.8,
+      "cum": 388.8,
       "aum": 0.39,
       "ytd": 309.1,
       "count": 3,
@@ -460,7 +460,7 @@
         {
           "ticker": "grayscale",
           "name": "grayscale",
-          "cum": 177
+          "cum": 180.1
         },
         {
           "ticker": "bitwise",
@@ -488,7 +488,7 @@
     "etfPrevChange": 606.0409999999999,
     "fgi": 50,
     "fgi_label": "Neutral",
-    "stable": 253333259904
+    "stable": 253379418055
   },
   "futures": {},
   "issuers": {
@@ -543,14 +543,14 @@
       "xrp": 398.5
     },
     "grayscale": {
-      "eth": 1663.1,
-      "btc": 10170.5,
-      "sol": 178.1,
-      "xrp": 85.2,
-      "hyp": 177
+      "eth": 1662.5,
+      "btc": 10168.8,
+      "sol": 172.7,
+      "xrp": 84.5,
+      "hyp": 180.1
     },
     "grayscaleCrypto": {
-      "eth": 2229.2,
+      "eth": 2229.6,
       "btc": 0,
       "sol": 0,
       "xrp": 0
@@ -575,7 +575,7 @@
     },
     "grayscaleBtc": {
       "eth": 0,
-      "btc": 5125.1,
+      "btc": 5126,
       "sol": 0,
       "xrp": 0
     },
@@ -586,43 +586,22 @@
       "xrp": 317
     },
     "gsui": {
-      "sui": 40.7
+      "sui": 38.1
     },
     "zcsh": {
-      "zec": 686.2
-    },
-    "tdog": {
-      "doge": 1.9
-    },
-    "gava": {
-      "avax": 8.1
+      "zec": 708.2
     },
     "glnk": {
-      "link": 151.3
+      "link": 144.5
+    },
+    "gava": {
+      "avax": 8
+    },
+    "gdog": {
+      "doge": 10.8
     },
     "clnk": {
       "link": 59.8
-    },
-    "tdot": {
-      "dot": 11.3
-    },
-    "bava": {
-      "avax": 24.2
-    },
-    "vavx": {
-      "avax": 18.8
-    },
-    "gdog": {
-      "doge": 11.1
-    },
-    "hbr": {
-      "hbar": 62.6
-    },
-    "ltcc": {
-      "ltc": 13.5
-    },
-    "vbnb": {
-      "bnb": 98.1
     },
     "suis": {
       "sui": 28.8
@@ -633,8 +612,29 @@
     "trxs": {
       "trx": 49.5
     },
+    "tdog": {
+      "doge": 1.9
+    },
     "nrr": {
       "near": 83.4
+    },
+    "bava": {
+      "avax": 24.2
+    },
+    "tdot": {
+      "dot": 11.3
+    },
+    "vavx": {
+      "avax": 18.8
+    },
+    "hbr": {
+      "hbar": 62.6
+    },
+    "ltcc": {
+      "ltc": 13.5
+    },
+    "vbnb": {
+      "bnb": 98.1
     },
     "bwow": {
       "doge": 0.5
