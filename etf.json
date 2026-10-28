@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-28T16:35:56.749Z",
+  "updatedAt": "2026-10-28T21:40:14.064Z",
   "source": "cryptoetf.today",
   "coins": {
     "LINK": {
@@ -488,7 +488,7 @@
     "etfPrevChange": 75.93699999999998,
     "fgi": 51,
     "fgi_label": "Neutral",
-    "stable": 252627117092
+    "stable": 252976474722
   },
   "futures": {},
   "issuers": {
@@ -585,32 +585,23 @@
       "sol": 3.9,
       "xrp": 321.9
     },
-    "nrr": {
-      "near": 77.9
-    },
-    "zcsh": {
-      "zec": 751.4
-    },
     "clnk": {
       "link": 57.5
-    },
-    "glnk": {
-      "link": 145.9
     },
     "gdog": {
       "doge": 11
     },
-    "bava": {
-      "avax": 23.7
+    "gava": {
+      "avax": 8
     },
     "gsui": {
       "sui": 38.8
     },
-    "gava": {
-      "avax": 8
+    "bava": {
+      "avax": 23.7
     },
-    "trxs": {
-      "trx": 49.5
+    "zcsh": {
+      "zec": 751.4
     },
     "tdog": {
       "doge": 1.9
@@ -635,6 +626,15 @@
     },
     "tsui": {
       "sui": 26.1
+    },
+    "nrr": {
+      "near": 77.9
+    },
+    "glnk": {
+      "link": 145.9
+    },
+    "trxs": {
+      "trx": 49.5
     },
     "bwow": {
       "doge": 0.5
