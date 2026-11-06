@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-06T08:58:54.607Z",
+  "updatedAt": "2026-11-06T16:43:00.736Z",
   "source": "cryptoetf.today",
   "coins": {
     "LINK": {
@@ -208,7 +208,7 @@
     "BTC": {
       "date": "2026-11-05",
       "daily": -430.2,
-      "cum": 96949,
+      "cum": 96947.9,
       "aum": 96.95,
       "ytd": -445.6,
       "count": 12,
@@ -221,7 +221,7 @@
         {
           "ticker": "fidelity",
           "name": "fidelity",
-          "cum": 13323.6
+          "cum": 13322.7
         },
         {
           "ticker": "grayscale",
@@ -246,7 +246,7 @@
         {
           "ticker": "vanEck",
           "name": "vanEck",
-          "cum": 1114.8
+          "cum": 1114.6
         },
         {
           "ticker": "morganStanley",
@@ -261,7 +261,7 @@
         {
           "ticker": "valkyrie",
           "name": "valkyrie",
-          "cum": 434.9
+          "cum": 434.8
         },
         {
           "ticker": "invesco",
@@ -284,7 +284,7 @@
     "ETH": {
       "date": "2026-11-05",
       "daily": -99.9,
-      "cum": 13197.2,
+      "cum": 13197.4,
       "aum": 13.2,
       "ytd": -314,
       "count": 10,
@@ -307,7 +307,7 @@
         {
           "ticker": "fidelity",
           "name": "fidelity",
-          "cum": 1427.7
+          "cum": 1427.9
         },
         {
           "ticker": "blackrock2",
@@ -493,7 +493,7 @@
     "etfPrevChange": -661.9939999999999,
     "fgi": 28,
     "fgi_label": "Fear",
-    "stable": 247967264113
+    "stable": 247838067718
   },
   "futures": {},
   "issuers": {
@@ -510,8 +510,8 @@
       "xrp": 0
     },
     "fidelity": {
-      "eth": 1427.7,
-      "btc": 13323.6,
+      "eth": 1427.9,
+      "btc": 13322.7,
       "sol": 178.7,
       "xrp": 0
     },
@@ -531,7 +531,7 @@
     },
     "vanEck": {
       "eth": 101.7,
-      "btc": 1114.8,
+      "btc": 1114.6,
       "sol": 18.1,
       "xrp": 0
     },
@@ -562,7 +562,7 @@
     },
     "valkyrie": {
       "eth": 0,
-      "btc": 434.9,
+      "btc": 434.8,
       "sol": 0,
       "xrp": 0
     },
@@ -590,56 +590,56 @@
       "sol": 3.5,
       "xrp": 301.8
     },
-    "nrr": {
-      "near": 58
+    "zcsh": {
+      "zec": 735.2
     },
-    "gdog": {
-      "doge": 10.1
-    },
-    "glnk": {
-      "link": 135.1
+    "vavx": {
+      "avax": 17
     },
     "gava": {
       "avax": 7.5
     },
-    "gsui": {
-      "sui": 36.6
-    },
-    "zcsh": {
-      "zec": 735.2
-    },
-    "tdog": {
-      "doge": 1.7
-    },
-    "clnk": {
-      "link": 54.2
-    },
     "bava": {
       "avax": 22.4
-    },
-    "tdot": {
-      "dot": 9.4
     },
     "tsui": {
       "sui": 24.2
     },
-    "trxs": {
-      "trx": 48
+    "suis": {
+      "sui": 25.4
     },
-    "vavx": {
-      "avax": 17.7
+    "glnk": {
+      "link": 135.1
+    },
+    "trxs": {
+      "trx": 47.7
+    },
+    "gsui": {
+      "sui": 36.6
+    },
+    "tdot": {
+      "dot": 9.4
+    },
+    "nrr": {
+      "near": 58
+    },
+    "clnk": {
+      "link": 54.2
+    },
+    "gdog": {
+      "doge": 10.1
     },
     "vbnb": {
-      "bnb": 94.4
-    },
-    "suis": {
-      "sui": 27.2
+      "bnb": 91.3
     },
     "ltcc": {
-      "ltc": 12.4
+      "ltc": 11.6
     },
     "hbr": {
-      "hbar": 60.2
+      "hbar": 57.5
+    },
+    "tdog": {
+      "doge": 1.7
     },
     "bwow": {
       "doge": 0.5
