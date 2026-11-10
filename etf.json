@@ -1,10 +1,10 @@
 {
-  "updatedAt": "2026-11-10T01:22:09.288Z",
+  "updatedAt": "2026-11-10T09:11:02.733Z",
   "source": "cryptoetf.today",
   "coins": {
     "LINK": {
-      "date": "2026-11-06",
-      "daily": -1.1,
+      "date": "2026-11-09",
+      "daily": 0,
       "cum": 178.2,
       "aum": 0.19,
       "ytd": 119,
@@ -23,13 +23,13 @@
       ],
       "avg3": -0.35233333333333333,
       "avg7": -0.40399999999999997,
-      "avg30": 0.5249666666666667,
-      "ratio": -0.7695726712807162,
-      "ratio3": -0.6711537240459712,
-      "prevChange": -1.057
+      "avg30": 0.44473333333333337,
+      "ratio": -0.9084095338030279,
+      "ratio3": -0.7922350472193074,
+      "prevChange": 1.057
     },
     "HBAR": {
-      "date": "2026-11-06",
+      "date": "2026-11-09",
       "daily": 0,
       "cum": 116.5,
       "aum": 0.06,
@@ -42,15 +42,15 @@
           "cum": 116.5
         }
       ],
-      "avg3": 1.0026666666666666,
+      "avg3": 0.09266666666666667,
       "avg7": 0.4297142857142857,
       "avg30": 0.16603333333333334,
       "ratio": 2.588120572461066,
-      "ratio3": 6.038948002409154,
-      "prevChange": -0.278
+      "ratio3": 0.5581208592652078,
+      "prevChange": 0
     },
     "BNB": {
-      "date": "2026-11-06",
+      "date": "2026-11-09",
       "daily": 0,
       "cum": 99.5,
       "aum": 0.09,
@@ -71,7 +71,7 @@
       "prevChange": 0
     },
     "SUI": {
-      "date": "2026-11-06",
+      "date": "2026-11-09",
       "daily": 0,
       "cum": 36.4,
       "aum": 0.09,
@@ -95,14 +95,14 @@
         }
       ],
       "avg3": 0,
-      "avg7": 0.13614285714285715,
-      "avg30": 0.35706666666666664,
-      "ratio": 0.38128134001920416,
+      "avg7": -0.03685714285714286,
+      "avg30": 0.2794666666666667,
+      "ratio": -0.13188386041439476,
       "ratio3": 0,
       "prevChange": 0
     },
     "AVAX": {
-      "date": "2026-11-06",
+      "date": "2026-11-09",
       "daily": 0,
       "cum": 30.2,
       "aum": 0.05,
@@ -130,10 +130,10 @@
       "avg30": 0.050333333333333355,
       "ratio": -3.61305581835383,
       "ratio3": -5.5629139072847655,
-      "prevChange": 0.84
+      "prevChange": 0
     },
     "LTC": {
-      "date": "2026-11-06",
+      "date": "2026-11-09",
       "daily": 0,
       "cum": 16.6,
       "aum": 0.01,
@@ -146,15 +146,15 @@
           "cum": 16.6
         }
       ],
-      "avg3": -0.09033333333333333,
+      "avg3": 0,
       "avg7": -0.038714285714285715,
-      "avg30": 0.10473333333333332,
-      "ratio": -0.369646267163772,
-      "ratio3": -0.862507956715468,
+      "avg30": 0.06553333333333335,
+      "ratio": -0.5907571573899142,
+      "ratio3": 0,
       "prevChange": 0
     },
     "DOGE": {
-      "date": "2026-11-06",
+      "date": "2026-11-09",
       "daily": 0,
       "cum": 15.1,
       "aum": 0.01,
@@ -185,7 +185,7 @@
       "prevChange": 0
     },
     "DOT": {
-      "date": "2026-11-06",
+      "date": "2026-11-09",
       "daily": 0,
       "cum": 3.3,
       "aum": 0.01,
@@ -206,169 +206,169 @@
       "prevChange": 0
     },
     "BTC": {
-      "date": "2026-11-06",
-      "daily": -411.9,
-      "cum": 96381.4,
-      "aum": 96.38,
-      "ytd": -857.6,
+      "date": "2026-11-09",
+      "daily": -201,
+      "cum": 94726.8,
+      "aum": 94.73,
+      "ytd": -1058.6,
       "count": 12,
       "funds": [
         {
           "ticker": "blackrock",
           "name": "blackrock",
-          "cum": 60695.2
+          "cum": 59498.8
         },
         {
           "ticker": "fidelity",
           "name": "fidelity",
-          "cum": 13319.2
+          "cum": 13143.5
         },
         {
           "ticker": "grayscale",
           "name": "grayscale",
-          "cum": 9373.5
+          "cum": 9250.3
         },
         {
           "ticker": "grayscaleBtc",
           "name": "grayscaleBtc",
-          "cum": 4718.2
+          "cum": 4656
         },
         {
           "ticker": "bitwise",
           "name": "bitwise",
-          "cum": 2807.9
+          "cum": 2770.9
         },
         {
           "ticker": "twentyOneShares",
           "name": "twentyOneShares",
-          "cum": 2184.4
+          "cum": 2145.4
         },
         {
           "ticker": "vanEck",
           "name": "vanEck",
-          "cum": 1087.2
+          "cum": 1072.9
         },
         {
           "ticker": "morganStanley",
           "name": "morganStanley",
-          "cum": 825.4
+          "cum": 836.6
         },
         {
           "ticker": "valkyrie",
           "name": "valkyrie",
-          "cum": 433.3
+          "cum": 427.6
         },
         {
           "ticker": "franklin",
           "name": "franklin",
-          "cum": 402.5
+          "cum": 397.2
         },
         {
           "ticker": "invesco",
           "name": "invesco",
-          "cum": 382.6
+          "cum": 377.5
         },
         {
           "ticker": "wisdomTree",
           "name": "wisdomTree",
-          "cum": 152
+          "cum": 150
         }
       ],
-      "avg3": -255.87800000000001,
-      "avg7": -272.57257142857145,
-      "avg30": -61.605066666666666,
-      "ratio": 4.4245154851208905,
-      "ratio3": 4.153522004683598,
-      "prevChange": 18.293000000000006
+      "avg3": -347.7423333333333,
+      "avg7": -303.7278571428572,
+      "avg30": -69.34236666666666,
+      "ratio": 4.3801195682128515,
+      "ratio3": 5.0148610445466,
+      "prevChange": 210.89499999999998
     },
     "ETH": {
-      "date": "2026-11-06",
-      "daily": -93.3,
-      "cum": 12990.4,
-      "aum": 12.99,
-      "ytd": -407.4,
+      "date": "2026-11-09",
+      "daily": -184.6,
+      "cum": 12291.9,
+      "aum": 12.29,
+      "ytd": -591.9,
       "count": 10,
       "funds": [
         {
           "ticker": "blackrock",
           "name": "blackrock",
-          "cum": 6644.4
+          "cum": 6251.4
         },
         {
           "ticker": "grayscaleCrypto",
           "name": "grayscaleCrypto",
-          "cum": 2042.2
+          "cum": 1951.7
         },
         {
           "ticker": "grayscale",
           "name": "grayscale",
-          "cum": 1517.5
+          "cum": 1450.3
         },
         {
           "ticker": "fidelity",
           "name": "fidelity",
-          "cum": 1415.2
+          "cum": 1331
         },
         {
           "ticker": "blackrock2",
           "name": "blackrock2",
-          "cum": 886.6
+          "cum": 845.6
         },
         {
           "ticker": "bitwise",
           "name": "bitwise",
-          "cum": 243.6
+          "cum": 232.4
         },
         {
           "ticker": "vanEck",
           "name": "vanEck",
-          "cum": 100.9
+          "cum": 96.3
         },
         {
           "ticker": "morganStanley",
           "name": "morganStanley",
-          "cum": 51.1
+          "cum": 50.4
         },
         {
           "ticker": "franklin",
           "name": "franklin",
-          "cum": 44.7
+          "cum": 42.7
         },
         {
           "ticker": "twentyOneShares",
           "name": "twentyOneShares",
-          "cum": 24.9
+          "cum": 21.8
         },
         {
           "ticker": "invesco",
           "name": "invesco",
-          "cum": 19.2
+          "cum": 18.4
         }
       ],
-      "avg3": -46.753666666666675,
-      "avg7": -89.53971428571428,
-      "avg30": -67.25919999999999,
-      "ratio": 1.3312634447884348,
-      "ratio3": 0.6951267137680299,
-      "prevChange": 6.6200000000000045
+      "avg3": -125.92166666666668,
+      "avg7": -100.83085714285717,
+      "avg30": -73.97970000000001,
+      "ratio": 1.362953041751415,
+      "ratio3": 1.7021110746146129,
+      "prevChange": -91.38600000000001
     },
     "SOL": {
-      "date": "2026-11-06",
-      "daily": -24.3,
-      "cum": 1301.3,
-      "aum": 1.3,
-      "ytd": 677.3,
+      "date": "2026-11-09",
+      "daily": -10.6,
+      "cum": 1247.4,
+      "aum": 1.25,
+      "ytd": 665.9,
       "count": 6,
       "funds": [
         {
           "ticker": "bitwise",
           "name": "bitwise",
-          "cum": 913.1
+          "cum": 873.5
         },
         {
           "ticker": "fidelity",
           "name": "fidelity",
-          "cum": 178.9
+          "cum": 171.4
         },
         {
           "ticker": "grayscale",
@@ -378,68 +378,68 @@
         {
           "ticker": "morganStanley",
           "name": "morganStanley",
-          "cum": 41.5
+          "cum": 40
         },
         {
           "ticker": "vanEck",
           "name": "vanEck",
-          "cum": 18.2
+          "cum": 17.5
         },
         {
           "ticker": "franklin",
           "name": "franklin",
-          "cum": 13.2
+          "cum": 12.7
         },
         {
           "ticker": "twentyOneShares",
           "name": "twentyOneShares",
-          "cum": 7.5
+          "cum": 4.3
         },
         {
           "ticker": "invesco",
           "name": "invesco",
-          "cum": 5
+          "cum": 4
         },
         {
           "ticker": "canary",
           "name": "canary",
-          "cum": 3.5
+          "cum": 3.3
         }
       ],
-      "avg3": -8.514000000000001,
-      "avg7": -12.680857142857144,
-      "avg30": -0.9692999999999976,
-      "ratio": 13.082489572740302,
-      "ratio3": 8.783658310120728,
-      "prevChange": -23.089000000000002
+      "avg3": -12.279000000000002,
+      "avg7": -11.573142857142857,
+      "avg30": -1.8072333333333324,
+      "ratio": 6.40379006057668,
+      "ratio3": 6.794363391556159,
+      "prevChange": 14.493000000000002
     },
     "XRP": {
-      "date": "2026-11-06",
-      "daily": 0,
-      "cum": 1338,
-      "aum": 1.34,
-      "ytd": 647.9,
+      "date": "2026-11-09",
+      "daily": -10.3,
+      "cum": 1238.8,
+      "aum": 1.24,
+      "ytd": 637.6,
       "count": 5,
       "funds": [
         {
           "ticker": "bitwise",
           "name": "bitwise",
-          "cum": 488.7
+          "cum": 444.7
         },
         {
           "ticker": "franklin",
           "name": "franklin",
-          "cum": 365.2
+          "cum": 339.5
         },
         {
           "ticker": "canary",
           "name": "canary",
-          "cum": 286.9
+          "cum": 266.6
         },
         {
           "ticker": "twentyOneShares",
           "name": "twentyOneShares",
-          "cum": 126.3
+          "cum": 117.1
         },
         {
           "ticker": "grayscale",
@@ -447,19 +447,19 @@
           "cum": 70.9
         }
       ],
-      "avg3": 2.468333333333333,
-      "avg7": 0.7967142857142855,
-      "avg30": 4.6568333333333305,
-      "ratio": 0.17108499031121707,
-      "ratio3": 0.5300454529186502,
-      "prevChange": -0.03300000000000003
+      "avg3": -3.7886666666666664,
+      "avg7": -0.32700000000000023,
+      "avg30": 3.8326000000000002,
+      "ratio": -0.08532067004122533,
+      "ratio3": -0.9885369375010871,
+      "prevChange": -9.809000000000001
     },
     "HYPE": {
-      "date": "2026-11-06",
-      "daily": -8,
-      "cum": 367.1,
-      "aum": 0.37,
-      "ytd": 292.9,
+      "date": "2026-11-09",
+      "daily": -2.6,
+      "cum": 356.5,
+      "aum": 0.36,
+      "ytd": 290.3,
       "count": 3,
       "funds": [
         {
@@ -470,175 +470,176 @@
         {
           "ticker": "bitwise",
           "name": "bitwise",
-          "cum": 141.1
+          "cum": 136.2
         },
         {
           "ticker": "twentyOneShares",
           "name": "twentyOneShares",
-          "cum": 54.4
+          "cum": 48.7
         }
       ],
-      "avg3": -4.4543333333333335,
-      "avg7": -2.3162857142857143,
-      "avg30": -1.9595333333333331,
-      "ratio": 1.1820598684818058,
-      "ratio3": 2.273160276256252,
-      "prevChange": -4.938000000000001
+      "avg3": -4.539333333333333,
+      "avg7": -2.0784285714285717,
+      "avg30": -2.3973333333333335,
+      "ratio": 0.8669752105514064,
+      "ratio3": 1.8934927697441601,
+      "prevChange": 5.327
     }
   },
   "mkt": {
-    "etfTotalAum": 113.66,
-    "etfTotalFlow": -538.6,
+    "etfTotalAum": 111.15,
+    "etfTotalFlow": -409.1000000000001,
     "etfTotalCount": 54,
-    "etfPrevChange": -3.6420000000000528,
+    "etfPrevChange": 130.57699999999994,
     "fgi": 32,
-    "fgi_label": "Fear"
+    "fgi_label": "Fear",
+    "stable": 246902665198
   },
   "futures": {},
   "issuers": {
     "blackrock": {
-      "eth": 6644.4,
-      "btc": 60695.2,
+      "eth": 6251.4,
+      "btc": 59498.8,
       "sol": 0,
       "xrp": 0
     },
     "blackrock2": {
-      "eth": 886.6,
+      "eth": 845.6,
       "btc": 0,
       "sol": 0,
       "xrp": 0
     },
     "fidelity": {
-      "eth": 1415.2,
-      "btc": 13319.2,
-      "sol": 178.9,
+      "eth": 1331,
+      "btc": 13143.5,
+      "sol": 171.4,
       "xrp": 0
     },
     "bitwise": {
-      "eth": 243.6,
-      "btc": 2807.9,
-      "sol": 913.1,
-      "xrp": 488.7,
-      "hyp": 141.1
+      "eth": 232.4,
+      "btc": 2770.9,
+      "sol": 873.5,
+      "xrp": 444.7,
+      "hyp": 136.2
     },
     "twentyOneShares": {
-      "eth": 24.9,
-      "btc": 2184.4,
-      "sol": 7.5,
-      "xrp": 126.3,
-      "hyp": 54.4
+      "eth": 21.8,
+      "btc": 2145.4,
+      "sol": 4.3,
+      "xrp": 117.1,
+      "hyp": 48.7
     },
     "vanEck": {
-      "eth": 100.9,
-      "btc": 1087.2,
-      "sol": 18.2,
+      "eth": 96.3,
+      "btc": 1072.9,
+      "sol": 17.5,
       "xrp": 0
     },
     "invesco": {
-      "eth": 19.2,
-      "btc": 382.6,
-      "sol": 5,
+      "eth": 18.4,
+      "btc": 377.5,
+      "sol": 4,
       "xrp": 0
     },
     "franklin": {
-      "eth": 44.7,
-      "btc": 402.5,
-      "sol": 13.2,
-      "xrp": 365.2
+      "eth": 42.7,
+      "btc": 397.2,
+      "sol": 12.7,
+      "xrp": 339.5
     },
     "grayscale": {
-      "eth": 1517.5,
-      "btc": 9373.5,
+      "eth": 1450.3,
+      "btc": 9250.3,
       "sol": 120.5,
       "xrp": 70.9,
       "hyp": 171.6
     },
     "grayscaleCrypto": {
-      "eth": 2042.2,
+      "eth": 1951.7,
       "btc": 0,
       "sol": 0,
       "xrp": 0
     },
     "valkyrie": {
       "eth": 0,
-      "btc": 433.3,
+      "btc": 427.6,
       "sol": 0,
       "xrp": 0
     },
     "wisdomTree": {
       "eth": 0,
-      "btc": 152,
+      "btc": 150,
       "sol": 0,
       "xrp": 0
     },
     "morganStanley": {
-      "eth": 51.1,
-      "btc": 825.4,
-      "sol": 41.5,
+      "eth": 50.4,
+      "btc": 836.6,
+      "sol": 40,
       "xrp": 0
     },
     "grayscaleBtc": {
       "eth": 0,
-      "btc": 4718.2,
+      "btc": 4656,
       "sol": 0,
       "xrp": 0
     },
     "canary": {
       "eth": 0,
       "btc": 0,
-      "sol": 3.5,
-      "xrp": 286.9
-    },
-    "glnk": {
-      "link": 132.9
-    },
-    "gdog": {
-      "doge": 9.8
+      "sol": 3.3,
+      "xrp": 266.6
     },
     "gava": {
       "avax": 7.2
     },
-    "gsui": {
-      "sui": 36.3
-    },
     "zcsh": {
       "zec": 675.7
     },
-    "tdog": {
-      "doge": 1.8
+    "gsui": {
+      "sui": 36.3
     },
-    "suis": {
-      "sui": 25.7
+    "tsui": {
+      "sui": 24
     },
-    "vbnb": {
-      "bnb": 91.4
+    "gdog": {
+      "doge": 9.8
+    },
+    "clnk": {
+      "link": 53.6
     },
     "tdot": {
-      "dot": 9.3
+      "dot": 8.7
     },
-    "hbr": {
-      "hbar": 57.4
+    "nrr": {
+      "near": 57
     },
-    "trxs": {
-      "trx": 47.8
+    "tdog": {
+      "doge": 1.7
+    },
+    "bava": {
+      "avax": 23.1
+    },
+    "glnk": {
+      "link": 132.9
     },
     "vavx": {
       "avax": 16.5
     },
-    "nrr": {
-      "near": 58.2
+    "trxs": {
+      "trx": 47.8
+    },
+    "vbnb": {
+      "bnb": 91.4
     },
     "ltcc": {
       "ltc": 11.7
     },
-    "clnk": {
-      "link": 54.4
+    "hbr": {
+      "hbar": 57.4
     },
-    "tsui": {
-      "sui": 24.6
-    },
-    "bava": {
-      "avax": 22.3
+    "suis": {
+      "sui": 25.7
     },
     "bwow": {
       "doge": 0.5
