@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-09T18:13:08.753Z",
+  "updatedAt": "2026-11-10T01:22:09.288Z",
   "source": "cryptoetf.today",
   "coins": {
     "LINK": {
@@ -208,8 +208,8 @@
     "BTC": {
       "date": "2026-11-06",
       "daily": -411.9,
-      "cum": 96393.1,
-      "aum": 96.39,
+      "cum": 96381.4,
+      "aum": 96.38,
       "ytd": -857.6,
       "count": 12,
       "funds": [
@@ -226,12 +226,12 @@
         {
           "ticker": "grayscale",
           "name": "grayscale",
-          "cum": 9385.5
+          "cum": 9373.5
         },
         {
           "ticker": "grayscaleBtc",
           "name": "grayscaleBtc",
-          "cum": 4717.9
+          "cum": 4718.2
         },
         {
           "ticker": "bitwise",
@@ -274,17 +274,17 @@
           "cum": 152
         }
       ],
-      "avg3": -255.87566666666666,
-      "avg7": -272.5715714285714,
-      "avg30": -61.60483333333333,
-      "ratio": 4.424516010841759,
-      "ratio3": 4.153499860671105,
-      "prevChange": 18.30000000000001
+      "avg3": -255.87800000000001,
+      "avg7": -272.57257142857145,
+      "avg30": -61.605066666666666,
+      "ratio": 4.4245154851208905,
+      "ratio3": 4.153522004683598,
+      "prevChange": 18.293000000000006
     },
     "ETH": {
       "date": "2026-11-06",
       "daily": -93.3,
-      "cum": 12992.5,
+      "cum": 12990.4,
       "aum": 12.99,
       "ytd": -407.4,
       "count": 10,
@@ -297,12 +297,12 @@
         {
           "ticker": "grayscaleCrypto",
           "name": "grayscaleCrypto",
-          "cum": 2044
+          "cum": 2042.2
         },
         {
           "ticker": "grayscale",
           "name": "grayscale",
-          "cum": 1517.8
+          "cum": 1517.5
         },
         {
           "ticker": "fidelity",
@@ -345,19 +345,19 @@
           "cum": 19.2
         }
       ],
-      "avg3": -46.75,
-      "avg7": -89.53814285714286,
-      "avg30": -67.25883333333333,
-      "ratio": 1.3312473383740355,
-      "ratio3": 0.69507598754067,
-      "prevChange": 6.631
+      "avg3": -46.753666666666675,
+      "avg7": -89.53971428571428,
+      "avg30": -67.25919999999999,
+      "ratio": 1.3312634447884348,
+      "ratio3": 0.6951267137680299,
+      "prevChange": 6.6200000000000045
     },
     "SOL": {
       "date": "2026-11-06",
-      "daily": -24.2,
-      "cum": 1311.3,
-      "aum": 1.31,
-      "ytd": 677.4,
+      "daily": -24.3,
+      "cum": 1301.3,
+      "aum": 1.3,
+      "ytd": 677.3,
       "count": 6,
       "funds": [
         {
@@ -373,7 +373,7 @@
         {
           "ticker": "grayscale",
           "name": "grayscale",
-          "cum": 130.5
+          "cum": 120.5
         },
         {
           "ticker": "morganStanley",
@@ -406,17 +406,17 @@
           "cum": 3.5
         }
       ],
-      "avg3": -8.503333333333334,
-      "avg7": -12.676285714285715,
-      "avg30": -0.968233333333331,
-      "ratio": 13.092180653030344,
-      "ratio3": 8.782318311701747,
-      "prevChange": -23.057000000000002
+      "avg3": -8.514000000000001,
+      "avg7": -12.680857142857144,
+      "avg30": -0.9692999999999976,
+      "ratio": 13.082489572740302,
+      "ratio3": 8.783658310120728,
+      "prevChange": -23.089000000000002
     },
     "XRP": {
       "date": "2026-11-06",
       "daily": 0,
-      "cum": 1343,
+      "cum": 1338,
       "aum": 1.34,
       "ytd": 647.9,
       "count": 5,
@@ -444,7 +444,7 @@
         {
           "ticker": "grayscale",
           "name": "grayscale",
-          "cum": 76
+          "cum": 70.9
         }
       ],
       "avg3": 2.468333333333333,
@@ -457,7 +457,7 @@
     "HYPE": {
       "date": "2026-11-06",
       "daily": -8,
-      "cum": 374.2,
+      "cum": 367.1,
       "aum": 0.37,
       "ytd": 292.9,
       "count": 3,
@@ -465,7 +465,7 @@
         {
           "ticker": "grayscale",
           "name": "grayscale",
-          "cum": 178.7
+          "cum": 171.6
         },
         {
           "ticker": "bitwise",
@@ -487,13 +487,12 @@
     }
   },
   "mkt": {
-    "etfTotalAum": 113.78,
-    "etfTotalFlow": -538.5,
+    "etfTotalAum": 113.66,
+    "etfTotalFlow": -538.6,
     "etfTotalCount": 54,
-    "etfPrevChange": -3.5919999999999845,
-    "fgi": 29,
-    "fgi_label": "Fear",
-    "stable": 247055525172
+    "etfPrevChange": -3.6420000000000528,
+    "fgi": 32,
+    "fgi_label": "Fear"
   },
   "futures": {},
   "issuers": {
@@ -548,14 +547,14 @@
       "xrp": 365.2
     },
     "grayscale": {
-      "eth": 1517.8,
-      "btc": 9385.5,
-      "sol": 130.5,
-      "xrp": 76,
-      "hyp": 178.7
+      "eth": 1517.5,
+      "btc": 9373.5,
+      "sol": 120.5,
+      "xrp": 70.9,
+      "hyp": 171.6
     },
     "grayscaleCrypto": {
-      "eth": 2044,
+      "eth": 2042.2,
       "btc": 0,
       "sol": 0,
       "xrp": 0
@@ -580,7 +579,7 @@
     },
     "grayscaleBtc": {
       "eth": 0,
-      "btc": 4717.9,
+      "btc": 4718.2,
       "sol": 0,
       "xrp": 0
     },
@@ -590,47 +589,26 @@
       "sol": 3.5,
       "xrp": 286.9
     },
-    "clnk": {
-      "link": 54.4
-    },
-    "nrr": {
-      "near": 58.2
-    },
     "glnk": {
-      "link": 136.2
+      "link": 132.9
+    },
+    "gdog": {
+      "doge": 9.8
+    },
+    "gava": {
+      "avax": 7.2
+    },
+    "gsui": {
+      "sui": 36.3
+    },
+    "zcsh": {
+      "zec": 675.7
     },
     "tdog": {
       "doge": 1.8
     },
-    "vavx": {
-      "avax": 16.5
-    },
-    "bava": {
-      "avax": 22.3
-    },
-    "hbr": {
-      "hbar": 57.4
-    },
-    "gava": {
-      "avax": 7.1
-    },
-    "ltcc": {
-      "ltc": 11.7
-    },
     "suis": {
       "sui": 25.7
-    },
-    "gdog": {
-      "doge": 10.2
-    },
-    "tsui": {
-      "sui": 24.6
-    },
-    "trxs": {
-      "trx": 47.8
-    },
-    "zcsh": {
-      "zec": 770.3
     },
     "vbnb": {
       "bnb": 91.4
@@ -638,8 +616,29 @@
     "tdot": {
       "dot": 9.3
     },
-    "gsui": {
-      "sui": 37.3
+    "hbr": {
+      "hbar": 57.4
+    },
+    "trxs": {
+      "trx": 47.8
+    },
+    "vavx": {
+      "avax": 16.5
+    },
+    "nrr": {
+      "near": 58.2
+    },
+    "ltcc": {
+      "ltc": 11.7
+    },
+    "clnk": {
+      "link": 54.4
+    },
+    "tsui": {
+      "sui": 24.6
+    },
+    "bava": {
+      "avax": 22.3
     },
     "bwow": {
       "doge": 0.5
