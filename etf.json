@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-13T10:32:59.185Z",
+  "updatedAt": "2026-11-13T18:31:56.842Z",
   "source": "cryptoetf.today",
   "coins": {
     "LINK": {
@@ -32,7 +32,7 @@
       "date": "2026-11-12",
       "daily": 0,
       "cum": 116.4,
-      "aum": 0.06,
+      "aum": 0.05,
       "ytd": 32.6,
       "count": 1,
       "funds": [
@@ -208,7 +208,7 @@
     "BTC": {
       "date": "2026-11-12",
       "daily": -47.9,
-      "cum": 89883,
+      "cum": 89881.9,
       "aum": 89.88,
       "ytd": -1501.4,
       "count": 12,
@@ -221,7 +221,7 @@
         {
           "ticker": "fidelity",
           "name": "fidelity",
-          "cum": 12527.3
+          "cum": 12526.1
         },
         {
           "ticker": "grayscale",
@@ -246,7 +246,7 @@
         {
           "ticker": "vanEck",
           "name": "vanEck",
-          "cum": 1025.2
+          "cum": 1025.4
         },
         {
           "ticker": "morganStanley",
@@ -284,7 +284,7 @@
     "ETH": {
       "date": "2026-11-12",
       "daily": -8,
-      "cum": 11351.4,
+      "cum": 11351.3,
       "aum": 11.35,
       "ytd": -745.9,
       "count": 10,
@@ -307,7 +307,7 @@
         {
           "ticker": "fidelity",
           "name": "fidelity",
-          "cum": 1257.6
+          "cum": 1257.5
         },
         {
           "ticker": "blackrock2",
@@ -415,10 +415,10 @@
     },
     "XRP": {
       "date": "2026-11-12",
-      "daily": 0,
+      "daily": 0.1,
       "cum": 1162.2,
       "aum": 1.16,
-      "ytd": 629.8,
+      "ytd": 629.9,
       "count": 5,
       "funds": [
         {
@@ -447,12 +447,12 @@
           "cum": 60.1
         }
       ],
-      "avg3": -6.050333333333334,
-      "avg7": -2.0508571428571427,
-      "avg30": 3.6079000000000008,
-      "ratio": -0.5684351403467786,
-      "ratio3": -1.6769681347413543,
-      "prevChange": 7.28
+      "avg3": -2.5399999999999996,
+      "avg7": -1.5194285714285716,
+      "avg30": 3.560000000000001,
+      "ratio": -0.4268057784911717,
+      "ratio3": -0.7134831460674155,
+      "prevChange": 0.335
     },
     "HYPE": {
       "date": "2026-11-12",
@@ -487,13 +487,13 @@
     }
   },
   "mkt": {
-    "etfTotalAum": 105.01,
-    "etfTotalFlow": -53.99999999999999,
+    "etfTotalAum": 105,
+    "etfTotalFlow": -53.89999999999999,
     "etfTotalCount": 54,
-    "etfPrevChange": 404.83199999999994,
+    "etfPrevChange": 397.887,
     "fgi": 20,
     "fgi_label": "Extreme Fear",
-    "stable": 244657007501
+    "stable": 244681752625
   },
   "futures": {},
   "issuers": {
@@ -510,8 +510,8 @@
       "xrp": 0
     },
     "fidelity": {
-      "eth": 1257.6,
-      "btc": 12527.3,
+      "eth": 1257.5,
+      "btc": 12526.1,
       "sol": 157.4,
       "xrp": 0
     },
@@ -531,7 +531,7 @@
     },
     "vanEck": {
       "eth": 91.3,
-      "btc": 1025.2,
+      "btc": 1025.4,
       "sol": 16.2,
       "xrp": 0
     },
@@ -590,56 +590,56 @@
       "sol": 3.1,
       "xrp": 250.6
     },
-    "tdot": {
-      "dot": 8.3
-    },
-    "gava": {
-      "avax": 7.1
-    },
-    "bava": {
-      "avax": 22.5
-    },
-    "zcsh": {
-      "zec": 536.2
-    },
-    "tsui": {
-      "sui": 22.6
-    },
-    "gdog": {
-      "doge": 9.2
-    },
-    "glnk": {
-      "link": 125.2
+    "trxs": {
+      "trx": 47.4
     },
     "clnk": {
       "link": 50.3
     },
-    "nrr": {
-      "near": 52.6
+    "bava": {
+      "avax": 22.5
+    },
+    "tdot": {
+      "dot": 8.3
+    },
+    "tsui": {
+      "sui": 22.6
     },
     "gsui": {
       "sui": 34.3
     },
+    "nrr": {
+      "near": 52.6
+    },
+    "zcsh": {
+      "zec": 536.2
+    },
+    "glnk": {
+      "link": 125.2
+    },
+    "gdog": {
+      "doge": 9.2
+    },
     "tdog": {
       "doge": 1.6
     },
+    "gava": {
+      "avax": 7.1
+    },
     "vavx": {
-      "avax": 16.9
-    },
-    "suis": {
-      "sui": 24.7
-    },
-    "trxs": {
-      "trx": 47.6
-    },
-    "vbnb": {
-      "bnb": 90.6
+      "avax": 16.4
     },
     "hbr": {
-      "hbar": 55.5
+      "hbar": 53.1
     },
     "ltcc": {
-      "ltc": 11.3
+      "ltc": 11
+    },
+    "vbnb": {
+      "bnb": 86.3
+    },
+    "suis": {
+      "sui": 23.7
     },
     "bwow": {
       "doge": 0.5
