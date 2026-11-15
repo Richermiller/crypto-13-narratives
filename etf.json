@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-15T04:01:43.821Z",
+  "updatedAt": "2026-11-15T11:52:49.198Z",
   "source": "cryptoetf.today",
   "coins": {
     "LINK": {
@@ -80,17 +80,17 @@
       "funds": [
         {
           "ticker": "GSUI",
-          "name": "Grayscale Sui Trust ETF",
+          "name": "Grayscale Sui Staking ETF",
           "cum": 17
         },
         {
           "ticker": "SUIS",
-          "name": "Canary SUI ETF",
+          "name": "Canary Staked SUI ETF",
           "cum": 3.3
         },
         {
           "ticker": "TSUI",
-          "name": "21Shares SUI ETF",
+          "name": "21Shares Sui Staking ETF",
           "cum": 16.2
         }
       ],
@@ -121,7 +121,7 @@
         },
         {
           "ticker": "GAVA",
-          "name": "Grayscale Avalanche Trust ETF",
+          "name": "Grayscale Avalanche Staking ETF",
           "cum": 2.5
         }
       ],
@@ -194,7 +194,7 @@
       "funds": [
         {
           "ticker": "TDOT",
-          "name": "21Shares Polkadot ETF",
+          "name": "21Shares Polkadot Staking ETF",
           "cum": 3.2
         }
       ],
@@ -284,7 +284,7 @@
     "ETH": {
       "date": "2026-11-13",
       "daily": 2.3,
-      "cum": 10919,
+      "cum": 10918.9,
       "aum": 10.92,
       "ytd": -806.1,
       "count": 10,
@@ -307,7 +307,7 @@
         {
           "ticker": "fidelity",
           "name": "fidelity",
-          "cum": 1227
+          "cum": 1226.9
         },
         {
           "ticker": "blackrock2",
@@ -408,9 +408,9 @@
       ],
       "avg3": -3.6270000000000002,
       "avg7": -8.330428571428572,
-      "avg30": -7.1095999999999995,
-      "ratio": 1.1717155074024659,
-      "ratio3": 0.510155282997637,
+      "avg30": -6.582699999999999,
+      "ratio": 1.2655032997749514,
+      "ratio3": 0.5509897154662982,
       "prevChange": -1.191
     },
     "XRP": {
@@ -448,10 +448,10 @@
         }
       ],
       "avg3": -0.387,
-      "avg7": -2.8734285714285717,
-      "avg30": 3.116233333333333,
-      "ratio": -0.9220838955454465,
-      "ratio3": -0.12418838982960198,
+      "avg7": -2.726714285714286,
+      "avg30": -0.0522666666666667,
+      "ratio": 52.169278425655946,
+      "ratio3": 7.4043367346938735,
       "prevChange": -1.1560000000000001
     },
     "HYPE": {
@@ -478,22 +478,22 @@
           "cum": 45.5
         }
       ],
-      "avg3": -4.095666666666667,
-      "avg7": -2.849142857142857,
-      "avg30": -2.0204,
-      "ratio": 1.4101875159091553,
-      "ratio3": 2.0271563386788096,
-      "prevChange": 0.942
+      "avg3": -0.564,
+      "avg7": -2.1871428571428573,
+      "avg30": -2.092033333333333,
+      "ratio": 1.0454627191135533,
+      "ratio3": 0.2695941747263428,
+      "prevChange": 0
     }
   },
   "mkt": {
     "etfTotalAum": 101.07,
     "etfTotalFlow": -188.29999999999998,
     "etfTotalCount": 54,
-    "etfPrevChange": 168.88800000000006,
+    "etfPrevChange": 167.94600000000005,
     "fgi": 10,
     "fgi_label": "Extreme Fear",
-    "stable": 244368062444
+    "stable": 244403784852
   },
   "futures": {},
   "issuers": {
@@ -510,7 +510,7 @@
       "xrp": 0
     },
     "fidelity": {
-      "eth": 1227,
+      "eth": 1226.9,
       "btc": 12008.6,
       "sol": 148.4,
       "xrp": 0
@@ -590,14 +590,17 @@
       "sol": 3.1,
       "xrp": 248.6
     },
-    "trxs": {
-      "trx": 47
+    "nrr": {
+      "near": 54.1
     },
-    "tdot": {
-      "dot": 8.2
+    "gdog": {
+      "doge": 9.2
     },
-    "suis": {
-      "sui": 23.9
+    "gava": {
+      "avax": 7.1
+    },
+    "gsui": {
+      "sui": 34.5
     },
     "clnk": {
       "link": 50.1
@@ -605,41 +608,38 @@
     "bava": {
       "avax": 22.7
     },
+    "tdot": {
+      "dot": 8.2
+    },
     "hbr": {
       "hbar": 52.3
     },
     "ltcc": {
       "ltc": 11
     },
-    "gava": {
-      "avax": 7.1
+    "suis": {
+      "sui": 23.9
     },
-    "nrr": {
-      "near": 54.1
-    },
-    "zcsh": {
-      "zec": 527.8
+    "trxs": {
+      "trx": 47
     },
     "tsui": {
       "sui": 22.8
     },
-    "gdog": {
-      "doge": 9.2
-    },
     "tdog": {
       "doge": 1.6
+    },
+    "zcsh": {
+      "zec": 527.8
     },
     "glnk": {
       "link": 124
     },
-    "gsui": {
-      "sui": 34.5
+    "vavx": {
+      "avax": 16.4
     },
     "vbnb": {
       "bnb": 86.3
-    },
-    "vavx": {
-      "avax": 16.4
     },
     "bwow": {
       "doge": 0.5
