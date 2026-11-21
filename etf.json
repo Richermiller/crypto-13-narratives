@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-21T16:00:51.161Z",
+  "updatedAt": "2026-11-21T21:33:07.824Z",
   "source": "cryptoetf.today",
   "coins": {
     "LINK": {
@@ -493,7 +493,7 @@
     "etfPrevChange": 560.6350000000001,
     "fgi": 12,
     "fgi_label": "Extreme Fear",
-    "stable": 242959299932
+    "stable": 242924924236
   },
   "futures": {},
   "issuers": {
@@ -590,29 +590,32 @@
       "sol": 3.1,
       "xrp": 211.3
     },
-    "gdog": {
-      "doge": 7
-    },
-    "trxs": {
-      "trx": 45.2
-    },
     "gsui": {
       "sui": 31.9
+    },
+    "tdot": {
+      "dot": 6.5
     },
     "gava": {
       "avax": 5.5
     },
-    "suis": {
-      "sui": 18.8
-    },
     "glnk": {
       "link": 102.5
     },
-    "tdog": {
-      "doge": 1.3
+    "suis": {
+      "sui": 18.8
     },
     "hbr": {
       "hbar": 41.5
+    },
+    "zcsh": {
+      "zec": 392.1
+    },
+    "trxs": {
+      "trx": 45.2
+    },
+    "tdog": {
+      "doge": 1.3
     },
     "ltcc": {
       "ltc": 8.6
@@ -620,17 +623,14 @@
     "tsui": {
       "sui": 18
     },
-    "tdot": {
-      "dot": 6.5
-    },
-    "zcsh": {
-      "zec": 392.1
-    },
-    "vbnb": {
-      "bnb": 76.7
+    "gdog": {
+      "doge": 7
     },
     "vavx": {
       "avax": 13.8
+    },
+    "vbnb": {
+      "bnb": 76.7
     },
     "nrr": {
       "near": 54.1
