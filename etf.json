@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-24T12:02:35.556Z",
+  "updatedAt": "2026-11-24T21:56:22.402Z",
   "source": "cryptoetf.today",
   "coins": {
     "LINK": {
@@ -208,7 +208,7 @@
     "BTC": {
       "date": "2026-11-23",
       "daily": -569.7,
-      "cum": 74769.4,
+      "cum": 74769.1,
       "aum": 74.77,
       "ytd": -4282.7,
       "count": 12,
@@ -236,7 +236,7 @@
         {
           "ticker": "bitwise",
           "name": "bitwise",
-          "cum": 2188.4
+          "cum": 2188
         },
         {
           "ticker": "twentyOneShares",
@@ -284,7 +284,7 @@
     "ETH": {
       "date": "2026-11-23",
       "daily": -84.9,
-      "cum": 9370.6,
+      "cum": 9370.5,
       "aum": 9.37,
       "ytd": -1196.9,
       "count": 10,
@@ -307,7 +307,7 @@
         {
           "ticker": "fidelity",
           "name": "fidelity",
-          "cum": 1087.1
+          "cum": 1087
         },
         {
           "ticker": "blackrock2",
@@ -355,7 +355,7 @@
     "SOL": {
       "date": "2026-11-23",
       "daily": -3.8,
-      "cum": 1035.7,
+      "cum": 1035.6,
       "aum": 1.04,
       "ytd": 645,
       "count": 6,
@@ -363,7 +363,7 @@
         {
           "ticker": "bitwise",
           "name": "bitwise",
-          "cum": 736.9
+          "cum": 736.8
         },
         {
           "ticker": "fidelity",
@@ -416,7 +416,7 @@
     "XRP": {
       "date": "2026-11-23",
       "daily": -2.5,
-      "cum": 1041.8,
+      "cum": 1041.7,
       "aum": 1.04,
       "ytd": 615,
       "count": 5,
@@ -424,7 +424,7 @@
         {
           "ticker": "bitwise",
           "name": "bitwise",
-          "cum": 376.9
+          "cum": 376.8
         },
         {
           "ticker": "franklin",
@@ -493,7 +493,7 @@
     "etfPrevChange": 122.96900000000005,
     "fgi": 11,
     "fgi_label": "Extreme Fear",
-    "stable": 243691209284
+    "stable": 243642195641
   },
   "futures": {},
   "issuers": {
@@ -510,16 +510,16 @@
       "xrp": 0
     },
     "fidelity": {
-      "eth": 1087.1,
+      "eth": 1087,
       "btc": 10471.4,
       "sol": 133.7,
       "xrp": 0
     },
     "bitwise": {
       "eth": 185.9,
-      "btc": 2188.4,
-      "sol": 736.9,
-      "xrp": 376.9,
+      "btc": 2188,
+      "sol": 736.8,
+      "xrp": 376.8,
       "hyp": 107.6
     },
     "twentyOneShares": {
@@ -590,29 +590,20 @@
       "sol": 2.8,
       "xrp": 220.5
     },
+    "tsui": {
+      "sui": 19.1
+    },
     "trxs": {
       "trx": 46.5
     },
     "nrr": {
-      "near": 43.4
-    },
-    "gsui": {
-      "sui": 33.9
-    },
-    "gdog": {
-      "doge": 7.5
-    },
-    "vbnb": {
-      "bnb": 73.7
+      "near": 43.3
     },
     "suis": {
       "sui": 19.8
     },
-    "glnk": {
-      "link": 110.4
-    },
-    "zcsh": {
-      "zec": 416.9
+    "vbnb": {
+      "bnb": 73.7
     },
     "ltcc": {
       "ltc": 9
@@ -623,6 +614,12 @@
     "gava": {
       "avax": 5.7
     },
+    "gsui": {
+      "sui": 33.9
+    },
+    "gdog": {
+      "doge": 7.5
+    },
     "vavx": {
       "avax": 13.4
     },
@@ -632,14 +629,17 @@
     "clnk": {
       "link": 42.4
     },
+    "zcsh": {
+      "zec": 416.9
+    },
     "tdot": {
       "dot": 6.8
     },
+    "glnk": {
+      "link": 110.4
+    },
     "tdog": {
       "doge": 1.4
-    },
-    "tsui": {
-      "sui": 19.1
     },
     "bwow": {
       "doge": 0.5
